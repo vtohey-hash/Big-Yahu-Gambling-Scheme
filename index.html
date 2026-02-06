@@ -1,1 +1,1494 @@
-helo world
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import {
+  View,
+  Text,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  FlatList,
+  Modal,
+  TextInput,
+  ScrollView,
+  Alert,
+  Platform,
+} from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const STORAGE_KEY = "LUCKY_LOUNGE_V1";
+
+const clampInt = (n, min, max) => Math.max(min, Math.min(max, Math.trunc(n)));
+const nowMs = () => Date.now();
+
+function sameLocalDay(aMs, bMs) {
+  const a = new Date(aMs);
+  const b = new Date(bMs);
+  return (
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
+  );
+}
+
+function fmt(n) {
+  const x = Math.max(0, Math.trunc(n));
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function randInt(min, maxInclusive) {
+  return Math.floor(Math.random() * (maxInclusive - min + 1)) + min;
+}
+
+function pick(arr) {
+  return arr[randInt(0, arr.length - 1)];
+}
+
+const DEFAULT_STATE = {
+  coinBalance: 5000,
+  lastDailyClaimMs: 0,
+  dailyStreak: 0,
+  stats: {
+    totalBets: 0,
+    totalPayout: 0,
+    gamesPlayed: {
+      slots: 0,
+      blackjack: 0,
+      roulette: 0,
+      dice: 0,
+      scratch: 0,
+    },
+    biggestWin: 0,
+  },
+};
+
+function computeDailyBonus(streak) {
+  const s = clampInt(streak, 0, 9999);
+  const base = 300;
+  const extra = Math.min(1700, s * 50);
+  return base + extra;
+}
+
+function WalletBar({ balance, onPressInfo }) {
+  return (
+    <View style={styles.walletRow}>
+      <View style={styles.brandBlock}>
+        <Text style={styles.brandTitle}>Lucky Lounge</Text>
+        <Text style={styles.brandSub}>Coins only. Entertainment only.</Text>
+      </View>
+      <Pressable onPress={onPressInfo} style={styles.walletPill}>
+        <Text style={styles.walletCoin}>🪙</Text>
+        <Text style={styles.walletText}>{fmt(balance)}</Text>
+      </Pressable>
+    </View>
+  );
+}
+
+function Card({ title, subtitle, emoji, onPress, tag }) {
+  return (
+    <Pressable onPress={onPress} style={styles.card}>
+      <View style={styles.cardTop}>
+        <Text style={styles.cardEmoji}>{emoji}</Text>
+        <View style={{ flex: 1 }}>
+          <Text style={styles.cardTitle} numberOfLines={1}>
+            {title}
+          </Text>
+          <Text style={styles.cardSub} numberOfLines={2}>
+            {subtitle}
+          </Text>
+        </View>
+      </View>
+      <View style={styles.cardBottom}>
+        <View style={styles.tagPill}>
+          <Text style={styles.tagText}>{tag}</Text>
+        </View>
+        <Text style={styles.cardArrow}>Play</Text>
+      </View>
+    </Pressable>
+  );
+}
+
+function SectionTitle({ text, right }) {
+  return (
+    <View style={styles.sectionRow}>
+      <Text style={styles.sectionTitle}>{text}</Text>
+      {right ? right : null}
+    </View>
+  );
+}
+
+function BetRow({ bet, setBet, maxBet, disabled }) {
+  const quick = [10, 25, 50, 100, 250, 500];
+  return (
+    <View style={styles.betWrap}>
+      <Text style={styles.betLabel}>Bet</Text>
+      <View style={styles.betInputRow}>
+        <Pressable
+          disabled={disabled}
+          onPress={() => setBet((b) => clampInt(b - 10, 1, maxBet))}
+          style={[styles.betBtn, disabled && styles.btnDisabled]}
+        >
+          <Text style={styles.betBtnText}>−</Text>
+        </Pressable>
+
+        <View style={styles.betInputBox}>
+          <Text style={styles.betValue}>{fmt(bet)}</Text>
+          <Text style={styles.betHint}>Max {fmt(maxBet)}</Text>
+        </View>
+
+        <Pressable
+          disabled={disabled}
+          onPress={() => setBet((b) => clampInt(b + 10, 1, maxBet))}
+          style={[styles.betBtn, disabled && styles.btnDisabled]}
+        >
+          <Text style={styles.betBtnText}>+</Text>
+        </Pressable>
+      </View>
+
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 10 }}>
+        {quick.map((q) => (
+          <Pressable
+            key={q}
+            disabled={disabled}
+            onPress={() => setBet(clampInt(q, 1, maxBet))}
+            style={[styles.quickChip, disabled && styles.btnDisabled]}
+          >
+            <Text style={styles.quickChipText}>{fmt(q)}</Text>
+          </Pressable>
+        ))}
+      </ScrollView>
+    </View>
+  );
+}
+
+function ResultModal({ visible, title, body, onClose, primaryLabel, onPrimary }) {
+  return (
+    <Modal visible={visible} animationType="fade" transparent>
+      <View style={styles.modalBackdrop}>
+        <View style={styles.modalCard}>
+          <Text style={styles.modalTitle}>{title}</Text>
+          <Text style={styles.modalBody}>{body}</Text>
+          <View style={styles.modalRow}>
+            <Pressable onPress={onClose} style={[styles.modalBtn, styles.modalBtnGhost]}>
+              <Text style={styles.modalBtnText}>Home</Text>
+            </Pressable>
+            <Pressable onPress={onPrimary} style={[styles.modalBtn, styles.modalBtnSolid]}>
+              <Text style={[styles.modalBtnText, { color: "#0B0C10" }]}>{primaryLabel}</Text>
+            </Pressable>
+          </View>
+        </View>
+      </View>
+    </Modal>
+  );
+}
+
+export default function App() {
+  const [state, setState] = useState(DEFAULT_STATE);
+  const [screen, setScreen] = useState("home");
+  const [infoOpen, setInfoOpen] = useState(false);
+
+  const [activeGame, setActiveGame] = useState(null);
+
+  const saveTimer = useRef(null);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const raw = await AsyncStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === "object") {
+          setState((prev) => ({
+            ...prev,
+            ...parsed,
+            stats: { ...prev.stats, ...(parsed.stats || {}) },
+          }));
+        }
+      } catch (e) {
+        // ignore
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (saveTimer.current) clearTimeout(saveTimer.current);
+    saveTimer.current = setTimeout(() => {
+      AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(state)).catch(() => {});
+    }, 200);
+    return () => {
+      if (saveTimer.current) clearTimeout(saveTimer.current);
+    };
+  }, [state]);
+
+  const canClaimDaily = useMemo(() => {
+    if (!state.lastDailyClaimMs) return true;
+    return !sameLocalDay(state.lastDailyClaimMs, nowMs());
+  }, [state.lastDailyClaimMs]);
+
+  const claimDaily = () => {
+    if (!canClaimDaily) return;
+    const nextStreak = state.lastDailyClaimMs
+      ? (() => {
+          const yesterday = new Date();
+          yesterday.setDate(yesterday.getDate() - 1);
+          const yMs = yesterday.getTime();
+          return sameLocalDay(state.lastDailyClaimMs, yMs) ? state.dailyStreak + 1 : 1;
+        })()
+      : 1;
+
+    const bonus = computeDailyBonus(nextStreak);
+
+    setState((s) => ({
+      ...s,
+      dailyStreak: nextStreak,
+      lastDailyClaimMs: nowMs(),
+      coinBalance: s.coinBalance + bonus,
+    }));
+
+    Alert.alert("Daily bonus claimed", `You got ${fmt(bonus)} coins. Streak: ${nextStreak}`);
+  };
+
+  const adjustBalance = (delta) => {
+    setState((s) => ({ ...s, coinBalance: Math.max(0, s.coinBalance + delta) }));
+  };
+
+  const recordRound = (gameId, bet, payout) => {
+    setState((s) => {
+      const biggestWin = Math.max(s.stats.biggestWin || 0, payout - bet);
+      return {
+        ...s,
+        stats: {
+          ...s.stats,
+          totalBets: (s.stats.totalBets || 0) + bet,
+          totalPayout: (s.stats.totalPayout || 0) + payout,
+          biggestWin,
+          gamesPlayed: {
+            ...(s.stats.gamesPlayed || {}),
+            [gameId]: ((s.stats.gamesPlayed || {})[gameId] || 0) + 1,
+          },
+        },
+      };
+    });
+  };
+
+  const openGame = (id) => {
+    setActiveGame(id);
+    setScreen("game");
+  };
+
+  const goHome = () => {
+    setScreen("home");
+    setActiveGame(null);
+  };
+
+  const goStats = () => setScreen("stats");
+  const goSettings = () => setScreen("settings");
+
+  const games = [
+    {
+      id: "slots",
+      title: "Slots Sprint",
+      subtitle: "Fast spins, simple wins, big vibes",
+      emoji: "🎰",
+      tag: "Quick",
+    },
+    {
+      id: "blackjack",
+      title: "Blackjack Lite",
+      subtitle: "Hit, stand, double. Beat the dealer",
+      emoji: "🂡",
+      tag: "Strategy",
+    },
+    {
+      id: "roulette",
+      title: "Roulette Pop",
+      subtitle: "Red, black, or go full chaos on a number",
+      emoji: "🎡",
+      tag: "Classic",
+    },
+    {
+      id: "dice",
+      title: "Dice Duel",
+      subtitle: "Over or under 7. Streaks feel illegal",
+      emoji: "🎲",
+      tag: "Risky",
+    },
+    {
+      id: "scratch",
+      title: "Scratch Cards",
+      subtitle: "Tap to scratch. Tiny dopamine, instantly",
+      emoji: "🧾",
+      tag: "Instant",
+    },
+  ];
+
+  return (
+    <SafeAreaView style={styles.safe}>
+      <View style={styles.root}>
+        <WalletBar balance={state.coinBalance} onPressInfo={() => setInfoOpen(true)} />
+
+        <View style={styles.navRow}>
+          <Pressable
+            onPress={() => setScreen("home")}
+            style={[styles.navBtn, screen === "home" && styles.navBtnActive]}
+          >
+            <Text style={[styles.navText, screen === "home" && styles.navTextActive]}>Home</Text>
+          </Pressable>
+          <Pressable
+            onPress={goStats}
+            style={[styles.navBtn, screen === "stats" && styles.navBtnActive]}
+          >
+            <Text style={[styles.navText, screen === "stats" && styles.navTextActive]}>Stats</Text>
+          </Pressable>
+          <Pressable
+            onPress={goSettings}
+            style={[styles.navBtn, screen === "settings" && styles.navBtnActive]}
+          >
+            <Text style={[styles.navText, screen === "settings" && styles.navTextActive]}>
+              Settings
+            </Text>
+          </Pressable>
+        </View>
+
+        {screen === "home" && (
+          <View style={{ flex: 1 }}>
+            <SectionTitle
+              text="Daily"
+              right={
+                <Pressable
+                  onPress={claimDaily}
+                  disabled={!canClaimDaily}
+                  style={[
+                    styles.dailyBtn,
+                    !canClaimDaily && styles.btnDisabled,
+                  ]}
+                >
+                  <Text style={styles.dailyBtnText}>
+                    {canClaimDaily ? "Claim bonus" : "Claimed"}
+                  </Text>
+                </Pressable>
+              }
+            />
+            <View style={styles.featured}>
+              <Text style={styles.featuredTitle}>Featured</Text>
+              <Text style={styles.featuredBig}>{pick(["🎰", "🎡", "🎲", "🂡", "🧾"])} Lucky Pick</Text>
+              <Text style={styles.featuredSub}>Tap a game below and pretend you are responsible.</Text>
+            </View>
+
+            <SectionTitle text="Games" />
+            <FlatList
+              data={games}
+              keyExtractor={(g) => g.id}
+              numColumns={2}
+              contentContainerStyle={{ paddingBottom: 24 }}
+              columnWrapperStyle={{ gap: 12 }}
+              renderItem={({ item }) => (
+                <View style={{ flex: 1 }}>
+                  <Card
+                    title={item.title}
+                    subtitle={item.subtitle}
+                    emoji={item.emoji}
+                    tag={item.tag}
+                    onPress={() => openGame(item.id)}
+                  />
+                </View>
+              )}
+              ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
+              style={{ marginTop: 10 }}
+            />
+          </View>
+        )}
+
+        {screen === "stats" && (
+          <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 24 }}>
+            <SectionTitle text="Your stats" />
+            <View style={styles.panel}>
+              <Text style={styles.panelRow}>Total bets: {fmt(state.stats.totalBets || 0)}</Text>
+              <Text style={styles.panelRow}>Total payout: {fmt(state.stats.totalPayout || 0)}</Text>
+              <Text style={styles.panelRow}>Biggest win: {fmt(state.stats.biggestWin || 0)}</Text>
+              <Text style={styles.panelRow}>Daily streak: {state.dailyStreak || 0}</Text>
+            </View>
+
+            <SectionTitle text="Games played" />
+            <View style={styles.panel}>
+              <Text style={styles.panelRow}>Slots: {fmt(state.stats.gamesPlayed?.slots || 0)}</Text>
+              <Text style={styles.panelRow}>
+                Blackjack: {fmt(state.stats.gamesPlayed?.blackjack || 0)}
+              </Text>
+              <Text style={styles.panelRow}>
+                Roulette: {fmt(state.stats.gamesPlayed?.roulette || 0)}
+              </Text>
+              <Text style={styles.panelRow}>Dice: {fmt(state.stats.gamesPlayed?.dice || 0)}</Text>
+              <Text style={styles.panelRow}>
+                Scratch: {fmt(state.stats.gamesPlayed?.scratch || 0)}
+              </Text>
+            </View>
+
+            <Pressable
+              onPress={() => {
+                Alert.alert(
+                  "Reset stats",
+                  "This resets stats and coins back to default.",
+                  [
+                    { text: "Cancel", style: "cancel" },
+                    {
+                      text: "Reset",
+                      style: "destructive",
+                      onPress: async () => {
+                        setState(DEFAULT_STATE);
+                        try {
+                          await AsyncStorage.removeItem(STORAGE_KEY);
+                        } catch (e) {}
+                      },
+                    },
+                  ]
+                );
+              }}
+              style={styles.dangerBtn}
+            >
+              <Text style={styles.dangerBtnText}>Reset everything</Text>
+            </Pressable>
+          </ScrollView>
+        )}
+
+        {screen === "settings" && (
+          <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 24 }}>
+            <SectionTitle text="Settings" />
+            <View style={styles.panel}>
+              <Text style={styles.panelTitle}>Responsible play</Text>
+              <Text style={styles.panelRowSmall}>
+                This app uses virtual coins only. No deposits. No cash out. If you are actually
+                trying to gamble, please do that somewhere legal and safe, ideally not at all.
+              </Text>
+            </View>
+
+            <View style={styles.panel}>
+              <Text style={styles.panelTitle}>Notes</Text>
+              <Text style={styles.panelRowSmall}>
+                Odds are simple and transparent. Randomness comes from Math.random. This is not a
+                regulated casino system. It is a toy.
+              </Text>
+              <Text style={styles.panelRowSmall}>
+                Platform: {Platform.OS}
+              </Text>
+            </View>
+          </ScrollView>
+        )}
+
+        {screen === "game" && activeGame && (
+          <GameHub
+            gameId={activeGame}
+            balance={state.coinBalance}
+            adjustBalance={adjustBalance}
+            recordRound={recordRound}
+            onExit={goHome}
+          />
+        )}
+
+        <Modal visible={infoOpen} animationType="fade" transparent>
+          <View style={styles.modalBackdrop}>
+            <View style={styles.modalCard}>
+              <Text style={styles.modalTitle}>Wallet</Text>
+              <Text style={styles.modalBody}>
+                Balance: {fmt(state.coinBalance)} coins{"\n"}
+                Daily streak: {state.dailyStreak || 0}{"\n"}
+                Next daily bonus: {fmt(computeDailyBonus((state.dailyStreak || 0) + 1))}
+              </Text>
+              <View style={styles.modalRow}>
+                <Pressable
+                  onPress={() => setInfoOpen(false)}
+                  style={[styles.modalBtn, styles.modalBtnSolid]}
+                >
+                  <Text style={[styles.modalBtnText, { color: "#0B0C10" }]}>Close</Text>
+                </Pressable>
+              </View>
+            </View>
+          </View>
+        </Modal>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+function GameHub({ gameId, balance, adjustBalance, recordRound, onExit }) {
+  if (gameId === "slots") {
+    return (
+      <SlotsGame
+        balance={balance}
+        adjustBalance={adjustBalance}
+        recordRound={recordRound}
+        onExit={onExit}
+      />
+    );
+  }
+  if (gameId === "blackjack") {
+    return (
+      <BlackjackGame
+        balance={balance}
+        adjustBalance={adjustBalance}
+        recordRound={recordRound}
+        onExit={onExit}
+      />
+    );
+  }
+  if (gameId === "roulette") {
+    return (
+      <RouletteGame
+        balance={balance}
+        adjustBalance={adjustBalance}
+        recordRound={recordRound}
+        onExit={onExit}
+      />
+    );
+  }
+  if (gameId === "dice") {
+    return (
+      <DiceGame
+        balance={balance}
+        adjustBalance={adjustBalance}
+        recordRound={recordRound}
+        onExit={onExit}
+      />
+    );
+  }
+  if (gameId === "scratch") {
+    return (
+      <ScratchGame
+        balance={balance}
+        adjustBalance={adjustBalance}
+        recordRound={recordRound}
+        onExit={onExit}
+      />
+    );
+  }
+  return null;
+}
+
+function GameShell({ title, balance, onExit, children }) {
+  return (
+    <View style={{ flex: 1 }}>
+      <View style={styles.gameHeader}>
+        <Pressable onPress={onExit} style={styles.backBtn}>
+          <Text style={styles.backBtnText}>Back</Text>
+        </Pressable>
+        <Text style={styles.gameTitle}>{title}</Text>
+        <View style={styles.gameWallet}>
+          <Text style={styles.walletCoin}>🪙</Text>
+          <Text style={styles.walletTextSmall}>{fmt(balance)}</Text>
+        </View>
+      </View>
+      <View style={{ flex: 1 }}>{children}</View>
+    </View>
+  );
+}
+
+function SlotsGame({ balance, adjustBalance, recordRound, onExit }) {
+  const [bet, setBet] = useState(50);
+  const [reels, setReels] = useState(["🍒", "🍋", "🔔"]);
+  const [spinning, setSpinning] = useState(false);
+  const [result, setResult] = useState(null);
+
+  const symbols = ["🍒", "🍋", "🍇", "🍉", "🔔", "⭐", "7️⃣"];
+  const maxBet = Math.max(1, balance);
+
+  const payoutFor = (a, b, c, betAmt) => {
+    const allSame = a === b && b === c;
+    const twoSame = a === b || b === c || a === c;
+
+    if (allSame) {
+      if (a === "7️⃣") return betAmt * 10;
+      if (a === "⭐") return betAmt * 6;
+      if (a === "🔔") return betAmt * 4;
+      return betAmt * 3;
+    }
+    if (twoSame) return Math.floor(betAmt * 1.5);
+    return 0;
+  };
+
+  const spin = () => {
+    const b = clampInt(bet, 1, maxBet);
+    if (b > balance) return;
+
+    setSpinning(true);
+    adjustBalance(-b);
+
+    setTimeout(() => {
+      const r1 = pick(symbols);
+      const r2 = pick(symbols);
+      const r3 = pick(symbols);
+      setReels([r1, r2, r3]);
+
+      const payout = payoutFor(r1, r2, r3, b);
+      adjustBalance(payout);
+      recordRound("slots", b, payout);
+
+      const net = payout - b;
+      setResult({
+        title: net >= 0 ? "Nice" : "Ouch",
+        body: `You bet ${fmt(b)}.\nResult: ${r1} ${r2} ${r3}\nPayout: ${fmt(payout)}.\nNet: ${fmt(net)}.`,
+      });
+      setSpinning(false);
+    }, 650);
+  };
+
+  return (
+    <GameShell title="Slots Sprint" balance={balance} onExit={onExit}>
+      <View style={styles.gameBody}>
+        <Text style={styles.gameBigEmoji}>{reels.join(" ")}</Text>
+        <Text style={styles.gameHint}>3 match pays big. 2 match pays small.</Text>
+
+        <BetRow bet={bet} setBet={setBet} maxBet={maxBet} disabled={spinning} />
+
+        <Pressable
+          onPress={spin}
+          disabled={spinning || balance <= 0}
+          style={[styles.playBtn, (spinning || balance <= 0) && styles.btnDisabled]}
+        >
+          <Text style={styles.playBtnText}>{spinning ? "Spinning..." : "Spin"}</Text>
+        </Pressable>
+      </View>
+
+      <ResultModal
+        visible={!!result}
+        title={result?.title || ""}
+        body={result?.body || ""}
+        onClose={onExit}
+        primaryLabel="Spin again"
+        onPrimary={() => setResult(null)}
+      />
+    </GameShell>
+  );
+}
+
+function BlackjackGame({ balance, adjustBalance, recordRound, onExit }) {
+  const [bet, setBet] = useState(50);
+  const [player, setPlayer] = useState([]);
+  const [dealer, setDealer] = useState([]);
+  const [phase, setPhase] = useState("idle"); // idle, playing, done
+  const [result, setResult] = useState(null);
+
+  const maxBet = Math.max(1, balance);
+
+  const newCard = () => {
+    const ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+    return pick(ranks);
+  };
+
+  const handValue = (hand) => {
+    let total = 0;
+    let aces = 0;
+    for (const c of hand) {
+      if (c === "A") {
+        aces += 1;
+        total += 11;
+      } else if (c === "K" || c === "Q" || c === "J") total += 10;
+      else total += parseInt(c, 10);
+    }
+    while (total > 21 && aces > 0) {
+      total -= 10;
+      aces -= 1;
+    }
+    return total;
+  };
+
+  const startRound = () => {
+    const b = clampInt(bet, 1, maxBet);
+    if (b > balance) return;
+
+    adjustBalance(-b);
+
+    const p = [newCard(), newCard()];
+    const d = [newCard(), newCard()];
+
+    setPlayer(p);
+    setDealer(d);
+    setPhase("playing");
+
+    const pv = handValue(p);
+    const dv = handValue(d);
+
+    if (pv === 21) {
+      const payout = Math.floor(b * 2.5);
+      adjustBalance(payout);
+      recordRound("blackjack", b, payout);
+      setPhase("done");
+      setResult({
+        title: "Blackjack",
+        body: `You got 21.\nDealer shows ${d[0]}.\nPayout: ${fmt(payout)}.`,
+      });
+    } else if (dv === 21) {
+      recordRound("blackjack", b, 0);
+      setPhase("done");
+      setResult({
+        title: "Dealer blackjack",
+        body: `Dealer has 21.\nYou lose ${fmt(b)}.`,
+      });
+    }
+  };
+
+  const endRound = (b, payout, title, body) => {
+    adjustBalance(payout);
+    recordRound("blackjack", b, payout);
+    setPhase("done");
+    setResult({ title, body });
+  };
+
+  const hit = () => {
+    if (phase !== "playing") return;
+    setPlayer((h) => {
+      const nh = [...h, newCard()];
+      const v = handValue(nh);
+      if (v > 21) {
+        const b = clampInt(bet, 1, maxBet);
+        recordRound("blackjack", b, 0);
+        setPhase("done");
+        setResult({
+          title: "Bust",
+          body: `You busted with ${v}.\nYou lose ${fmt(b)}.`,
+        });
+      }
+      return nh;
+    });
+  };
+
+  const dealerPlayAndSettle = (b, doubled) => {
+    let d = [...dealer];
+    while (handValue(d) < 17) d.push(newCard());
+    setDealer(d);
+
+    const pv = handValue(player);
+    const dv = handValue(d);
+
+    if (dv > 21) {
+      const payout = doubled ? b * 4 : b * 2;
+      endRound(b, payout, "Dealer bust", `Dealer busted with ${dv}.\nPayout: ${fmt(payout)}.`);
+      return;
+    }
+
+    if (pv > dv) {
+      const payout = doubled ? b * 4 : b * 2;
+      endRound(b, payout, "You win", `You: ${pv}\nDealer: ${dv}\nPayout: ${fmt(payout)}.`);
+      return;
+    }
+
+    if (pv === dv) {
+      const payout = doubled ? b * 2 : b;
+      endRound(b, payout, "Push", `You: ${pv}\nDealer: ${dv}\nBet returned: ${fmt(payout)}.`);
+      return;
+    }
+
+    endRound(b, 0, "You lose", `You: ${pv}\nDealer: ${dv}\nLost: ${fmt(b)}.`);
+  };
+
+  const stand = () => {
+    if (phase !== "playing") return;
+    const b = clampInt(bet, 1, maxBet);
+    dealerPlayAndSettle(b, false);
+  };
+
+  const doubleDown = () => {
+    if (phase !== "playing") return;
+    const b = clampInt(bet, 1, maxBet);
+    if (balance < b) {
+      Alert.alert("Not enough coins", "You need enough coins to match your bet for double.");
+      return;
+    }
+    adjustBalance(-b);
+    setBet(b * 2);
+
+    setPlayer((h) => [...h, newCard()]);
+    setTimeout(() => {
+      dealerPlayAndSettle(b, true);
+    }, 250);
+  };
+
+  const pv = handValue(player);
+  const dvShown = dealer[0] ? dealer[0] : "?"
+
+  return (
+    <GameShell title="Blackjack Lite" balance={balance} onExit={onExit}>
+      <View style={styles.gameBody}>
+        <Text style={styles.gameHint}>
+          Dealer hits to 17. Blackjack pays 2.5x. No splits.
+        </Text>
+
+        <View style={styles.bjTable}>
+          <View style={styles.bjHand}>
+            <Text style={styles.bjLabel}>Dealer</Text>
+            <Text style={styles.bjCards}>
+              {phase === "done" ? dealer.join("  ") : `${dvShown}  🂠`}
+            </Text>
+            <Text style={styles.bjValue}>
+              {phase === "done" ? `Value: ${handValue(dealer)}` : "Value: ?"}
+            </Text>
+          </View>
+
+          <View style={styles.bjHand}>
+            <Text style={styles.bjLabel}>You</Text>
+            <Text style={styles.bjCards}>{player.length ? player.join("  ") : " "}</Text>
+            <Text style={styles.bjValue}>{player.length ? `Value: ${pv}` : " "}</Text>
+          </View>
+        </View>
+
+        {phase === "idle" && (
+          <>
+            <BetRow bet={bet} setBet={setBet} maxBet={maxBet} disabled={false} />
+            <Pressable
+              onPress={startRound}
+              disabled={balance <= 0}
+              style={[styles.playBtn, balance <= 0 && styles.btnDisabled]}
+            >
+              <Text style={styles.playBtnText}>Deal</Text>
+            </Pressable>
+          </>
+        )}
+
+        {phase === "playing" && (
+          <View style={styles.actionRow}>
+            <Pressable onPress={hit} style={styles.actionBtn}>
+              <Text style={styles.actionText}>Hit</Text>
+            </Pressable>
+            <Pressable onPress={stand} style={styles.actionBtn}>
+              <Text style={styles.actionText}>Stand</Text>
+            </Pressable>
+            <Pressable onPress={doubleDown} style={styles.actionBtn}>
+              <Text style={styles.actionText}>Double</Text>
+            </Pressable>
+          </View>
+        )}
+      </View>
+
+      <ResultModal
+        visible={!!result}
+        title={result?.title || ""}
+        body={result?.body || ""}
+        onClose={onExit}
+        primaryLabel="Play again"
+        onPrimary={() => {
+          setResult(null);
+          setPhase("idle");
+          setPlayer([]);
+          setDealer([]);
+          setBet(50);
+        }}
+      />
+    </GameShell>
+  );
+}
+
+function RouletteGame({ balance, adjustBalance, recordRound, onExit }) {
+  const [bet, setBet] = useState(50);
+  const [pickType, setPickType] = useState("red"); // red, black, number
+  const [pickNumber, setPickNumber] = useState("7");
+  const [spinning, setSpinning] = useState(false);
+  const [result, setResult] = useState(null);
+
+  const maxBet = Math.max(1, balance);
+
+  const redNums = new Set([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]);
+
+  const spin = () => {
+    const b = clampInt(bet, 1, maxBet);
+    if (b > balance) return;
+
+    setSpinning(true);
+    adjustBalance(-b);
+
+    setTimeout(() => {
+      const landed = randInt(0, 36);
+      const color = landed === 0 ? "green" : (redNums.has(landed) ? "red" : "black");
+
+      let payout = 0;
+      if (pickType === "red" || pickType === "black") {
+        if (color === pickType) payout = b * 2;
+      } else {
+        const pn = clampInt(parseInt(pickNumber, 10) || 0, 0, 36);
+        if (landed === pn) payout = b * 36;
+      }
+
+      adjustBalance(payout);
+      recordRound("roulette", b, payout);
+
+      const net = payout - b;
+      setResult({
+        title: net >= 0 ? "Winner" : "Not today",
+        body: `You bet ${fmt(b)}.\nLanded: ${landed} (${color}).\nPayout: ${fmt(payout)}.\nNet: ${fmt(net)}.`,
+      });
+      setSpinning(false);
+    }, 750);
+  };
+
+  return (
+    <GameShell title="Roulette Pop" balance={balance} onExit={onExit}>
+      <View style={styles.gameBody}>
+        <Text style={styles.gameBigEmoji}>🎡</Text>
+        <Text style={styles.gameHint}>Red or black pays 2x. Exact number pays 36x.</Text>
+
+        <View style={styles.choiceRow}>
+          <Pressable
+            onPress={() => setPickType("red")}
+            style={[styles.choiceBtn, pickType === "red" && styles.choiceActive]}
+          >
+            <Text style={styles.choiceText}>Red</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => setPickType("black")}
+            style={[styles.choiceBtn, pickType === "black" && styles.choiceActive]}
+          >
+            <Text style={styles.choiceText}>Black</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => setPickType("number")}
+            style={[styles.choiceBtn, pickType === "number" && styles.choiceActive]}
+          >
+            <Text style={styles.choiceText}>Number</Text>
+          </Pressable>
+        </View>
+
+        {pickType === "number" && (
+          <View style={styles.numberPickRow}>
+            <Text style={styles.betLabel}>Pick 0 to 36</Text>
+            <TextInput
+              value={pickNumber}
+              onChangeText={(t) => setPickNumber(t.replace(/[^\d]/g, "").slice(0, 2))}
+              keyboardType="number-pad"
+              style={styles.numberInput}
+              placeholder="7"
+              placeholderTextColor="#6B7280"
+            />
+          </View>
+        )}
+
+        <BetRow bet={bet} setBet={setBet} maxBet={maxBet} disabled={spinning} />
+
+        <Pressable
+          onPress={spin}
+          disabled={spinning || balance <= 0}
+          style={[styles.playBtn, (spinning || balance <= 0) && styles.btnDisabled]}
+        >
+          <Text style={styles.playBtnText}>{spinning ? "Spinning..." : "Spin"}</Text>
+        </Pressable>
+      </View>
+
+      <ResultModal
+        visible={!!result}
+        title={result?.title || ""}
+        body={result?.body || ""}
+        onClose={onExit}
+        primaryLabel="Spin again"
+        onPrimary={() => setResult(null)}
+      />
+    </GameShell>
+  );
+}
+
+function DiceGame({ balance, adjustBalance, recordRound, onExit }) {
+  const [bet, setBet] = useState(50);
+  const [choice, setChoice] = useState("over"); // over, under
+  const [rolling, setRolling] = useState(false);
+  const [dice, setDice] = useState([1, 1]);
+  const [result, setResult] = useState(null);
+
+  const maxBet = Math.max(1, balance);
+
+  const roll = () => {
+    const b = clampInt(bet, 1, maxBet);
+    if (b > balance) return;
+
+    setRolling(true);
+    adjustBalance(-b);
+
+    setTimeout(() => {
+      const d1 = randInt(1, 6);
+      const d2 = randInt(1, 6);
+      const sum = d1 + d2;
+      setDice([d1, d2]);
+
+      let payout = 0;
+      if (sum === 7) payout = 0;
+      else if (choice === "over" && sum > 7) payout = b * 2;
+      else if (choice === "under" && sum < 7) payout = b * 2;
+
+      adjustBalance(payout);
+      recordRound("dice", b, payout);
+
+      const net = payout - b;
+      setResult({
+        title: net >= 0 ? "Good call" : "Rough",
+        body: `You bet ${fmt(b)} on ${choice} 7.\nRoll: ${d1} + ${d2} = ${sum}\nPayout: ${fmt(payout)}.\nNet: ${fmt(net)}.`,
+      });
+      setRolling(false);
+    }, 550);
+  };
+
+  return (
+    <GameShell title="Dice Duel" balance={balance} onExit={onExit}>
+      <View style={styles.gameBody}>
+        <Text style={styles.gameBigEmoji}>🎲 {dice[0]} {dice[1]}</Text>
+        <Text style={styles.gameHint}>Over or under 7 pays 2x. Exactly 7 loses.</Text>
+
+        <View style={styles.choiceRow}>
+          <Pressable
+            onPress={() => setChoice("under")}
+            style={[styles.choiceBtn, choice === "under" && styles.choiceActive]}
+          >
+            <Text style={styles.choiceText}>Under 7</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => setChoice("over")}
+            style={[styles.choiceBtn, choice === "over" && styles.choiceActive]}
+          >
+            <Text style={styles.choiceText}>Over 7</Text>
+          </Pressable>
+        </View>
+
+        <BetRow bet={bet} setBet={setBet} maxBet={maxBet} disabled={rolling} />
+
+        <Pressable
+          onPress={roll}
+          disabled={rolling || balance <= 0}
+          style={[styles.playBtn, (rolling || balance <= 0) && styles.btnDisabled]}
+        >
+          <Text style={styles.playBtnText}>{rolling ? "Rolling..." : "Roll"}</Text>
+        </Pressable>
+      </View>
+
+      <ResultModal
+        visible={!!result}
+        title={result?.title || ""}
+        body={result?.body || ""}
+        onClose={onExit}
+        primaryLabel="Roll again"
+        onPrimary={() => setResult(null)}
+      />
+    </GameShell>
+  );
+}
+
+function ScratchGame({ balance, adjustBalance, recordRound, onExit }) {
+  const [bet, setBet] = useState(50);
+  const [ticket, setTicket] = useState(null);
+  const [revealed, setRevealed] = useState([false, false, false]);
+  const [locked, setLocked] = useState(false);
+  const [result, setResult] = useState(null);
+
+  const maxBet = Math.max(1, balance);
+  const symbols = ["🍀", "⭐", "💎", "🍒", "7️⃣", "🔔"];
+
+  const newTicket = () => {
+    const s1 = pick(symbols);
+    const s2 = pick(symbols);
+    const s3 = pick(symbols);
+    setTicket([s1, s2, s3]);
+    setRevealed([false, false, false]);
+    setLocked(false);
+  };
+
+  useEffect(() => {
+    newTicket();
+  }, []);
+
+  const start = () => {
+    const b = clampInt(bet, 1, maxBet);
+    if (b > balance) return;
+
+    adjustBalance(-b);
+    setLocked(true);
+  };
+
+  const revealIndex = (idx) => {
+    if (!locked) return;
+    setRevealed((r) => {
+      const nr = [...r];
+      nr[idx] = true;
+      return nr;
+    });
+  };
+
+  useEffect(() => {
+    if (!locked) return;
+    if (!ticket) return;
+    if (revealed.every(Boolean)) {
+      const b = clampInt(bet, 1, maxBet);
+      const [a, c, d] = ticket;
+      const allSame = a === c && c === d;
+      const twoSame = a === c || c === d || a === d;
+
+      let payout = 0;
+      if (allSame) {
+        if (a === "💎") payout = b * 8;
+        else if (a === "7️⃣") payout = b * 6;
+        else payout = b * 4;
+      } else if (twoSame) {
+        payout = Math.floor(b * 1.75);
+      } else {
+        payout = 0;
+      }
+
+      adjustBalance(payout);
+      recordRound("scratch", b, payout);
+
+      const net = payout - b;
+      setResult({
+        title: net >= 0 ? "Ticket winner" : "Ticket blank",
+        body: `You bet ${fmt(b)}.\nTicket: ${ticket.join(" ")}\nPayout: ${fmt(payout)}.\nNet: ${fmt(net)}.`,
+      });
+    }
+  }, [revealed, locked, ticket]);
+
+  return (
+    <GameShell title="Scratch Cards" balance={balance} onExit={onExit}>
+      <View style={styles.gameBody}>
+        <Text style={styles.gameHint}>Tap three panels. 2 match pays small. 3 match pays big.</Text>
+
+        <View style={styles.scratchRow}>
+          {[0, 1, 2].map((i) => (
+            <Pressable
+              key={i}
+              onPress={() => revealIndex(i)}
+              style={[styles.scratchTile, !locked && styles.scratchDisabled]}
+            >
+              <Text style={styles.scratchText}>
+                {revealed[i] ? ticket?.[i] : "Scratch"}
+              </Text>
+            </Pressable>
+          ))}
+        </View>
+
+        <BetRow bet={bet} setBet={setBet} maxBet={maxBet} disabled={locked} />
+
+        <Pressable
+          onPress={() => {
+            if (locked) return;
+            start();
+          }}
+          disabled={locked || balance <= 0}
+          style={[styles.playBtn, (locked || balance <= 0) && styles.btnDisabled]}
+        >
+          <Text style={styles.playBtnText}>{locked ? "Scratching..." : "Buy ticket"}</Text>
+        </Pressable>
+
+        <Pressable
+          onPress={() => {
+            if (locked) return;
+            newTicket();
+          }}
+          disabled={locked}
+          style={[styles.secondaryBtn, locked && styles.btnDisabled]}
+        >
+          <Text style={styles.secondaryBtnText}>New ticket</Text>
+        </Pressable>
+      </View>
+
+      <ResultModal
+        visible={!!result}
+        title={result?.title || ""}
+        body={result?.body || ""}
+        onClose={onExit}
+        primaryLabel="New ticket"
+        onPrimary={() => {
+          setResult(null);
+          newTicket();
+        }}
+      />
+    </GameShell>
+  );
+}
+
+const styles = StyleSheet.create({
+  safe: { flex: 1, backgroundColor: "#0B0C10" },
+  root: { flex: 1, paddingHorizontal: 16, paddingTop: 10 },
+  walletRow: { flexDirection: "row", alignItems: "center", gap: 12 },
+  brandBlock: { flex: 1 },
+  brandTitle: { color: "#F9FAFB", fontSize: 22, fontWeight: "800" },
+  brandSub: { color: "#9CA3AF", marginTop: 2, fontSize: 12 },
+  walletPill: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    backgroundColor: "#111827",
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: "#1F2937",
+  },
+  walletCoin: { fontSize: 16 },
+  walletText: { color: "#F9FAFB", fontWeight: "800" },
+  navRow: {
+    flexDirection: "row",
+    gap: 10,
+    marginTop: 12,
+    marginBottom: 10,
+  },
+  navBtn: {
+    flex: 1,
+    paddingVertical: 10,
+    backgroundColor: "#111827",
+    borderRadius: 12,
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#1F2937",
+  },
+  navBtnActive: { backgroundColor: "#1F2937" },
+  navText: { color: "#D1D5DB", fontWeight: "700" },
+  navTextActive: { color: "#F9FAFB" },
+
+  sectionRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
+  sectionTitle: { color: "#F9FAFB", fontSize: 16, fontWeight: "800", marginTop: 10 },
+  dailyBtn: {
+    marginTop: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    backgroundColor: "#FBBF24",
+    borderRadius: 12,
+  },
+  dailyBtnText: { color: "#0B0C10", fontWeight: "900" },
+
+  featured: {
+    marginTop: 10,
+    padding: 16,
+    borderRadius: 16,
+    backgroundColor: "#111827",
+    borderWidth: 1,
+    borderColor: "#1F2937",
+  },
+  featuredTitle: { color: "#9CA3AF", fontWeight: "800", fontSize: 12 },
+  featuredBig: { color: "#F9FAFB", fontWeight: "900", fontSize: 20, marginTop: 8 },
+  featuredSub: { color: "#D1D5DB", marginTop: 6 },
+
+  card: {
+    backgroundColor: "#111827",
+    borderRadius: 16,
+    padding: 14,
+    borderWidth: 1,
+    borderColor: "#1F2937",
+    minHeight: 122,
+    justifyContent: "space-between",
+  },
+  cardTop: { flexDirection: "row", gap: 10, alignItems: "center" },
+  cardEmoji: { fontSize: 26 },
+  cardTitle: { color: "#F9FAFB", fontWeight: "900", fontSize: 14 },
+  cardSub: { color: "#9CA3AF", marginTop: 4, fontSize: 12, lineHeight: 16 },
+  cardBottom: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
+  tagPill: {
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 999,
+    backgroundColor: "#0B0C10",
+    borderWidth: 1,
+    borderColor: "#1F2937",
+  },
+  tagText: { color: "#D1D5DB", fontWeight: "800", fontSize: 11 },
+  cardArrow: { color: "#FBBF24", fontWeight: "900" },
+
+  panel: {
+    marginTop: 10,
+    padding: 16,
+    borderRadius: 16,
+    backgroundColor: "#111827",
+    borderWidth: 1,
+    borderColor: "#1F2937",
+  },
+  panelTitle: { color: "#F9FAFB", fontWeight: "900", marginBottom: 6 },
+  panelRow: { color: "#D1D5DB", marginTop: 6, fontWeight: "700" },
+  panelRowSmall: { color: "#D1D5DB", marginTop: 6, lineHeight: 18 },
+
+  dangerBtn: {
+    marginTop: 14,
+    paddingVertical: 12,
+    borderRadius: 14,
+    backgroundColor: "#7F1D1D",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#991B1B",
+  },
+  dangerBtnText: { color: "#FEE2E2", fontWeight: "900" },
+
+  gameHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    paddingTop: 6,
+    paddingBottom: 10,
+    gap: 10,
+  },
+  backBtn: {
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    backgroundColor: "#111827",
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: "#1F2937",
+  },
+  backBtnText: { color: "#F9FAFB", fontWeight: "900" },
+  gameTitle: { flex: 1, color: "#F9FAFB", fontWeight: "900", fontSize: 16, textAlign: "center" },
+  gameWallet: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    backgroundColor: "#111827",
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: "#1F2937",
+  },
+  walletTextSmall: { color: "#F9FAFB", fontWeight: "900" },
+
+  gameBody: { flex: 1, paddingHorizontal: 16, paddingTop: 18, paddingBottom: 24 },
+  gameBigEmoji: { color: "#F9FAFB", fontSize: 44, textAlign: "center", marginTop: 12 },
+  gameHint: { color: "#9CA3AF", textAlign: "center", marginTop: 10, lineHeight: 18 },
+
+  betWrap: {
+    marginTop: 18,
+    padding: 14,
+    borderRadius: 16,
+    backgroundColor: "#111827",
+    borderWidth: 1,
+    borderColor: "#1F2937",
+  },
+  betLabel: { color: "#9CA3AF", fontWeight: "800", fontSize: 12 },
+  betInputRow: { flexDirection: "row", alignItems: "center", gap: 10, marginTop: 10 },
+  betBtn: {
+    width: 48,
+    height: 48,
+    borderRadius: 14,
+    backgroundColor: "#0B0C10",
+    borderWidth: 1,
+    borderColor: "#1F2937",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  betBtnText: { color: "#F9FAFB", fontWeight: "900", fontSize: 20 },
+  betInputBox: {
+    flex: 1,
+    paddingVertical: 10,
+    borderRadius: 14,
+    backgroundColor: "#0B0C10",
+    borderWidth: 1,
+    borderColor: "#1F2937",
+    alignItems: "center",
+  },
+  betValue: { color: "#F9FAFB", fontWeight: "900", fontSize: 18 },
+  betHint: { color: "#9CA3AF", marginTop: 2, fontSize: 12 },
+  quickChip: {
+    marginRight: 10,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderRadius: 999,
+    backgroundColor: "#0B0C10",
+    borderWidth: 1,
+    borderColor: "#1F2937",
+  },
+  quickChipText: { color: "#F9FAFB", fontWeight: "900" },
+
+  playBtn: {
+    marginTop: 16,
+    paddingVertical: 14,
+    borderRadius: 16,
+    backgroundColor: "#FBBF24",
+    alignItems: "center",
+  },
+  playBtnText: { color: "#0B0C10", fontWeight: "900", fontSize: 16 },
+
+  secondaryBtn: {
+    marginTop: 10,
+    paddingVertical: 12,
+    borderRadius: 16,
+    backgroundColor: "#111827",
+    borderWidth: 1,
+    borderColor: "#1F2937",
+    alignItems: "center",
+  },
+  secondaryBtnText: { color: "#F9FAFB", fontWeight: "900" },
+
+  btnDisabled: { opacity: 0.45 },
+
+  modalBackdrop: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.65)",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 16,
+  },
+  modalCard: {
+    width: "100%",
+    maxWidth: 420,
+    backgroundColor: "#111827",
+    borderRadius: 18,
+    padding: 18,
+    borderWidth: 1,
+    borderColor: "#1F2937",
+  },
+  modalTitle: { color: "#F9FAFB", fontWeight: "900", fontSize: 18 },
+  modalBody: { color: "#D1D5DB", marginTop: 10, lineHeight: 20 },
+  modalRow: { flexDirection: "row", justifyContent: "flex-end", gap: 10, marginTop: 16 },
+  modalBtn: { paddingVertical: 12, paddingHorizontal: 14, borderRadius: 14, minWidth: 110, alignItems: "center" },
+  modalBtnGhost: { backgroundColor: "#0B0C10", borderWidth: 1, borderColor: "#1F2937" },
+  modalBtnSolid: { backgroundColor: "#FBBF24" },
+  modalBtnText: { color: "#F9FAFB", fontWeight: "900" },
+
+  choiceRow: { flexDirection: "row", gap: 10, marginTop: 14 },
+  choiceBtn: {
+    flex: 1,
+    paddingVertical: 12,
+    borderRadius: 14,
+    backgroundColor: "#111827",
+    borderWidth: 1,
+    borderColor: "#1F2937",
+    alignItems: "center",
+  },
+  choiceActive: { backgroundColor: "#1F2937" },
+  choiceText: { color: "#F9FAFB", fontWeight: "900" },
+
+  numberPickRow: { marginTop: 12 },
+  numberInput: {
+    marginTop: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 14,
+    borderRadius: 14,
+    backgroundColor: "#0B0C10",
+    borderWidth: 1,
+    borderColor: "#1F2937",
+    color: "#F9FAFB",
+    fontWeight: "900",
+    fontSize: 16,
+  },
+
+  bjTable: {
+    marginTop: 14,
+    padding: 14,
+    borderRadius: 16,
+    backgroundColor: "#111827",
+    borderWidth: 1,
+    borderColor: "#1F2937",
+    gap: 14,
+  },
+  bjHand: { gap: 6 },
+  bjLabel: { color: "#9CA3AF", fontWeight: "900" },
+  bjCards: { color: "#F9FAFB", fontWeight: "900", fontSize: 22, letterSpacing: 1 },
+  bjValue: { color: "#D1D5DB", fontWeight: "800" },
+
+  actionRow: { flexDirection: "row", gap: 10, marginTop: 16 },
+  actionBtn: {
+    flex: 1,
+    paddingVertical: 14,
+    borderRadius: 16,
+    backgroundColor: "#FBBF24",
+    alignItems: "center",
+  },
+  actionText: { color: "#0B0C10", fontWeight: "900" },
+
+  scratchRow: { flexDirection: "row", gap: 10, marginTop: 16 },
+  scratchTile: {
+    flex: 1,
+    height: 72,
+    borderRadius: 16,
+    backgroundColor: "#111827",
+    borderWidth: 1,
+    borderColor: "#1F2937",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  scratchDisabled: { opacity: 0.55 },
+  scratchText: { color: "#F9FAFB", fontWeight: "900" },
+});
