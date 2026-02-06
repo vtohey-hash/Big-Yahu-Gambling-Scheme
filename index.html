@@ -1,14 +1,14 @@
-<!doctype html> <html lang="en"> <head> <meta charset="utf-8"> <meta name="viewport" content="width=device-width,initial-scale=1"> <title>Big Yahu Gambling Scheme</title> <meta name="theme-color" content="#5b21b6"> <style> :root{ color-scheme: dark; --bg0:#070613; --bg1:#0b0a1d; --panel:rgba(14,18,38,.78); --panel2:rgba(18,24,52,.72); --stroke:rgba(255,255,255,.10); --stroke2:rgba(255,255,255,.14); --text:#f8fafc; --muted:rgba(255,255,255,.72); --muted2:rgba(255,255,255,.58); --gold:#fbbf24; --pink:#ec4899; --cyan:#22d3ee; --lime:#a3e635; --violet:#a78bfa; --blue:#60a5fa; --shadow: 0 18px 60px rgba(0,0,0,.50); --shadow2: 0 16px 44px rgba(0,0,0,.40); --radius: 18px; --radius2: 22px; }
+<!doctype html> <html lang="en"> <head> <meta charset="utf-8"> <meta name="viewport" content="width=device-width,initial-scale=1"> <title>Big Yahu Gambling Scheme</title> <meta name="theme-color" content="#f8fafc"> <style> :root{ color-scheme: light; --bg0:#ffffff; --bg1:#f4f7ff; --panel:rgba(255,255,255,.86); --panel2:rgba(255,255,255,.76); --stroke:rgba(15,23,42,.10); --stroke2:rgba(15,23,42,.14); --text:#0f172a; --muted:rgba(15,23,42,.72); --muted2:rgba(15,23,42,.58); --gold:#f59e0b; --pink:#db2777; --cyan:#0891b2; --lime:#65a30d; --violet:#7c3aed; --blue:#2563eb; --shadow: 0 18px 60px rgba(2,6,23,.12); --shadow2: 0 16px 44px rgba(2,6,23,.10); --radius: 18px; --radius2: 22px; }
 *{ box-sizing:border-box; }
 html,body{ height:100%; }
 body{
   margin:0;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   background:
-    radial-gradient(1000px 680px at 20% 10%, rgba(236,72,153,.16), transparent 60%),
-    radial-gradient(900px 680px at 85% 15%, rgba(34,211,238,.14), transparent 62%),
-    radial-gradient(980px 720px at 70% 95%, rgba(163,230,53,.10), transparent 65%),
-    radial-gradient(1100px 900px at 25% 75%, rgba(167,139,250,.14), transparent 60%),
+    radial-gradient(900px 620px at 20% 12%, rgba(219,39,119,.10), transparent 60%),
+    radial-gradient(860px 620px at 85% 10%, rgba(8,145,178,.10), transparent 62%),
+    radial-gradient(980px 720px at 70% 95%, rgba(101,163,13,.08), transparent 65%),
+    radial-gradient(1100px 900px at 25% 75%, rgba(124,58,237,.08), transparent 60%),
     linear-gradient(180deg, var(--bg0), var(--bg1));
   color:var(--text);
   overflow-x:hidden;
@@ -18,9 +18,9 @@ body{
   pointer-events:none;
   position:fixed;
   inset:0;
-  opacity:.06;
+  opacity:.035;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
-  mix-blend-mode:overlay;
+  mix-blend-mode:multiply;
 }
 
 .wrap{
@@ -38,7 +38,7 @@ body{
   padding:10px 12px;
   border-radius: var(--radius2);
   border:1px solid var(--stroke);
-  background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
+  background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.78));
   box-shadow: var(--shadow2);
   backdrop-filter: blur(12px);
 }
@@ -55,15 +55,16 @@ body{
   height:34px;
   border-radius: 12px;
   background:
-    radial-gradient(16px 16px at 30% 30%, rgba(255,255,255,.35), transparent 55%),
-    linear-gradient(135deg, rgba(236,72,153,.92), rgba(34,211,238,.92));
+    radial-gradient(16px 16px at 30% 30%, rgba(255,255,255,.85), transparent 55%),
+    linear-gradient(135deg, rgba(219,39,119,.90), rgba(8,145,178,.85));
   display:flex;
   align-items:center;
   justify-content:center;
   font-weight:950;
   letter-spacing:.4px;
-  box-shadow: 0 16px 50px rgba(236,72,153,.14), 0 16px 56px rgba(34,211,238,.10);
+  box-shadow: 0 14px 44px rgba(219,39,119,.14), 0 14px 48px rgba(8,145,178,.12);
   user-select:none;
+  color:#ffffff;
 }
 
 .navLinks{
@@ -79,8 +80,8 @@ body{
   padding:9px 10px;
   border-radius:999px;
   border:1px solid transparent;
-  color: rgba(255,255,255,.80);
-  font-weight:900;
+  color: rgba(15,23,42,.74);
+  font-weight:950;
   font-size:12px;
   letter-spacing:.25px;
   text-transform:uppercase;
@@ -89,9 +90,9 @@ body{
 }
 
 .navLink.active{
-  border-color: rgba(255,255,255,.14);
-  background: rgba(0,0,0,.18);
-  color: rgba(255,255,255,.92);
+  border-color: var(--stroke2);
+  background: rgba(15,23,42,.04);
+  color: rgba(15,23,42,.92);
 }
 
 .navRight{
@@ -110,10 +111,11 @@ body{
   padding:9px 12px;
   border-radius:999px;
   border:1px solid var(--stroke);
-  background: rgba(0,0,0,.16);
+  background: rgba(255,255,255,.70);
   font-weight:950;
   user-select:none;
   backdrop-filter: blur(10px);
+  color: rgba(15,23,42,.92);
 }
 
 .btn{
@@ -123,9 +125,9 @@ body{
   padding:10px 12px;
   font-weight:950;
   letter-spacing:.2px;
-  background: linear-gradient(135deg, rgba(251,191,36,.96), rgba(236,72,153,.90));
+  background: linear-gradient(135deg, rgba(245,158,11,.96), rgba(219,39,119,.90));
   color:#0b0c10;
-  box-shadow: 0 14px 40px rgba(251,191,36,.16), 0 16px 46px rgba(236,72,153,.12);
+  box-shadow: 0 14px 40px rgba(245,158,11,.14), 0 16px 46px rgba(219,39,119,.12);
   transition: transform .08s ease, filter .12s ease;
   user-select:none;
 }
@@ -138,10 +140,10 @@ body{
   border-radius:16px;
   padding:10px 12px;
   font-weight:950;
-  background: rgba(0,0,0,.16);
+  background: rgba(255,255,255,.70);
   border:1px solid var(--stroke);
-  color:rgba(255,255,255,.92);
-  box-shadow: 0 12px 40px rgba(0,0,0,.20);
+  color:rgba(15,23,42,.92);
+  box-shadow: 0 12px 40px rgba(2,6,23,.08);
   transition: transform .08s ease, filter .12s ease;
   backdrop-filter: blur(10px);
   user-select:none;
@@ -152,12 +154,12 @@ body{
 .hero{
   margin-top:14px;
   border-radius: 26px;
-  border:1px solid rgba(255,255,255,.12);
+  border:1px solid var(--stroke);
   background:
-    radial-gradient(900px 360px at 20% 20%, rgba(34,211,238,.20), transparent 60%),
-    radial-gradient(900px 360px at 80% 10%, rgba(236,72,153,.18), transparent 60%),
-    radial-gradient(900px 420px at 50% 130%, rgba(163,230,53,.12), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+    radial-gradient(900px 360px at 20% 20%, rgba(8,145,178,.12), transparent 60%),
+    radial-gradient(900px 360px at 80% 10%, rgba(219,39,119,.10), transparent 60%),
+    radial-gradient(900px 420px at 50% 130%, rgba(101,163,13,.08), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.74));
   box-shadow: var(--shadow);
   backdrop-filter: blur(12px);
   padding:18px;
@@ -171,34 +173,26 @@ body{
   position:absolute;
   inset:-2px;
   background: conic-gradient(from 120deg at 50% 50%,
-    rgba(236,72,153,.18),
-    rgba(34,211,238,.14),
-    rgba(163,230,53,.10),
-    rgba(167,139,250,.14),
-    rgba(251,191,36,.12),
-    rgba(236,72,153,.18));
-  filter: blur(26px);
-  opacity:.42;
+    rgba(219,39,119,.10),
+    rgba(8,145,178,.10),
+    rgba(101,163,13,.08),
+    rgba(124,58,237,.08),
+    rgba(245,158,11,.08),
+    rgba(219,39,119,.10));
+  filter: blur(28px);
+  opacity:.55;
   pointer-events:none;
 }
 
 .heroInner{ position:relative; }
 
-.bigLogo{
-  width:78px;
-  height:78px;
-  border-radius:24px;
+.logoImg{
+  width:220px;
+  max-width:70vw;
+  height:auto;
+  display:block;
   margin:0 auto;
-  background:
-    radial-gradient(26px 26px at 30% 30%, rgba(255,255,255,.40), transparent 55%),
-    linear-gradient(135deg, rgba(236,72,153,.95), rgba(34,211,238,.95));
-  box-shadow: 0 22px 80px rgba(236,72,153,.14), 0 22px 90px rgba(34,211,238,.10);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:950;
-  letter-spacing:.8px;
-  user-select:none;
+  filter: drop-shadow(0 16px 30px rgba(2,6,23,.14));
 }
 
 .heroTitle{
@@ -206,6 +200,7 @@ body{
   font-size:26px;
   font-weight:950;
   letter-spacing:.2px;
+  color: rgba(15,23,42,.96);
 }
 
 .heroSub{
@@ -237,7 +232,7 @@ body{
   font-weight:950;
   letter-spacing:.2px;
   font-size:14px;
-  color: rgba(255,255,255,.90);
+  color: rgba(15,23,42,.84);
   display:flex;
   align-items:center;
   gap:10px;
@@ -248,8 +243,8 @@ body{
   width:10px;
   height:10px;
   border-radius:999px;
-  background: linear-gradient(135deg, var(--cyan), var(--pink));
-  box-shadow: 0 12px 26px rgba(34,211,238,.12);
+  background: linear-gradient(135deg, rgba(8,145,178,.95), rgba(219,39,119,.95));
+  box-shadow: 0 12px 26px rgba(8,145,178,.12);
 }
 
 .gridRow{
@@ -261,11 +256,11 @@ body{
 
 .tile{
   border-radius: 18px;
-  border:1px solid rgba(255,255,255,.10);
+  border:1px solid var(--stroke);
   background:
-    radial-gradient(260px 120px at 20% 20%, rgba(34,211,238,.16), transparent 60%),
-    radial-gradient(260px 140px at 80% 0%, rgba(236,72,153,.12), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+    radial-gradient(260px 120px at 20% 20%, rgba(8,145,178,.10), transparent 60%),
+    radial-gradient(260px 140px at 80% 0%, rgba(219,39,119,.08), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.72));
   box-shadow: var(--shadow2);
   overflow:hidden;
   cursor:pointer;
@@ -277,8 +272,8 @@ body{
 
 .tile:hover{
   transform: translateY(-2px);
-  border-color: rgba(255,255,255,.16);
-  filter: saturate(1.10);
+  border-color: var(--stroke2);
+  filter: saturate(1.06);
 }
 
 .tileTop{
@@ -294,7 +289,7 @@ body{
 .tileIcon{
   font-size:34px;
   line-height:1;
-  filter: drop-shadow(0 14px 20px rgba(0,0,0,.34));
+  filter: drop-shadow(0 14px 20px rgba(2,6,23,.14));
 }
 
 .tileTitle{
@@ -302,12 +297,12 @@ body{
   font-weight:950;
   letter-spacing:.15px;
   font-size:13px;
-  color: rgba(255,255,255,.92);
+  color: rgba(15,23,42,.92);
 }
 
 .tileSub{
   margin:6px 0 0 0;
-  color: rgba(255,255,255,.62);
+  color: rgba(15,23,42,.62);
   font-weight:850;
   font-size:12px;
   line-height:1.25;
@@ -326,9 +321,9 @@ body{
 .tag{
   padding:6px 10px;
   border-radius:999px;
-  border:1px solid rgba(255,255,255,.10);
-  background: rgba(0,0,0,.18);
-  color: rgba(255,255,255,.70);
+  border:1px solid var(--stroke);
+  background: rgba(255,255,255,.70);
+  color: rgba(15,23,42,.70);
   font-size:11px;
   font-weight:950;
   letter-spacing:.15px;
@@ -337,8 +332,8 @@ body{
 
 .play{
   font-weight:950;
-  color: var(--gold);
-  text-shadow: 0 14px 26px rgba(251,191,36,.18);
+  color: rgba(245,158,11,.98);
+  text-shadow: 0 14px 26px rgba(245,158,11,.16);
 }
 
 .view{ display:none; }
@@ -348,11 +343,11 @@ body{
   margin-top:12px;
   border-radius: var(--radius2);
   padding:16px;
-  border:1px solid rgba(255,255,255,.10);
+  border:1px solid var(--stroke);
   background:
-    radial-gradient(560px 240px at 10% 10%, rgba(167,139,250,.16), transparent 60%),
-    radial-gradient(560px 240px at 90% 0%, rgba(34,211,238,.14), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
+    radial-gradient(560px 240px at 10% 10%, rgba(124,58,237,.08), transparent 60%),
+    radial-gradient(560px 240px at 90% 0%, rgba(8,145,178,.08), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.74));
   box-shadow: var(--shadow);
   backdrop-filter: blur(12px);
 }
@@ -371,10 +366,11 @@ body{
   letter-spacing:.2px;
   flex:1;
   text-align:center;
+  color: rgba(15,23,42,.94);
 }
 
 .hint{
-  color: rgba(255,255,255,.70);
+  color: rgba(15,23,42,.72);
   font-weight:850;
   font-size:12px;
   line-height:1.35;
@@ -387,7 +383,8 @@ body{
   margin-top:12px;
   font-weight:950;
   letter-spacing:1px;
-  filter: drop-shadow(0 18px 26px rgba(0,0,0,.35));
+  filter: drop-shadow(0 18px 26px rgba(2,6,23,.12));
+  color: rgba(15,23,42,.90);
 }
 
 .row{
@@ -405,16 +402,17 @@ body{
   justify-content:space-between;
   padding:12px;
   border-radius: 18px;
-  background: rgba(0,0,0,.18);
-  border:1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.72);
+  border:1px solid var(--stroke);
   margin-top:12px;
-  box-shadow: 0 14px 46px rgba(0,0,0,.18);
+  box-shadow: 0 14px 46px rgba(2,6,23,.08);
 }
 
 .betNum{
   font-weight:950;
   font-size:18px;
   letter-spacing:.2px;
+  color: rgba(15,23,42,.94);
 }
 
 .choiceRow{
@@ -430,21 +428,21 @@ body{
   min-width:140px;
   padding:12px;
   border-radius:16px;
-  border:1px solid rgba(255,255,255,.10);
-  background: rgba(0,0,0,.16);
-  color:rgba(255,255,255,.92);
+  border:1px solid var(--stroke);
+  background: rgba(255,255,255,.74);
+  color:rgba(15,23,42,.92);
   font-weight:950;
   cursor:pointer;
   text-align:center;
   user-select:none;
-  box-shadow: 0 14px 46px rgba(0,0,0,.16);
+  box-shadow: 0 14px 46px rgba(2,6,23,.08);
   transition: transform .08s ease, background .12s ease, border-color .12s ease;
 }
 
 .choice:active{ transform: scale(.985); }
 .choice.active{
-  background: linear-gradient(135deg, rgba(34,211,238,.28), rgba(236,72,153,.20));
-  border-color: rgba(255,255,255,.16);
+  background: linear-gradient(135deg, rgba(8,145,178,.16), rgba(219,39,119,.10));
+  border-color: var(--stroke2);
 }
 
 .actions{
@@ -476,46 +474,49 @@ body{
   align-items:center;
   justify-content:center;
   border-radius:18px;
-  border:1px solid rgba(255,255,255,.10);
+  border:1px solid var(--stroke);
   background:
-    radial-gradient(240px 120px at 50% 0%, rgba(255,255,255,.10), transparent 60%),
-    rgba(0,0,0,.16);
+    radial-gradient(240px 120px at 50% 0%, rgba(15,23,42,.06), transparent 60%),
+    rgba(255,255,255,.74);
   font-weight:950;
   cursor:pointer;
   user-select:none;
-  box-shadow: 0 14px 46px rgba(0,0,0,.16);
+  box-shadow: 0 14px 46px rgba(2,6,23,.08);
   transition: transform .08s ease, filter .12s ease;
+  color: rgba(15,23,42,.90);
 }
 
 .scratchTile:active{ transform: scale(.985); }
 .scratchTile.disabled{
-  opacity:.6;
+  opacity:.7;
   cursor:not-allowed;
-  filter:saturate(.8);
+  filter:saturate(.9);
 }
 
 .modalWrap{
   position:fixed;
   inset:0;
-  background: rgba(0,0,0,.66);
+  background: rgba(15,23,42,.42);
   display:none;
   align-items:center;
   justify-content:center;
   padding:18px;
   z-index:60;
+  backdrop-filter: blur(8px);
 }
 
 .modal{
-  width:min(540px,100%);
+  width:min(560px,100%);
   border-radius: 22px;
   padding:18px;
-  border:1px solid rgba(255,255,255,.12);
+  border:1px solid var(--stroke);
   background:
-    radial-gradient(560px 260px at 10% 10%, rgba(236,72,153,.18), transparent 60%),
-    radial-gradient(560px 260px at 90% 0%, rgba(34,211,238,.16), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
-  box-shadow: 0 22px 90px rgba(0,0,0,.55);
+    radial-gradient(560px 260px at 10% 10%, rgba(219,39,119,.10), transparent 60%),
+    radial-gradient(560px 260px at 90% 0%, rgba(8,145,178,.10), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.78));
+  box-shadow: 0 22px 90px rgba(2,6,23,.18);
   backdrop-filter: blur(14px);
+  color: rgba(15,23,42,.95);
 }
 
 .modal h3{
@@ -527,7 +528,7 @@ body{
 
 .modal p{
   margin:10px 0 0 0;
-  color: rgba(255,255,255,.74);
+  color: rgba(15,23,42,.78);
   line-height:1.4;
   white-space:pre-line;
   font-weight:850;
@@ -550,23 +551,23 @@ body{
   justify-content:center;
   padding:18px;
   background:
-    radial-gradient(900px 520px at 30% 20%, rgba(236,72,153,.20), transparent 60%),
-    radial-gradient(900px 520px at 80% 25%, rgba(34,211,238,.18), transparent 60%),
-    radial-gradient(900px 560px at 50% 95%, rgba(163,230,53,.12), transparent 60%),
-    linear-gradient(180deg, rgba(5,6,16,.92), rgba(10,12,30,.92));
+    radial-gradient(900px 520px at 30% 20%, rgba(219,39,119,.10), transparent 60%),
+    radial-gradient(900px 520px at 80% 25%, rgba(8,145,178,.10), transparent 60%),
+    radial-gradient(900px 560px at 50% 95%, rgba(101,163,13,.08), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.92), rgba(245,247,255,.92));
   backdrop-filter: blur(10px);
 }
 
 .enterCard{
-  width:min(620px,100%);
+  width:min(680px,100%);
   border-radius: 26px;
   padding:20px;
-  border:1px solid rgba(255,255,255,.14);
+  border:1px solid var(--stroke);
   background:
-    radial-gradient(640px 280px at 10% 10%, rgba(167,139,250,.18), transparent 60%),
-    radial-gradient(640px 280px at 90% 0%, rgba(251,191,36,.16), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
-  box-shadow: 0 30px 130px rgba(0,0,0,.62);
+    radial-gradient(640px 280px at 10% 10%, rgba(124,58,237,.08), transparent 60%),
+    radial-gradient(640px 280px at 90% 0%, rgba(245,158,11,.08), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.78));
+  box-shadow: 0 30px 130px rgba(2,6,23,.18);
   text-align:left;
   position:relative;
   overflow:hidden;
@@ -577,14 +578,14 @@ body{
   position:absolute;
   inset:-2px;
   background: conic-gradient(from 90deg at 50% 50%,
-    rgba(236,72,153,.18),
-    rgba(34,211,238,.14),
-    rgba(163,230,53,.10),
-    rgba(167,139,250,.14),
-    rgba(251,191,36,.12),
-    rgba(236,72,153,.18));
-  filter: blur(26px);
-  opacity:.40;
+    rgba(219,39,119,.10),
+    rgba(8,145,178,.10),
+    rgba(101,163,13,.08),
+    rgba(124,58,237,.08),
+    rgba(245,158,11,.08),
+    rgba(219,39,119,.10));
+  filter: blur(28px);
+  opacity:.55;
   pointer-events:none;
 }
 
@@ -594,23 +595,28 @@ body{
   display:flex;
   gap:14px;
   align-items:center;
+  flex-wrap:wrap;
 }
 
-.enterLogo{
-  width:56px;
-  height:56px;
+.enterLogoBox{
+  width:78px;
+  height:78px;
   border-radius:18px;
-  background:
-    radial-gradient(22px 22px at 30% 30%, rgba(255,255,255,.40), transparent 55%),
-    linear-gradient(135deg, rgba(236,72,153,.95), rgba(34,211,238,.95));
-  box-shadow: 0 22px 80px rgba(236,72,153,.14), 0 22px 90px rgba(34,211,238,.10);
+  border:1px solid var(--stroke);
+  background: rgba(255,255,255,.78);
   display:flex;
   align-items:center;
   justify-content:center;
-  font-weight:950;
-  letter-spacing:.6px;
-  user-select:none;
+  box-shadow: 0 18px 60px rgba(2,6,23,.10);
+  overflow:hidden;
   flex:0 0 auto;
+}
+
+.enterLogoBox img{
+  width:76px;
+  height:76px;
+  object-fit:contain;
+  display:block;
 }
 
 .enterTitle{
@@ -618,11 +624,12 @@ body{
   font-size:22px;
   font-weight:950;
   letter-spacing:.2px;
+  color: rgba(15,23,42,.95);
 }
 
 .enterSub{
   margin:8px 0 0 0;
-  color: rgba(255,255,255,.74);
+  color: rgba(15,23,42,.74);
   line-height:1.4;
   font-weight:850;
 }
@@ -636,15 +643,15 @@ body{
   justify-content:space-between;
   padding:12px;
   border-radius: 18px;
-  border:1px solid rgba(255,255,255,.12);
-  background: rgba(0,0,0,.18);
+  border:1px solid var(--stroke);
+  background: rgba(255,255,255,.76);
 }
 
 .toggleRow label{
   display:flex;
   gap:10px;
   align-items:center;
-  color: rgba(255,255,255,.74);
+  color: rgba(15,23,42,.74);
   font-weight:900;
   user-select:none;
 }
@@ -652,7 +659,7 @@ body{
 .toggleRow input[type="checkbox"]{
   width:18px;
   height:18px;
-  accent-color: #fbbf24;
+  accent-color: #f59e0b;
 }
 
 .rangeRow{
@@ -661,14 +668,36 @@ body{
   align-items:center;
   flex-wrap:wrap;
   margin-top:10px;
-  color: rgba(255,255,255,.62);
+  color: rgba(15,23,42,.62);
   font-weight:900;
   font-size:12px;
 }
 
+.selectRow{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin-top:10px;
+  color: rgba(15,23,42,.62);
+  font-weight:900;
+  font-size:12px;
+}
+
+select{
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid var(--stroke);
+  background: rgba(255,255,255,.86);
+  color: rgba(15,23,42,.92);
+  font-weight:900;
+  box-shadow: 0 12px 40px rgba(2,6,23,.06);
+  outline:none;
+}
+
 input[type="range"]{
   width:220px;
-  accent-color:#22d3ee;
+  accent-color:#0891b2;
 }
 
 .confetti{
@@ -687,7 +716,7 @@ input[type="range"]{
   opacity:.95;
   border-radius:3px;
   animation: fall 1.1s linear forwards;
-  filter: drop-shadow(0 10px 14px rgba(0,0,0,.26));
+  filter: drop-shadow(0 10px 14px rgba(2,6,23,.10));
 }
 
 @keyframes fall{
@@ -697,7 +726,7 @@ input[type="range"]{
 .footerNote{
   margin-top:16px;
   text-align:center;
-  color: rgba(255,255,255,.58);
+  color: rgba(15,23,42,.58);
   font-weight:850;
   font-size:12px;
   line-height:1.35;
@@ -711,9 +740,21 @@ input[type="range"]{
   .gridRow{ grid-template-columns: repeat(2, 1fr); }
   .navLinks{ display:none; }
   input[type="range"]{ width:180px; }
+  .logoImg{ width:200px; }
 }
 
-</style> </head> <body> <div class="noise"></div> <div class="confetti" id="confetti"></div> <div class="enterGate" id="enterGate"> <div class="enterCard"> <div class="enterInner"> <div class="enterHead"> <div class="enterLogo">BY</div> <div> <p class="enterTitle">Big Yahu Gambling Scheme</p> <p class="enterSub">Tap Enter so your browser allows music. Coins only. No deposits. No cash out. Only vibes.</p> </div> </div>
+</style> </head> <body> <div class="noise"></div> <div class="confetti" id="confetti"></div> <div class="enterGate" id="enterGate"> <div class="enterCard"> <div class="enterInner"> <div class="enterHead"> <div class="enterLogoBox"> <img src="big-yahu-logo.png" alt="Big Yahu logo"> </div> <div> <p class="enterTitle">Big Yahu Gambling Scheme</p> <p class="enterSub">Tap Enter so your browser allows music. Virtual coins only. No deposits. No cash out. Your wallet can unclench.</p> </div> </div>
+    <div class="selectRow">
+      <span>Music</span>
+      <select id="musicSelectGate">
+        <option value="neon">Neon Lounge</option>
+        <option value="upbeat">Upbeat Casino</option>
+        <option value="chill">Chill Mode</option>
+        <option value="arcade">Arcade Spark</option>
+        <option value="focus">Focus Pulse</option>
+      </select>
+    </div>
+
     <div class="toggleRow">
       <label><input type="checkbox" id="musicToggle" checked> Music</label>
       <label><input type="checkbox" id="sfxToggle" checked> Sound effects</label>
@@ -745,9 +786,9 @@ input[type="range"]{
 
 <div class="hero">
   <div class="heroInner">
-    <div class="bigLogo">BY</div>
+    <img class="logoImg" src="big-yahu-logo.png" alt="Big Yahu Gambling Scheme logo">
     <div class="heroTitle">Big Yahu Gambling Scheme</div>
-    <div class="heroSub">A flashy casino style arcade inspired by the classic grid layout. Virtual coins only. No deposits. No cash out. Your bank account can relax.</div>
+    <div class="heroSub">Bright casino style arcade. Virtual coins only. No deposits. No cash out. The house can not take your lunch money because this is not real.</div>
     <div class="heroActions">
       <button class="btnGhost" id="heroStats">View stats</button>
       <button class="btnGhost" id="heroSettings">Settings</button>
@@ -758,7 +799,7 @@ input[type="range"]{
 <div id="homeView" class="view active">
   <div class="sectionHeader">
     <div class="sectionTitle"><span class="dot"></span>Most popular</div>
-    <div class="pill" style="color:rgba(255,255,255,.72); font-weight:900;">Featured: <span id="featuredBig" style="margin-left:8px; color:rgba(255,255,255,.92);">Neon Picks</span></div>
+    <div class="pill" style="color:rgba(15,23,42,.72); font-weight:900;">Featured: <span id="featuredBig" style="margin-left:8px; color:rgba(15,23,42,.92);">Neon Picks</span></div>
   </div>
 
   <div class="gridRow">
@@ -835,7 +876,7 @@ input[type="range"]{
 
   <div class="sectionHeader">
     <div class="sectionTitle"><span class="dot"></span>Top jackpots</div>
-    <div class="pill" style="color:rgba(255,255,255,.72); font-weight:900;">Daily bonus boosts streaks</div>
+    <div class="pill" style="color:rgba(15,23,42,.72); font-weight:900;">Daily bonus boosts streaks</div>
   </div>
 
   <div class="gridRow">
@@ -911,7 +952,7 @@ input[type="range"]{
   </div>
 
   <div class="footerNote">
-    Virtual coins only. This is entertainment. If you do real money gambling, do it legally and responsibly.
+    Virtual coins only. Entertainment only. If you gamble with real money, do it legally and responsibly.
   </div>
 </div>
 
@@ -937,16 +978,32 @@ input[type="range"]{
     <div style="width:90px"></div>
   </div>
   <div class="panel">
-    <div style="font-weight:950; letter-spacing:.2px;">Responsible play</div>
-    <div style="margin-top:10px; color:rgba(255,255,255,.76); font-weight:850; line-height:1.45;">
-      Coins only. No deposits. No cash out. Randomness is Math.random and Web Audio bleeps. Not a real casino system.
+    <div style="font-weight:950; letter-spacing:.2px;">Audio</div>
+
+    <div style="margin-top:10px; color:rgba(15,23,42,.74); font-weight:850; line-height:1.45;">
+      Select a music style, then toggle music or SFX anytime.
     </div>
 
-    <div style="margin-top:16px; font-weight:950; letter-spacing:.2px;">Audio</div>
+    <div class="selectRow" style="margin-top:12px;">
+      <span>Music style</span>
+      <select id="musicSelectSettings">
+        <option value="neon">Neon Lounge</option>
+        <option value="upbeat">Upbeat Casino</option>
+        <option value="chill">Chill Mode</option>
+        <option value="arcade">Arcade Spark</option>
+        <option value="focus">Focus Pulse</option>
+      </select>
+    </div>
+
     <div class="row" style="margin-top:10px;">
       <button class="btnGhost" id="settingsMusic">Toggle music</button>
       <button class="btnGhost" id="settingsSfx">Toggle sound effects</button>
       <button class="btnGhost" id="settingsTest">Test sound</button>
+    </div>
+
+    <div style="margin-top:16px; font-weight:950; letter-spacing:.2px;">Responsible play</div>
+    <div style="margin-top:10px; color:rgba(15,23,42,.74); font-weight:850; line-height:1.45;">
+      Virtual coins only. No deposits. No cash out. Randomness uses Math.random and Web Audio synth sounds.
     </div>
   </div>
 </div>
@@ -960,4 +1017,4 @@ input[type="range"]{
   <div class="panel" id="gamePanel"></div>
 </div>
 
-</div> <div class="modalWrap" id="modalWrap"> <div class="modal"> <h3 id="modalTitle">Result</h3> <p id="modalBody"></p> <div class="modalBtns"> <button class="btnGhost" id="modalHome">Home</button> <button class="btn" id="modalAgain">Play again</button> </div> </div> </div> <script> const storageKey = "bigYahuGamblingSchemeV3"; const defaultState = { coinBalance: 5000, lastDailyClaimMs: 0, dailyStreak: 0, stats: { totalBets: 0, totalPayout: 0, biggestWin: 0, gamesPlayed: { slots:0, blackjack:0, roulette:0, dice:0, scratch:0 } }, audio: { musicOn: true, sfxOn: true, musicVol: 0.38, sfxVol: 0.55 } }; function deepClone(obj){ return JSON.parse(JSON.stringify(obj)); } function clamp(n,min,max){ return Math.max(min, Math.min(max, n)); } function mergeState(s){ const out = deepClone(defaultState); if(s && typeof s === "object"){ if(Number.isFinite(s.coinBalance)) out.coinBalance = Math.max(0, Math.trunc(s.coinBalance)); if(Number.isFinite(s.lastDailyClaimMs)) out.lastDailyClaimMs = Math.trunc(s.lastDailyClaimMs); if(Number.isFinite(s.dailyStreak)) out.dailyStreak = Math.max(0, Math.trunc(s.dailyStreak)); if(s.stats && typeof s.stats === "object"){ out.stats.totalBets = Math.max(0, Math.trunc(s.stats.totalBets || 0)); out.stats.totalPayout = Math.max(0, Math.trunc(s.stats.totalPayout || 0)); out.stats.biggestWin = Math.max(0, Math.trunc(s.stats.biggestWin || 0)); const gp = s.stats.gamesPlayed || {}; out.stats.gamesPlayed = { slots: Math.max(0, Math.trunc(gp.slots || 0)), blackjack: Math.max(0, Math.trunc(gp.blackjack || 0)), roulette: Math.max(0, Math.trunc(gp.roulette || 0)), dice: Math.max(0, Math.trunc(gp.dice || 0)), scratch: Math.max(0, Math.trunc(gp.scratch || 0)), }; } if(s.audio && typeof s.audio === "object"){ out.audio.musicOn = s.audio.musicOn !== false; out.audio.sfxOn = s.audio.sfxOn !== false; if(Number.isFinite(s.audio.musicVol)) out.audio.musicVol = clamp(s.audio.musicVol, 0, 1); if(Number.isFinite(s.audio.sfxVol)) out.audio.sfxVol = clamp(s.audio.sfxVol, 0, 1); } } return out; } function loadState(){ try{ const raw = localStorage.getItem(storageKey); if(!raw) return deepClone(defaultState); return mergeState(JSON.parse(raw)); }catch(e){ return deepClone(defaultState); } } const state = loadState(); function saveState(){ try{ localStorage.setItem(storageKey, JSON.stringify(state)); }catch(e){} } function fmt(n){ const x = Math.max(0, Math.trunc(n)); return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); } function randInt(min, max){ return Math.floor(Math.random() * (max - min + 1)) + min; } function pick(arr){ return arr[randInt(0, arr.length - 1)]; } function sameLocalDay(aMs, bMs){ const a = new Date(aMs); const b = new Date(bMs); return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate(); } function dailyBonus(streak){ const base = 350; const extra = Math.min(1900, Math.max(0, Math.trunc(streak)) * 60); return base + extra; } function canClaimDaily(){ if(!state.lastDailyClaimMs) return true; return !sameLocalDay(state.lastDailyClaimMs, Date.now()); } function adjustBalance(delta){ state.coinBalance = Math.max(0, state.coinBalance + Math.trunc(delta)); saveState(); renderWallet(); } function recordRound(gameId, bet, payout){ state.stats.totalBets += bet; state.stats.totalPayout += payout; const net = payout - bet; state.stats.biggestWin = Math.max(state.stats.biggestWin, net); state.stats.gamesPlayed[gameId] = (state.stats.gamesPlayed[gameId] || 0) + 1; saveState(); } const confetti = document.getElementById("confetti"); function popConfetti(power){ const count = clamp(Math.trunc(18 + power * 22), 18, 46); for(let i=0;i<count;i++){ const p = document.createElement("span"); p.style.left = randInt(0,100) + "vw"; p.style.setProperty("--dx", randInt(-140,140) + "px"); p.style.setProperty("--rot", randInt(-520,520) + "deg"); p.style.background = pick(["#fbbf24","#22d3ee","#ec4899","#a3e635","#a78bfa","#60a5fa"]); p.style.opacity = String(0.82 + Math.random() * 0.18); p.style.width = randInt(8, 12) + "px"; p.style.height = randInt(10, 16) + "px"; confetti.appendChild(p); setTimeout(() => { p.remove(); }, 1300); } } const views = { home: document.getElementById("homeView"), stats: document.getElementById("statsView"), settings: document.getElementById("settingsView"), game: document.getElementById("gameView") }; function showView(which){ Object.keys(views).forEach(k => views[k].classList.remove("active")); views[which].classList.add("active"); setNav(which === "home" ? "home" : which); } function setNav(which){ document.querySelectorAll(".navLink").forEach(x => x.classList.remove("active")); const hit = document.querySelector('.navLink[dataNav="'+which+'"]'); if(hit) hit.classList.add("active"); } const walletAmt = document.getElementById("walletAmt"); const walletAmt2 = document.getElementById("walletAmt2"); const dailyBtn = document.getElementById("dailyBtn"); const featuredBig = document.getElementById("featuredBig"); function renderWallet(){ walletAmt.textContent = fmt(state.coinBalance); walletAmt2.textContent = fmt(state.coinBalance); dailyBtn.disabled = !canClaimDaily(); dailyBtn.textContent = canClaimDaily() ? "Claim bonus" : "Claimed"; } function setFeatured(){ featuredBig.textContent = pick([ "Neon Slots Day", "Wheel of Consequences", "Dealer Anxiety Simulator", "Scratch and Pray", "Dice and Chill" ]); } const modalWrap = document.getElementById("modalWrap"); const modalTitle = document.getElementById("modalTitle"); const modalBody = document.getElementById("modalBody"); const modalHome = document.getElementById("modalHome"); const modalAgain = document.getElementById("modalAgain"); let playAgainFn = null; function openModal(title, body, againLabel, againFn){ modalTitle.textContent = title; modalBody.textContent = body; modalAgain.textContent = againLabel || "Play again"; playAgainFn = againFn || null; modalWrap.style.display = "flex"; } function closeModal(){ modalWrap.style.display = "none"; playAgainFn = null; } modalHome.addEventListener("click", () => { sfx.click(); closeModal(); showView("home"); }); modalAgain.addEventListener("click", () => { sfx.click(); closeModal(); if(playAgainFn) playAgainFn(); }); const statsLines = document.getElementById("statsLines"); function renderStats(){ const gp = state.stats.gamesPlayed; const lines = [ "Total bets: " + fmt(state.stats.totalBets), "Total payout: " + fmt(state.stats.totalPayout), "Biggest win: " + fmt(state.stats.biggestWin), "Daily streak: " + fmt(state.dailyStreak), "", "Games played", "Slots: " + fmt(gp.slots), "Blackjack: " + fmt(gp.blackjack), "Roulette: " + fmt(gp.roulette), "Dice: " + fmt(gp.dice), "Scratch: " + fmt(gp.scratch), ]; statsLines.textContent = lines.join("\n"); statsLines.style.whiteSpace = "pre-line"; statsLines.style.color = "rgba(255,255,255,.78)"; statsLines.style.lineHeight = "1.55"; statsLines.style.fontWeight = "900"; statsLines.style.letterSpacing = ".2px"; } document.getElementById("backFromStats").addEventListener("click", () => { sfx.click(); showView("home"); }); document.getElementById("backFromSettings").addEventListener("click", () => { sfx.click(); showView("home"); }); document.getElementById("backBtn").addEventListener("click", () => { sfx.click(); showView("home"); }); document.getElementById("heroStats").addEventListener("click", () => { sfx.click(); renderStats(); showView("stats"); }); document.getElementById("heroSettings").addEventListener("click", () => { sfx.click(); showView("settings"); }); document.getElementById("audioBtn").addEventListener("click", () => { sfx.click(); showView("settings"); }); document.querySelectorAll(".navLink").forEach(n => { n.addEventListener("click", () => { sfx.click(); const which = n.getAttribute("dataNav"); if(which === "home"){ showView("home"); return; } if(which === "stats"){ renderStats(); showView("stats"); return; } if(which === "settings"){ showView("settings"); return; } }); }); document.getElementById("resetBtn").addEventListener("click", () => { sfx.click(); const ok = confirm("Reset coins and stats?"); if(!ok) return; const keepAudio = deepClone(state.audio); Object.assign(state, deepClone(defaultState)); state.audio = keepAudio; saveState(); renderWallet(); renderStats(); }); dailyBtn.addEventListener("click", () => { if(!canClaimDaily()) return; const now = Date.now(); let nextStreak = 1; if(state.lastDailyClaimMs){ const y = new Date(); y.setDate(y.getDate() - 1); nextStreak = sameLocalDay(state.lastDailyClaimMs, y.getTime()) ? state.dailyStreak + 1 : 1; } state.dailyStreak = nextStreak; state.lastDailyClaimMs = now; const bonus = dailyBonus(nextStreak); adjustBalance(bonus); sfx.win(); popConfetti(1); openModal( "Daily bonus", "You got " + fmt(bonus) + " coins.\nStreak: " + nextStreak, "Nice", () => showView("home") ); saveState(); renderWallet(); }); const gameTitle = document.getElementById("gameTitle"); const gamePanel = document.getElementById("gamePanel"); function buildBetUI(initialBet){ let bet = Math.min(Math.max(1, Math.trunc(initialBet || 50)), Math.max(1, state.coinBalance)); const maxBet = () => Math.max(1, state.coinBalance); const wrap = document.createElement("div"); const betBox = document.createElement("div"); betBox.className = "betBox"; const left = document.createElement("div"); const label = document.createElement("div"); label.style.color = "rgba(255,255,255,.62)"; label.style.fontWeight = "950"; label.style.fontSize = "12px"; label.textContent = "Bet"; const val = document.createElement("div"); val.className = "betNum"; val.textContent = fmt(bet); const cap = document.createElement("div"); cap.style.color = "rgba(255,255,255,.52)"; cap.style.fontSize = "12px"; cap.style.fontWeight = "900"; cap.textContent = "Max " + fmt(maxBet()); left.appendChild(label); left.appendChild(val); left.appendChild(cap); const right = document.createElement("div"); right.style.display = "flex"; right.style.gap = "10px"; right.style.flexWrap = "wrap"; right.style.justifyContent = "flex-end"; const minus = document.createElement("button"); minus.className = "btnGhost"; minus.textContent = "Minus"; const plus = document.createElement("button"); plus.className = "btnGhost"; plus.textContent = "Plus"; function sync(){ bet = Math.min(Math.max(1, bet), maxBet()); val.textContent = fmt(bet); cap.textContent = "Max " + fmt(maxBet()); } minus.onclick = () => { sfx.click(); bet = bet - 10; sync(); }; plus.onclick = () => { sfx.click(); bet = bet + 10; sync(); }; right.appendChild(minus); right.appendChild(plus); betBox.appendChild(left); betBox.appendChild(right); const chips = document.createElement("div"); chips.className = "row"; chips.style.marginTop = "10px"; [10,25,50,100,250,500].forEach(n => { const b = document.createElement("button"); b.className = "btnGhost"; b.textContent = fmt(n); b.onclick = () => { sfx.click(); bet = n; sync(); }; chips.appendChild(b); }); wrap.appendChild(betBox); wrap.appendChild(chips); return { node: wrap, getBet: () => Math.min(Math.max(1, Math.trunc(bet)), maxBet()), setDisabled: (disabled) => { [...wrap.querySelectorAll("button")].forEach(x => x.disabled = !!disabled); wrap.style.opacity = disabled ? ".7" : "1"; } }; } function openGame(id){ showView("game"); renderWallet(); sfx.whoosh(); if(id === "slots") renderSlots(); if(id === "blackjack") renderBlackjack(); if(id === "roulette") renderRoulette(); if(id === "dice") renderDice(); if(id === "scratch") renderScratch(); } document.querySelectorAll(".tile").forEach(el => { el.addEventListener("click", () => openGame(el.getAttribute("dataGame"))); }); function renderSlots(){ gameTitle.textContent = "Slots Sprint"; gamePanel.innerHTML = ""; const display = document.createElement("div"); display.className = "bigCenter"; let reels = ["🍒","🍋","🔔"]; display.textContent = reels.join(" "); const hint = document.createElement("div"); hint.className = "hint"; hint.textContent = "3 match pays big. 2 match pays small."; const betUI = buildBetUI(50); const spinBtn = document.createElement("button"); spinBtn.className = "btn"; spinBtn.style.marginTop = "14px"; spinBtn.textContent = "Spin"; function payoutFor(a,b,c,bet){ const allSame = a === b && b === c; const twoSame = a === b || b === c || a === c; if(allSame){ if(a === "7️⃣") return bet * 10; if(a === "⭐") return bet * 6; if(a === "🔔") return bet * 4; return bet * 3; } if(twoSame) return Math.floor(bet * 1.5); return 0; } spinBtn.onclick = () => { const bet = betUI.getBet(); if(bet > state.coinBalance) return; betUI.setDisabled(true); spinBtn.disabled = true; spinBtn.textContent = "Spinning"; sfx.spin(); adjustBalance(-bet); setTimeout(() => { const symbols = ["🍒","🍋","🍇","🍉","🔔","⭐","7️⃣"]; const r1 = pick(symbols); const r2 = pick(symbols); const r3 = pick(symbols); reels = [r1,r2,r3]; display.textContent = reels.join(" "); const payout = payoutFor(r1,r2,r3,bet); adjustBalance(payout); recordRound("slots", bet, payout); const net = payout - bet; if(net > 0){ sfx.win(); popConfetti(clamp(net / Math.max(60, bet), 0.35, 1.2)); }else{ sfx.lose(); } openModal( net >= 0 ? "Nice" : "Ouch", "You bet " + fmt(bet) + ".\nResult: " + reels.join(" ") + "\nPayout: " + fmt(payout) + ".\nNet: " + fmt(net) + ".", "Spin again", () => {} ); betUI.setDisabled(false); spinBtn.disabled = false; spinBtn.textContent = "Spin"; }, 650); }; gamePanel.appendChild(display); gamePanel.appendChild(hint); gamePanel.appendChild(betUI.node); gamePanel.appendChild(spinBtn); } function renderRoulette(){ gameTitle.textContent = "Roulette Pop"; gamePanel.innerHTML = ""; const display = document.createElement("div"); display.className = "bigCenter"; display.textContent = "🎡"; const hint = document.createElement("div"); hint.className = "hint"; hint.textContent = "Red or black pays 2x. Exact number pays 36x."; const choiceRow = document.createElement("div"); choiceRow.className = "choiceRow"; const btnRed = document.createElement("div"); btnRed.className = "choice active"; btnRed.textContent = "Red"; const btnBlack = document.createElement("div"); btnBlack.className = "choice"; btnBlack.textContent = "Black"; const btnNumber = document.createElement("div"); btnNumber.className = "choice"; btnNumber.textContent = "Number"; let pickType = "red"; let pickNumber = 7; function setActive(){ btnRed.classList.toggle("active", pickType === "red"); btnBlack.classList.toggle("active", pickType === "black"); btnNumber.classList.toggle("active", pickType === "number"); numWrap.style.display = pickType === "number" ? "" : "none"; } btnRed.onclick = () => { sfx.click(); pickType = "red"; setActive(); }; btnBlack.onclick = () => { sfx.click(); pickType = "black"; setActive(); }; btnNumber.onclick = () => { sfx.click(); pickType = "number"; setActive(); }; choiceRow.appendChild(btnRed); choiceRow.appendChild(btnBlack); choiceRow.appendChild(btnNumber); const numWrap = document.createElement("div"); numWrap.style.marginTop = "12px"; const numLabel = document.createElement("div"); numLabel.style.color = "rgba(255,255,255,.62)"; numLabel.style.fontWeight = "950"; numLabel.style.fontSize = "12px"; numLabel.textContent = "Pick 0 to 36"; const numInput = document.createElement("input"); numInput.value = "7"; numInput.inputMode = "numeric"; numInput.style.marginTop = "8px"; numInput.style.width = "100%"; numInput.style.padding = "12px 14px"; numInput.style.borderRadius = "16px"; numInput.style.border = "1px solid rgba(255,255,255,.12)"; numInput.style.background = "rgba(0,0,0,.16)"; numInput.style.color = "rgba(255,255,255,.92)"; numInput.style.fontWeight = "950"; numInput.oninput = () => { const t = String(numInput.value || "").replace(/[^\d]/g,"").slice(0,2); numInput.value = t; pickNumber = Math.max(0, Math.min(36, parseInt(t || "0", 10))); }; numWrap.appendChild(numLabel); numWrap.appendChild(numInput); numWrap.style.display = "none"; const betUI = buildBetUI(50); const spinBtn = document.createElement("button"); spinBtn.className = "btn"; spinBtn.style.marginTop = "14px"; spinBtn.textContent = "Spin"; const redNums = new Set([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]); spinBtn.onclick = () => { const bet = betUI.getBet(); if(bet > state.coinBalance) return; betUI.setDisabled(true); spinBtn.disabled = true; spinBtn.textContent = "Spinning"; sfx.spin(); adjustBalance(-bet); setTimeout(() => { const landed = randInt(0,36); const color = landed === 0 ? "green" : (redNums.has(landed) ? "red" : "black"); let payout = 0; if(pickType === "red" || pickType === "black"){ if(color === pickType) payout = bet * 2; }else{ if(landed === pickNumber) payout = bet * 36; } adjustBalance(payout); recordRound("roulette", bet, payout); const net = payout - bet; if(net > 0){ sfx.win(); popConfetti(clamp(net / Math.max(60, bet), 0.35, 1.3)); }else{ sfx.lose(); } openModal( net >= 0 ? "Winner" : "Not today", "You bet " + fmt(bet) + ".\nLanded: " + landed + " (" + color + ").\nPayout: " + fmt(payout) + ".\nNet: " + fmt(net) + ".", "Spin again", () => {} ); betUI.setDisabled(false); spinBtn.disabled = false; spinBtn.textContent = "Spin"; }, 760); }; gamePanel.appendChild(display); gamePanel.appendChild(hint); gamePanel.appendChild(choiceRow); gamePanel.appendChild(numWrap); gamePanel.appendChild(betUI.node); gamePanel.appendChild(spinBtn); setActive(); } function renderDice(){ gameTitle.textContent = "Dice Duel"; gamePanel.innerHTML = ""; const display = document.createElement("div"); display.className = "bigCenter"; let d1 = 1, d2 = 1; display.textContent = "🎲 " + d1 + " " + d2; const hint = document.createElement("div"); hint.className = "hint"; hint.textContent = "Over or under 7 pays 2x. Exactly 7 loses."; let choice = "over"; const choiceRow = document.createElement("div"); choiceRow.className = "choiceRow"; const underBtn = document.createElement("div"); underBtn.className = "choice"; underBtn.textContent = "Under 7"; const overBtn = document.createElement("div"); overBtn.className = "choice active"; overBtn.textContent = "Over 7"; function setActive(){ underBtn.classList.toggle("active", choice === "under"); overBtn.classList.toggle("active", choice === "over"); } underBtn.onclick = () => { sfx.click(); choice = "under"; setActive(); }; overBtn.onclick = () => { sfx.click(); choice = "over"; setActive(); }; choiceRow.appendChild(underBtn); choiceRow.appendChild(overBtn); const betUI = buildBetUI(50); const rollBtn = document.createElement("button"); rollBtn.className = "btn"; rollBtn.style.marginTop = "14px"; rollBtn.textContent = "Roll"; rollBtn.onclick = () => { const bet = betUI.getBet(); if(bet > state.coinBalance) return; betUI.setDisabled(true); rollBtn.disabled = true; rollBtn.textContent = "Rolling"; sfx.dice(); adjustBalance(-bet); setTimeout(() => { d1 = randInt(1,6); d2 = randInt(1,6); const sum = d1 + d2; display.textContent = "🎲 " + d1 + " " + d2; let payout = 0; if(sum === 7) payout = 0; else if(choice === "over" && sum > 7) payout = bet * 2; else if(choice === "under" && sum < 7) payout = bet * 2; adjustBalance(payout); recordRound("dice", bet, payout); const net = payout - bet; if(net > 0){ sfx.win(); popConfetti(clamp(net / Math.max(60, bet), 0.35, 1.0)); }else{ sfx.lose(); } openModal( net >= 0 ? "Good call" : "Rough", "You bet " + fmt(bet) + " on " + (choice === "over" ? "over" : "under") + " 7.\nRoll: " + d1 + " + " + d2 + " = " + sum + "\nPayout: " + fmt(payout) + ".\nNet: " + fmt(net) + ".", "Roll again", () => {} ); betUI.setDisabled(false); rollBtn.disabled = false; rollBtn.textContent = "Roll"; }, 560); }; gamePanel.appendChild(display); gamePanel.appendChild(hint); gamePanel.appendChild(choiceRow); gamePanel.appendChild(betUI.node); gamePanel.appendChild(rollBtn); setActive(); } function renderScratch(){ gameTitle.textContent = "Scratch Cards"; gamePanel.innerHTML = ""; const hint = document.createElement("div"); hint.className = "hint"; hint.textContent = "Tap three panels. 2 match pays small. 3 match pays big."; const scratchRow = document.createElement("div"); scratchRow.className = "scratchRow"; const tile0 = document.createElement("div"); const tile1 = document.createElement("div"); const tile2 = document.createElement("div"); [tile0,tile1,tile2].forEach(t => { t.className = "scratchTile disabled"; t.textContent = "Scratch"; }); scratchRow.appendChild(tile0); scratchRow.appendChild(tile1); scratchRow.appendChild(tile2); const betUI = buildBetUI(50); const buyBtn = document.createElement("button"); buyBtn.className = "btn"; buyBtn.style.marginTop = "14px"; buyBtn.textContent = "Buy ticket"; const newBtn = document.createElement("button"); newBtn.className = "btnGhost"; newBtn.style.marginTop = "10px"; newBtn.textContent = "New ticket"; const symbols = ["🍀","⭐","💎","🍒","7️⃣","🔔"]; let ticket = ["🍀","⭐","🍒"]; let revealed = [false,false,false]; let locked = false; let lastBet = 50; function freshTicket(){ ticket = [pick(symbols), pick(symbols), pick(symbols)]; revealed = [false,false,false]; locked = false; [tile0,tile1,tile2].forEach(t => { t.classList.add("disabled"); t.textContent = "Scratch"; }); buyBtn.disabled = false; buyBtn.textContent = "Buy ticket"; betUI.setDisabled(false); } function settle(){ const a = ticket[0], b = ticket[1], c = ticket[2]; const allSame = a === b && b === c; const twoSame = a === b || b === c || a === c; let payout = 0; if(allSame){ if(a === "💎") payout = lastBet * 8; else if(a === "7️⃣") payout = lastBet * 6; else payout = lastBet * 4; }else if(twoSame){ payout = Math.floor(lastBet * 1.75); } adjustBalance(payout); recordRound("scratch", lastBet, payout); const net = payout - lastBet; if(net > 0){ sfx.win(); popConfetti(clamp(net / Math.max(60, lastBet), 0.35, 1.2)); }else{ sfx.lose(); } openModal( net >= 0 ? "Ticket winner" : "Ticket blank", "You bet " + fmt(lastBet) + ".\nTicket: " + ticket.join(" ") + "\nPayout: " + fmt(payout) + ".\nNet: " + fmt(net) + ".", "New ticket", () => freshTicket() ); } function reveal(i){ if(!locked) return; if(revealed[i]) return; revealed[i] = true; const tiles = [tile0,tile1,tile2]; tiles[i].textContent = ticket[i]; sfx.scratch(); if(revealed[0] && revealed[1] && revealed[2]){ locked = false; settle(); } } tile0.onclick = () => reveal(0); tile1.onclick = () => reveal(1); tile2.onclick = () => reveal(2); buyBtn.onclick = () => { if(locked) return; lastBet = betUI.getBet(); if(lastBet > state.coinBalance) return; sfx.cash(); adjustBalance(-lastBet); locked = true; [tile0,tile1,tile2].forEach(t => t.classList.remove("disabled")); buyBtn.disabled = true; buyBtn.textContent = "Scratching"; betUI.setDisabled(true); }; newBtn.onclick = () => { if(locked) return; sfx.click(); freshTicket(); }; gamePanel.appendChild(hint); gamePanel.appendChild(scratchRow); gamePanel.appendChild(betUI.node); gamePanel.appendChild(buyBtn); gamePanel.appendChild(newBtn); freshTicket(); } function renderBlackjack(){ gameTitle.textContent = "Blackjack Lite"; gamePanel.innerHTML = ""; const hint = document.createElement("div"); hint.className = "hint"; hint.textContent = "Dealer hits to 17. Blackjack pays 2.5x. No splits."; const table = document.createElement("div"); table.style.marginTop = "14px"; table.style.padding = "14px"; table.style.borderRadius = "18px"; table.style.border = "1px solid rgba(255,255,255,.12)"; table.style.background = "rgba(0,0,0,.16)"; const dealerLabel = document.createElement("div"); dealerLabel.style.color = "rgba(255,255,255,.62)"; dealerLabel.style.fontWeight = "950"; dealerLabel.textContent = "Dealer"; const dealerCards = document.createElement("div"); dealerCards.style.fontWeight = "950"; dealerCards.style.fontSize = "22px"; dealerCards.style.marginTop = "6px"; const dealerValue = document.createElement("div"); dealerValue.style.color = "rgba(255,255,255,.74)"; dealerValue.style.fontWeight = "900"; dealerValue.style.marginTop = "6px"; const youLabel = document.createElement("div"); youLabel.style.color = "rgba(255,255,255,.62)"; youLabel.style.fontWeight = "950"; youLabel.style.marginTop = "14px"; youLabel.textContent = "You"; const youCards = document.createElement("div"); youCards.style.fontWeight = "950"; youCards.style.fontSize = "22px"; youCards.style.marginTop = "6px"; const youValue = document.createElement("div"); youValue.style.color = "rgba(255,255,255,.74)"; youValue.style.fontWeight = "900"; youValue.style.marginTop = "6px"; table.appendChild(dealerLabel); table.appendChild(dealerCards); table.appendChild(dealerValue); table.appendChild(youLabel); table.appendChild(youCards); table.appendChild(youValue); const betUI = buildBetUI(50); const dealBtn = document.createElement("button"); dealBtn.className = "btn"; dealBtn.style.marginTop = "14px"; dealBtn.textContent = "Deal"; const actionRow = document.createElement("div"); actionRow.className = "actions"; actionRow.style.display = "none"; const hitBtn = document.createElement("button"); hitBtn.className = "btn"; hitBtn.textContent = "Hit"; const standBtn = document.createElement("button"); standBtn.className = "btn"; standBtn.textContent = "Stand"; const doubleBtn = document.createElement("button"); doubleBtn.className = "btn"; doubleBtn.textContent = "Double"; actionRow.appendChild(hitBtn); actionRow.appendChild(standBtn); actionRow.appendChild(doubleBtn); const ranks = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"]; function newCard(){ return pick(ranks); } function handValue(hand){ let total = 0; let aces = 0; for(const c of hand){ if(c === "A"){ aces += 1; total += 11; } else if(c === "K" || c === "Q" || c === "J"){ total += 10; } else total += parseInt(c, 10); } while(total > 21 && aces > 0){ total -= 10; aces -= 1; } return total; } let player = []; let dealer = []; let phase = "idle"; let baseBet = 50; function renderHands(showDealer){ if(showDealer){ dealerCards.textContent = dealer.join(" "); dealerValue.textContent = "Value: " + handValue(dealer); }else{ dealerCards.textContent = (dealer[0] ? dealer[0] : "?") + " 🂠"; dealerValue.textContent = "Value: ?"; } youCards.textContent = player.join(" "); youValue.textContent = "Value: " + handValue(player); } function endRound(payout, title, body){ adjustBalance(payout); recordRound("blackjack", baseBet, payout); phase = "done"; actionRow.style.display = "none"; dealBtn.style.display = ""; betUI.setDisabled(false); if(payout > 0){ sfx.win(); popConfetti(clamp((payout - baseBet) / Math.max(60, baseBet), 0.35, 1.1)); }else{ sfx.lose(); } openModal(title, body, "Play again", () => { player = []; dealer = []; phase = "idle"; renderHands(false); }); } function dealerPlayAndSettle(doubled){ while(handValue(dealer) < 17) dealer.push(newCard()); renderHands(true); const pv = handValue(player); const dv = handValue(dealer); if(dv > 21){ const payout = doubled ? baseBet * 4 : baseBet * 2; endRound(payout, "Dealer bust", "Dealer busted with " + dv + ".\nPayout: " + fmt(payout) + "."); return; } if(pv > dv){ const payout = doubled ? baseBet * 4 : baseBet * 2; endRound(payout, "You win", "You: " + pv + "\nDealer: " + dv + "\nPayout: " + fmt(payout) + "."); return; } if(pv === dv){ const payout = doubled ? baseBet * 2 : baseBet; endRound(payout, "Push", "You: " + pv + "\nDealer: " + dv + "\nBet returned: " + fmt(payout) + "."); return; } endRound(0, "You lose", "You: " + pv + "\nDealer: " + dv + "\nLost: " + fmt(baseBet) + "."); } dealBtn.onclick = () => { if(phase !== "idle") return; baseBet = betUI.getBet(); if(baseBet > state.coinBalance) return; sfx.cash(); adjustBalance(-baseBet); betUI.setDisabled(true); player = [newCard(), newCard()]; dealer = [newCard(), newCard()]; phase = "playing"; renderHands(false); const pv = handValue(player); const dv = handValue(dealer); dealBtn.style.display = "none"; actionRow.style.display = ""; if(pv === 21){ const payout = Math.floor(baseBet * 2.5); renderHands(true); endRound(payout, "Blackjack", "You got 21.\nPayout: " + fmt(payout) + "."); return; } if(dv === 21){ renderHands(true); endRound(0, "Dealer blackjack", "Dealer has 21.\nYou lose " + fmt(baseBet) + "."); return; } }; hitBtn.onclick = () => { if(phase !== "playing") return; sfx.click(); player.push(newCard()); renderHands(false); const pv = handValue(player); if(pv > 21){ renderHands(true); endRound(0, "Bust", "You busted with " + pv + ".\nYou lose " + fmt(baseBet) + "."); } }; standBtn.onclick = () => { if(phase !== "playing") return; sfx.click(); dealerPlayAndSettle(false); }; doubleBtn.onclick = () => { if(phase !== "playing") return; sfx.click(); if(state.coinBalance < baseBet){ openModal("Not enough coins", "You need enough coins to match your bet for double.", "Ok", () => {}); return; } sfx.cash(); adjustBalance(-baseBet); const originalBet = baseBet; baseBet = baseBet * 2; player.push(newCard()); renderHands(false); setTimeout(() => { dealerPlayAndSettle(true); baseBet = originalBet; }, 200); }; gamePanel.appendChild(hint); gamePanel.appendChild(table); gamePanel.appendChild(betUI.node); gamePanel.appendChild(dealBtn); gamePanel.appendChild(actionRow); dealerCards.textContent = " "; youCards.textContent = " "; dealerValue.textContent = "Value: ?"; youValue.textContent = " "; } const audioEngine = (() => { let ctx = null; let master = null; let musicBus = null; let sfxBus = null; let reverb = null; let delay = null; let musicTimer = null; let started = false; let nextTime = 0; function ensure(){ if(ctx) return; const AC = window.AudioContext || window.webkitAudioContext; ctx = new AC(); master = ctx.createGain(); master.gain.value = 0.90; master.connect(ctx.destination); musicBus = ctx.createGain(); musicBus.gain.value = state.audio.musicOn ? state.audio.musicVol : 0; musicBus.connect(master); sfxBus = ctx.createGain(); sfxBus.gain.value = state.audio.sfxOn ? state.audio.sfxVol : 0; sfxBus.connect(master); reverb = buildReverb(1.6, 0.30); delay = ctx.createDelay(0.6); delay.delayTime.value = 0.22; const delayGain = ctx.createGain(); delayGain.gain.value = 0.18; delay.connect(delayGain); delayGain.connect(delay); const musicFX = ctx.createGain(); musicFX.gain.value = 0.85; musicBus.disconnect(); musicBus.connect(musicFX); musicFX.connect(master); const sendToDelay = ctx.createGain(); sendToDelay.gain.value = 0.10; musicFX.connect(sendToDelay); sendToDelay.connect(delay); delay.connect(master); const sendToVerb = ctx.createGain(); sendToVerb.gain.value = 0.12; musicFX.connect(sendToVerb); sendToVerb.connect(reverb.input); reverb.output.connect(master); } function buildReverb(seconds, decay){ const input = ctx.createGain(); const output = ctx.createGain(); const convolver = ctx.createConvolver(); const length = Math.floor(ctx.sampleRate * seconds); const impulse = ctx.createBuffer(2, length, ctx.sampleRate); for(let c=0;c<2;c++){ const ch = impulse.getChannelData(c); for(let i=0;i<length;i++){ const t = i / length; ch[i] = (Math.random() * 2 - 1) * Math.pow(1 - t, decay * 6); } } convolver.buffer = impulse; const wet = ctx.createGain(); wet.gain.value = 0.55; const dry = ctx.createGain(); dry.gain.value = 1.0; input.connect(dry); dry.connect(output); input.connect(convolver); convolver.connect(wet); wet.connect(output); return { input, output }; } async function initIfNeeded(){ ensure(); if(ctx.state === "suspended"){ try{ await ctx.resume(); }catch(e){} } } function applySettings(){ if(!ctx) return; musicBus.gain.value = state.audio.musicOn ? state.audio.musicVol : 0; sfxBus.gain.value = state.audio.sfxOn ? state.audio.sfxVol : 0; } function stopMusic(){ if(musicTimer) clearInterval(musicTimer); musicTimer = null; started = false; } function startMusic(){ if(!ctx) return; if(started) return; started = true; const bpm = 104; const beat = 60 / bpm; nextTime = ctx.currentTime + 0.06; const chords = [ [261.63, 329.63, 392.00, 523.25], [293.66, 369.99, 440.00, 587.33], [246.94, 311.13, 392.00, 493.88], [220.00, 277.18, 329.63, 440.00] ]; const melodyScale = [261.63, 293.66, 329.63, 392.00, 440.00, 493.88, 523.25, 587.33]; let bar = 0; let melodicStep = 0; function osc(type, freq, t0, dur, gain, bus, filterHz){ const o = ctx.createOscillator(); o.type = type; const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(gain, t0 + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur); let node = o; if(filterHz){ const f = ctx.createBiquadFilter(); f.type = "lowpass"; f.frequency.setValueAtTime(filterHz, t0); f.Q.setValueAtTime(0.7, t0); node.connect(f); f.connect(g); }else{ node.connect(g); } g.connect(bus); o.frequency.setValueAtTime(freq, t0); o.start(t0); o.stop(t0 + dur + 0.02); } function kick(t0){ const o = ctx.createOscillator(); o.type = "sine"; const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(0.10, t0 + 0.005); g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.10); o.frequency.setValueAtTime(110, t0); o.frequency.exponentialRampToValueAtTime(55, t0 + 0.10); o.connect(g); g.connect(musicBus); o.start(t0); o.stop(t0 + 0.12); } function hat(t0){ const bufferSize = Math.floor(ctx.sampleRate * 0.04); const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate); const data = buffer.getChannelData(0); for(let i=0;i<bufferSize;i++){ data[i] = (Math.random() * 2 - 1) * (1 - i / bufferSize); } const src = ctx.createBufferSource(); src.buffer = buffer; const f = ctx.createBiquadFilter(); f.type = "highpass"; f.frequency.setValueAtTime(6000, t0); const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(0.05, t0 + 0.002); g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.04); src.connect(f); f.connect(g); g.connect(musicBus); src.start(t0); src.stop(t0 + 0.05); } function scheduleBar(){ const chord = chords[bar % chords.length]; const t = nextTime; for(let i=0;i<4;i++){ kick(t + beat * i); hat(t + beat * i + beat * 0.5); } const root = chord[0]; osc("sine", root / 2, t, beat * 4, 0.12, musicBus, 520); const padGain = 0.045; for(let i=0;i<chord.length;i++){ osc(i === 0 ? "triangle" : "sine", chord[i], t, beat * 4, padGain, musicBus, 1200); } for(let step=0; step<8; step++){ const choice = melodyScale[(melodicStep + pick([0,1,2,4,5,6])) % melodyScale.length]; const tt = t + beat * 0.5 * step; osc("triangle", choice * (step % 2 ? 2 : 1), tt, beat * 0.45, 0.045, musicBus, 1800); melodicStep = (melodicStep + 1) % 9999; } bar++; nextTime += beat * 4; } scheduleBar(); musicTimer = setInterval(() => { if(!state.audio.musicOn) return; const lookAhead = 0.35; while(nextTime < ctx.currentTime + lookAhead){ scheduleBar(); } }, 120); } function tone(freq, dur, type, gain, slideTo){ if(!ctx) return; const o = ctx.createOscillator(); o.type = type || "sine"; const g = ctx.createGain(); const t0 = ctx.currentTime; g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(gain || 0.08, t0 + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur); o.frequency.setValueAtTime(freq, t0); if(slideTo){ o.frequency.exponentialRampToValueAtTime(slideTo, t0 + dur); } const f = ctx.createBiquadFilter(); f.type = "lowpass"; f.frequency.setValueAtTime(2400, t0); f.Q.setValueAtTime(0.8, t0); o.connect(f); f.connect(g); g.connect(sfxBus); o.start(); o.stop(t0 + dur + 0.02); } function noiseBurst(dur, gain, hp){ if(!ctx) return; const bufferSize = Math.max(1, Math.floor(ctx.sampleRate * dur)); const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate); const data = buffer.getChannelData(0); for(let i=0;i<bufferSize;i++){ data[i] = (Math.random() * 2 - 1) * (1 - i / bufferSize); } const src = ctx.createBufferSource(); src.buffer = buffer; const f = ctx.createBiquadFilter(); f.type = "highpass"; f.frequency.setValueAtTime(hp || 900, ctx.currentTime); const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, ctx.currentTime); g.gain.exponentialRampToValueAtTime(gain || 0.06, ctx.currentTime + 0.006); g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur); src.connect(f); f.connect(g); g.connect(sfxBus); src.start(); src.stop(ctx.currentTime + dur + 0.02); } return { initIfNeeded, applySettings, startMusic, stopMusic, tone, noiseBurst, get ctx(){ return ctx; } }; })(); const sfx = { click: () => { if(!audioEngine.ctx) return; audioEngine.tone(520, 0.06, "triangle", 0.06, 420); }, whoosh: () => { if(!audioEngine.ctx) return; audioEngine.noiseBurst(0.12, 0.05, 1200); }, spin: () => { if(!audioEngine.ctx) return; audioEngine.tone(320, 0.10, "sawtooth", 0.05, 740); setTimeout(() => audioEngine.tone(240, 0.10, "sawtooth", 0.04, 560), 80); }, cash: () => { if(!audioEngine.ctx) return; audioEngine.tone(740, 0.07, "square", 0.05, 1040); setTimeout(() => audioEngine.tone(1040, 0.06, "square", 0.04, 740), 60); }, dice: () => { if(!audioEngine.ctx) return; audioEngine.noiseBurst(0.09, 0.06, 1000); setTimeout(() => audioEngine.tone(420, 0.08, "triangle", 0.05, 280), 60); }, scratch: () => { if(!audioEngine.ctx) return; audioEngine.noiseBurst(0.06, 0.05, 1400); }, win: () => { if(!audioEngine.ctx) return; audioEngine.tone(523.25, 0.10, "triangle", 0.085, 659.25); setTimeout(() => audioEngine.tone(659.25, 0.12, "triangle", 0.085, 783.99), 90); setTimeout(() => audioEngine.tone(783.99, 0.14, "triangle", 0.085, 1046.5), 190); }, lose: () => { if(!audioEngine.ctx) return; audioEngine.tone(220, 0.14, "sine", 0.075, 160); setTimeout(() => audioEngine.tone(160, 0.16, "sine", 0.065, 120), 110); } }; const enterGate = document.getElementById("enterGate"); const enterBtn = document.getElementById("enterBtn"); const musicToggle = document.getElementById("musicToggle"); const sfxToggle = document.getElementById("sfxToggle"); const musicVol = document.getElementById("musicVol"); const sfxVol = document.getElementById("sfxVol"); musicToggle.checked = state.audio.musicOn; sfxToggle.checked = state.audio.sfxOn; musicVol.value = String(Math.round(state.audio.musicVol * 100)); sfxVol.value = String(Math.round(state.audio.sfxVol * 100)); musicToggle.addEventListener("change", () => { state.audio.musicOn = !!musicToggle.checked; saveState(); audioEngine.applySettings(); if(state.audio.musicOn) audioEngine.startMusic(); }); sfxToggle.addEventListener("change", () => { state.audio.sfxOn = !!sfxToggle.checked; saveState(); audioEngine.applySettings(); }); musicVol.addEventListener("input", () => { state.audio.musicVol = clamp(parseInt(musicVol.value || "0", 10) / 100, 0, 1); saveState(); audioEngine.applySettings(); }); sfxVol.addEventListener("input", () => { state.audio.sfxVol = clamp(parseInt(sfxVol.value || "0", 10) / 100, 0, 1); saveState(); audioEngine.applySettings(); }); enterBtn.addEventListener("click", async () => { await audioEngine.initIfNeeded(); audioEngine.applySettings(); audioEngine.startMusic(); sfx.click(); enterGate.style.display = "none"; }); document.getElementById("settingsMusic").addEventListener("click", () => { state.audio.musicOn = !state.audio.musicOn; saveState(); audioEngine.applySettings(); if(state.audio.musicOn) audioEngine.startMusic(); openModal("Music", state.audio.musicOn ? "Music is on." : "Music is off.", "Ok", () => {}); if(state.audio.musicOn) sfx.click(); }); document.getElementById("settingsSfx").addEventListener("click", () => { state.audio.sfxOn = !state.audio.sfxOn; saveState(); audioEngine.applySettings(); openModal("Sound effects", state.audio.sfxOn ? "SFX is on." : "SFX is off.", "Ok", () => {}); if(state.audio.sfxOn) sfx.click(); }); document.getElementById("settingsTest").addEventListener("click", () => { sfx.win(); popConfetti(0.7); }); document.addEventListener("click", async () => { if(!audioEngine.ctx) return; if(audioEngine.ctx.state === "suspended"){ try{ await audioEngine.initIfNeeded(); audioEngine.applySettings(); }catch(e){} } }); setInterval(() => setFeatured(), 6000); renderWallet(); setFeatured(); showView("home"); saveState(); </script> </body> </html>
+</div> <div class="modalWrap" id="modalWrap"> <div class="modal"> <h3 id="modalTitle">Result</h3> <p id="modalBody"></p> <div class="modalBtns"> <button class="btnGhost" id="modalHome">Home</button> <button class="btn" id="modalAgain">Play again</button> </div> </div> </div> <script> const storageKey = "bigYahuGamblingSchemeLightV1"; const defaultState = { coinBalance: 5000, lastDailyClaimMs: 0, dailyStreak: 0, stats: { totalBets: 0, totalPayout: 0, biggestWin: 0, gamesPlayed: { slots:0, blackjack:0, roulette:0, dice:0, scratch:0 } }, audio: { musicOn: true, sfxOn: true, musicVol: 0.38, sfxVol: 0.55, musicStyle: "neon" } }; function deepClone(obj){ return JSON.parse(JSON.stringify(obj)); } function clamp(n,min,max){ return Math.max(min, Math.min(max, n)); } function mergeState(s){ const out = deepClone(defaultState); if(s && typeof s === "object"){ if(Number.isFinite(s.coinBalance)) out.coinBalance = Math.max(0, Math.trunc(s.coinBalance)); if(Number.isFinite(s.lastDailyClaimMs)) out.lastDailyClaimMs = Math.trunc(s.lastDailyClaimMs); if(Number.isFinite(s.dailyStreak)) out.dailyStreak = Math.max(0, Math.trunc(s.dailyStreak)); if(s.stats && typeof s.stats === "object"){ out.stats.totalBets = Math.max(0, Math.trunc(s.stats.totalBets || 0)); out.stats.totalPayout = Math.max(0, Math.trunc(s.stats.totalPayout || 0)); out.stats.biggestWin = Math.max(0, Math.trunc(s.stats.biggestWin || 0)); const gp = s.stats.gamesPlayed || {}; out.stats.gamesPlayed = { slots: Math.max(0, Math.trunc(gp.slots || 0)), blackjack: Math.max(0, Math.trunc(gp.blackjack || 0)), roulette: Math.max(0, Math.trunc(gp.roulette || 0)), dice: Math.max(0, Math.trunc(gp.dice || 0)), scratch: Math.max(0, Math.trunc(gp.scratch || 0)) }; } if(s.audio && typeof s.audio === "object"){ out.audio.musicOn = s.audio.musicOn !== false; out.audio.sfxOn = s.audio.sfxOn !== false; if(Number.isFinite(s.audio.musicVol)) out.audio.musicVol = clamp(s.audio.musicVol, 0, 1); if(Number.isFinite(s.audio.sfxVol)) out.audio.sfxVol = clamp(s.audio.sfxVol, 0, 1); if(typeof s.audio.musicStyle === "string") out.audio.musicStyle = s.audio.musicStyle; } } return out; } function loadState(){ try{ const raw = localStorage.getItem(storageKey); if(!raw) return deepClone(defaultState); return mergeState(JSON.parse(raw)); }catch(e){ return deepClone(defaultState); } } const state = loadState(); function saveState(){ try{ localStorage.setItem(storageKey, JSON.stringify(state)); }catch(e){} } function fmt(n){ const x = Math.max(0, Math.trunc(n)); return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); } function randInt(min, max){ return Math.floor(Math.random() * (max - min + 1)) + min; } function pick(arr){ return arr[randInt(0, arr.length - 1)]; } function sameLocalDay(aMs, bMs){ const a = new Date(aMs); const b = new Date(bMs); return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate(); } function dailyBonus(streak){ const base = 350; const extra = Math.min(1900, Math.max(0, Math.trunc(streak)) * 60); return base + extra; } function canClaimDaily(){ if(!state.lastDailyClaimMs) return true; return !sameLocalDay(state.lastDailyClaimMs, Date.now()); } function adjustBalance(delta){ state.coinBalance = Math.max(0, state.coinBalance + Math.trunc(delta)); saveState(); renderWallet(); } function recordRound(gameId, bet, payout){ state.stats.totalBets += bet; state.stats.totalPayout += payout; const net = payout - bet; state.stats.biggestWin = Math.max(state.stats.biggestWin, net); state.stats.gamesPlayed[gameId] = (state.stats.gamesPlayed[gameId] || 0) + 1; saveState(); } const confetti = document.getElementById("confetti"); function popConfetti(power){ const count = clamp(Math.trunc(18 + power * 22), 18, 46); for(let i=0;i<count;i++){ const p = document.createElement("span"); p.style.left = randInt(0,100) + "vw"; p.style.setProperty("--dx", randInt(-140,140) + "px"); p.style.setProperty("--rot", randInt(-520,520) + "deg"); p.style.background = pick(["#f59e0b","#0891b2","#db2777","#65a30d","#7c3aed","#2563eb"]); p.style.opacity = String(0.82 + Math.random() * 0.18); p.style.width = randInt(8, 12) + "px"; p.style.height = randInt(10, 16) + "px"; confetti.appendChild(p); setTimeout(() => { p.remove(); }, 1300); } } const views = { home: document.getElementById("homeView"), stats: document.getElementById("statsView"), settings: document.getElementById("settingsView"), game: document.getElementById("gameView") }; function showView(which){ Object.keys(views).forEach(k => views[k].classList.remove("active")); views[which].classList.add("active"); setNav(which === "home" ? "home" : which); } function setNav(which){ document.querySelectorAll(".navLink").forEach(x => x.classList.remove("active")); const hit = document.querySelector('.navLink[dataNav="'+which+'"]'); if(hit) hit.classList.add("active"); } const walletAmt = document.getElementById("walletAmt"); const walletAmt2 = document.getElementById("walletAmt2"); const dailyBtn = document.getElementById("dailyBtn"); const featuredBig = document.getElementById("featuredBig"); function renderWallet(){ walletAmt.textContent = fmt(state.coinBalance); walletAmt2.textContent = fmt(state.coinBalance); dailyBtn.disabled = !canClaimDaily(); dailyBtn.textContent = canClaimDaily() ? "Claim bonus" : "Claimed"; } function setFeatured(){ featuredBig.textContent = pick([ "Neon Slots Day", "Wheel of Consequences", "Dealer Anxiety Simulator", "Scratch and Pray", "Dice and Chill" ]); } const modalWrap = document.getElementById("modalWrap"); const modalTitle = document.getElementById("modalTitle"); const modalBody = document.getElementById("modalBody"); const modalHome = document.getElementById("modalHome"); const modalAgain = document.getElementById("modalAgain"); let playAgainFn = null; function openModal(title, body, againLabel, againFn){ modalTitle.textContent = title; modalBody.textContent = body; modalAgain.textContent = againLabel || "Play again"; playAgainFn = againFn || null; modalWrap.style.display = "flex"; } function closeModal(){ modalWrap.style.display = "none"; playAgainFn = null; } modalHome.addEventListener("click", () => { sfx.click(); closeModal(); showView("home"); }); modalAgain.addEventListener("click", () => { sfx.click(); closeModal(); if(playAgainFn) playAgainFn(); }); const statsLines = document.getElementById("statsLines"); function renderStats(){ const gp = state.stats.gamesPlayed; const lines = [ "Total bets: " + fmt(state.stats.totalBets), "Total payout: " + fmt(state.stats.totalPayout), "Biggest win: " + fmt(state.stats.biggestWin), "Daily streak: " + fmt(state.dailyStreak), "", "Games played", "Slots: " + fmt(gp.slots), "Blackjack: " + fmt(gp.blackjack), "Roulette: " + fmt(gp.roulette), "Dice: " + fmt(gp.dice), "Scratch: " + fmt(gp.scratch) ]; statsLines.textContent = lines.join("\n"); statsLines.style.whiteSpace = "pre-line"; statsLines.style.color = "rgba(15,23,42,.78)"; statsLines.style.lineHeight = "1.55"; statsLines.style.fontWeight = "900"; statsLines.style.letterSpacing = ".2px"; } document.getElementById("backFromStats").addEventListener("click", () => { sfx.click(); showView("home"); }); document.getElementById("backFromSettings").addEventListener("click", () => { sfx.click(); showView("home"); }); document.getElementById("backBtn").addEventListener("click", () => { sfx.click(); showView("home"); }); document.getElementById("heroStats").addEventListener("click", () => { sfx.click(); renderStats(); showView("stats"); }); document.getElementById("heroSettings").addEventListener("click", () => { sfx.click(); showView("settings"); }); document.getElementById("audioBtn").addEventListener("click", () => { sfx.click(); showView("settings"); }); document.querySelectorAll(".navLink").forEach(n => { n.addEventListener("click", () => { sfx.click(); const which = n.getAttribute("dataNav"); if(which === "home"){ showView("home"); return; } if(which === "stats"){ renderStats(); showView("stats"); return; } if(which === "settings"){ showView("settings"); return; } }); }); document.getElementById("resetBtn").addEventListener("click", () => { sfx.click(); const ok = confirm("Reset coins and stats?"); if(!ok) return; const keepAudio = deepClone(state.audio); Object.assign(state, deepClone(defaultState)); state.audio = keepAudio; saveState(); renderWallet(); renderStats(); audioEngine.applySettings(); audioEngine.setStyle(state.audio.musicStyle); }); dailyBtn.addEventListener("click", () => { if(!canClaimDaily()) return; const now = Date.now(); let nextStreak = 1; if(state.lastDailyClaimMs){ const y = new Date(); y.setDate(y.getDate() - 1); nextStreak = sameLocalDay(state.lastDailyClaimMs, y.getTime()) ? state.dailyStreak + 1 : 1; } state.dailyStreak = nextStreak; state.lastDailyClaimMs = now; const bonus = dailyBonus(nextStreak); adjustBalance(bonus); sfx.win(); popConfetti(1); openModal( "Daily bonus", "You got " + fmt(bonus) + " coins.\nStreak: " + nextStreak, "Nice", () => showView("home") ); saveState(); renderWallet(); }); const gameTitle = document.getElementById("gameTitle"); const gamePanel = document.getElementById("gamePanel"); function buildBetUI(initialBet){ let bet = Math.min(Math.max(1, Math.trunc(initialBet || 50)), Math.max(1, state.coinBalance)); const maxBet = () => Math.max(1, state.coinBalance); const wrap = document.createElement("div"); const betBox = document.createElement("div"); betBox.className = "betBox"; const left = document.createElement("div"); const label = document.createElement("div"); label.style.color = "rgba(15,23,42,.62)"; label.style.fontWeight = "950"; label.style.fontSize = "12px"; label.textContent = "Bet"; const val = document.createElement("div"); val.className = "betNum"; val.textContent = fmt(bet); const cap = document.createElement("div"); cap.style.color = "rgba(15,23,42,.52)"; cap.style.fontSize = "12px"; cap.style.fontWeight = "900"; cap.textContent = "Max " + fmt(maxBet()); left.appendChild(label); left.appendChild(val); left.appendChild(cap); const right = document.createElement("div"); right.style.display = "flex"; right.style.gap = "10px"; right.style.flexWrap = "wrap"; right.style.justifyContent = "flex-end"; const minus = document.createElement("button"); minus.className = "btnGhost"; minus.textContent = "Minus"; const plus = document.createElement("button"); plus.className = "btnGhost"; plus.textContent = "Plus"; function sync(){ bet = Math.min(Math.max(1, bet), maxBet()); val.textContent = fmt(bet); cap.textContent = "Max " + fmt(maxBet()); } minus.onclick = () => { sfx.click(); bet = bet - 10; sync(); }; plus.onclick = () => { sfx.click(); bet = bet + 10; sync(); }; right.appendChild(minus); right.appendChild(plus); betBox.appendChild(left); betBox.appendChild(right); const chips = document.createElement("div"); chips.className = "row"; chips.style.marginTop = "10px"; [10,25,50,100,250,500].forEach(n => { const b = document.createElement("button"); b.className = "btnGhost"; b.textContent = fmt(n); b.onclick = () => { sfx.click(); bet = n; sync(); }; chips.appendChild(b); }); wrap.appendChild(betBox); wrap.appendChild(chips); return { node: wrap, getBet: () => Math.min(Math.max(1, Math.trunc(bet)), maxBet()), setDisabled: (disabled) => { [...wrap.querySelectorAll("button")].forEach(x => x.disabled = !!disabled); wrap.style.opacity = disabled ? ".75" : "1"; } }; } function openGame(id){ showView("game"); renderWallet(); sfx.whoosh(); if(id === "slots") renderSlots(); if(id === "blackjack") renderBlackjack(); if(id === "roulette") renderRoulette(); if(id === "dice") renderDice(); if(id === "scratch") renderScratch(); } document.querySelectorAll(".tile").forEach(el => { el.addEventListener("click", () => openGame(el.getAttribute("dataGame"))); }); function renderSlots(){ gameTitle.textContent = "Slots Sprint"; gamePanel.innerHTML = ""; const display = document.createElement("div"); display.className = "bigCenter"; let reels = ["🍒","🍋","🔔"]; display.textContent = reels.join(" "); const hint = document.createElement("div"); hint.className = "hint"; hint.textContent = "3 match pays big. 2 match pays small."; const betUI = buildBetUI(50); const spinBtn = document.createElement("button"); spinBtn.className = "btn"; spinBtn.style.marginTop = "14px"; spinBtn.textContent = "Spin"; function payoutFor(a,b,c,bet){ const allSame = a === b && b === c; const twoSame = a === b || b === c || a === c; if(allSame){ if(a === "7️⃣") return bet * 10; if(a === "⭐") return bet * 6; if(a === "🔔") return bet * 4; return bet * 3; } if(twoSame) return Math.floor(bet * 1.5); return 0; } spinBtn.onclick = () => { const bet = betUI.getBet(); if(bet > state.coinBalance) return; betUI.setDisabled(true); spinBtn.disabled = true; spinBtn.textContent = "Spinning"; sfx.spin(); adjustBalance(-bet); setTimeout(() => { const symbols = ["🍒","🍋","🍇","🍉","🔔","⭐","7️⃣"]; const r1 = pick(symbols); const r2 = pick(symbols); const r3 = pick(symbols); reels = [r1,r2,r3]; display.textContent = reels.join(" "); const payout = payoutFor(r1,r2,r3,bet); adjustBalance(payout); recordRound("slots", bet, payout); const net = payout - bet; if(net > 0){ sfx.win(); popConfetti(clamp(net / Math.max(60, bet), 0.35, 1.2)); }else{ sfx.lose(); } openModal( net >= 0 ? "Nice" : "Ouch", "You bet " + fmt(bet) + ".\nResult: " + reels.join(" ") + "\nPayout: " + fmt(payout) + ".\nNet: " + fmt(net) + ".", "Spin again", () => {} ); betUI.setDisabled(false); spinBtn.disabled = false; spinBtn.textContent = "Spin"; }, 650); }; gamePanel.appendChild(display); gamePanel.appendChild(hint); gamePanel.appendChild(betUI.node); gamePanel.appendChild(spinBtn); } function renderRoulette(){ gameTitle.textContent = "Roulette Pop"; gamePanel.innerHTML = ""; const display = document.createElement("div"); display.className = "bigCenter"; display.textContent = "🎡"; const hint = document.createElement("div"); hint.className = "hint"; hint.textContent = "Red or black pays 2x. Exact number pays 36x."; const choiceRow = document.createElement("div"); choiceRow.className = "choiceRow"; const btnRed = document.createElement("div"); btnRed.className = "choice active"; btnRed.textContent = "Red"; const btnBlack = document.createElement("div"); btnBlack.className = "choice"; btnBlack.textContent = "Black"; const btnNumber = document.createElement("div"); btnNumber.className = "choice"; btnNumber.textContent = "Number"; let pickType = "red"; let pickNumber = 7; function setActive(){ btnRed.classList.toggle("active", pickType === "red"); btnBlack.classList.toggle("active", pickType === "black"); btnNumber.classList.toggle("active", pickType === "number"); numWrap.style.display = pickType === "number" ? "" : "none"; } btnRed.onclick = () => { sfx.click(); pickType = "red"; setActive(); }; btnBlack.onclick = () => { sfx.click(); pickType = "black"; setActive(); }; btnNumber.onclick = () => { sfx.click(); pickType = "number"; setActive(); }; choiceRow.appendChild(btnRed); choiceRow.appendChild(btnBlack); choiceRow.appendChild(btnNumber); const numWrap = document.createElement("div"); numWrap.style.marginTop = "12px"; const numLabel = document.createElement("div"); numLabel.style.color = "rgba(15,23,42,.62)"; numLabel.style.fontWeight = "950"; numLabel.style.fontSize = "12px"; numLabel.textContent = "Pick 0 to 36"; const numInput = document.createElement("input"); numInput.value = "7"; numInput.inputMode = "numeric"; numInput.style.marginTop = "8px"; numInput.style.width = "100%"; numInput.style.padding = "12px 14px"; numInput.style.borderRadius = "16px"; numInput.style.border = "1px solid rgba(15,23,42,.12)"; numInput.style.background = "rgba(255,255,255,.82)"; numInput.style.color = "rgba(15,23,42,.92)"; numInput.style.fontWeight = "950"; numInput.style.boxShadow = "0 12px 40px rgba(2,6,23,.06)"; numInput.oninput = () => { const t = String(numInput.value || "").replace(/[^\d]/g,"").slice(0,2); numInput.value = t; pickNumber = Math.max(0, Math.min(36, parseInt(t || "0", 10))); }; numWrap.appendChild(numLabel); numWrap.appendChild(numInput); numWrap.style.display = "none"; const betUI = buildBetUI(50); const spinBtn = document.createElement("button"); spinBtn.className = "btn"; spinBtn.style.marginTop = "14px"; spinBtn.textContent = "Spin"; const redNums = new Set([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]); spinBtn.onclick = () => { const bet = betUI.getBet(); if(bet > state.coinBalance) return; betUI.setDisabled(true); spinBtn.disabled = true; spinBtn.textContent = "Spinning"; sfx.spin(); adjustBalance(-bet); setTimeout(() => { const landed = randInt(0,36); const color = landed === 0 ? "green" : (redNums.has(landed) ? "red" : "black"); let payout = 0; if(pickType === "red" || pickType === "black"){ if(color === pickType) payout = bet * 2; }else{ if(landed === pickNumber) payout = bet * 36; } adjustBalance(payout); recordRound("roulette", bet, payout); const net = payout - bet; if(net > 0){ sfx.win(); popConfetti(clamp(net / Math.max(60, bet), 0.35, 1.3)); }else{ sfx.lose(); } openModal( net >= 0 ? "Winner" : "Not today", "You bet " + fmt(bet) + ".\nLanded: " + landed + " (" + color + ").\nPayout: " + fmt(payout) + ".\nNet: " + fmt(net) + ".", "Spin again", () => {} ); betUI.setDisabled(false); spinBtn.disabled = false; spinBtn.textContent = "Spin"; }, 760); }; gamePanel.appendChild(display); gamePanel.appendChild(hint); gamePanel.appendChild(choiceRow); gamePanel.appendChild(numWrap); gamePanel.appendChild(betUI.node); gamePanel.appendChild(spinBtn); setActive(); } function renderDice(){ gameTitle.textContent = "Dice Duel"; gamePanel.innerHTML = ""; const display = document.createElement("div"); display.className = "bigCenter"; let d1 = 1, d2 = 1; display.textContent = "🎲 " + d1 + " " + d2; const hint = document.createElement("div"); hint.className = "hint"; hint.textContent = "Over or under 7 pays 2x. Exactly 7 loses."; let choice = "over"; const choiceRow = document.createElement("div"); choiceRow.className = "choiceRow"; const underBtn = document.createElement("div"); underBtn.className = "choice"; underBtn.textContent = "Under 7"; const overBtn = document.createElement("div"); overBtn.className = "choice active"; overBtn.textContent = "Over 7"; function setActive(){ underBtn.classList.toggle("active", choice === "under"); overBtn.classList.toggle("active", choice === "over"); } underBtn.onclick = () => { sfx.click(); choice = "under"; setActive(); }; overBtn.onclick = () => { sfx.click(); choice = "over"; setActive(); }; choiceRow.appendChild(underBtn); choiceRow.appendChild(overBtn); const betUI = buildBetUI(50); const rollBtn = document.createElement("button"); rollBtn.className = "btn"; rollBtn.style.marginTop = "14px"; rollBtn.textContent = "Roll"; rollBtn.onclick = () => { const bet = betUI.getBet(); if(bet > state.coinBalance) return; betUI.setDisabled(true); rollBtn.disabled = true; rollBtn.textContent = "Rolling"; sfx.dice(); adjustBalance(-bet); setTimeout(() => { d1 = randInt(1,6); d2 = randInt(1,6); const sum = d1 + d2; display.textContent = "🎲 " + d1 + " " + d2; let payout = 0; if(sum === 7) payout = 0; else if(choice === "over" && sum > 7) payout = bet * 2; else if(choice === "under" && sum < 7) payout = bet * 2; adjustBalance(payout); recordRound("dice", bet, payout); const net = payout - bet; if(net > 0){ sfx.win(); popConfetti(clamp(net / Math.max(60, bet), 0.35, 1.0)); }else{ sfx.lose(); } openModal( net >= 0 ? "Good call" : "Rough", "You bet " + fmt(bet) + " on " + (choice === "over" ? "over" : "under") + " 7.\nRoll: " + d1 + " + " + d2 + " = " + sum + "\nPayout: " + fmt(payout) + ".\nNet: " + fmt(net) + ".", "Roll again", () => {} ); betUI.setDisabled(false); rollBtn.disabled = false; rollBtn.textContent = "Roll"; }, 560); }; gamePanel.appendChild(display); gamePanel.appendChild(hint); gamePanel.appendChild(choiceRow); gamePanel.appendChild(betUI.node); gamePanel.appendChild(rollBtn); setActive(); } function renderScratch(){ gameTitle.textContent = "Scratch Cards"; gamePanel.innerHTML = ""; const hint = document.createElement("div"); hint.className = "hint"; hint.textContent = "Tap three panels. 2 match pays small. 3 match pays big."; const scratchRow = document.createElement("div"); scratchRow.className = "scratchRow"; const tile0 = document.createElement("div"); const tile1 = document.createElement("div"); const tile2 = document.createElement("div"); [tile0,tile1,tile2].forEach(t => { t.className = "scratchTile disabled"; t.textContent = "Scratch"; }); scratchRow.appendChild(tile0); scratchRow.appendChild(tile1); scratchRow.appendChild(tile2); const betUI = buildBetUI(50); const buyBtn = document.createElement("button"); buyBtn.className = "btn"; buyBtn.style.marginTop = "14px"; buyBtn.textContent = "Buy ticket"; const newBtn = document.createElement("button"); newBtn.className = "btnGhost"; newBtn.style.marginTop = "10px"; newBtn.textContent = "New ticket"; const symbols = ["🍀","⭐","💎","🍒","7️⃣","🔔"]; let ticket = ["🍀","⭐","🍒"]; let revealed = [false,false,false]; let locked = false; let lastBet = 50; function freshTicket(){ ticket = [pick(symbols), pick(symbols), pick(symbols)]; revealed = [false,false,false]; locked = false; [tile0,tile1,tile2].forEach(t => { t.classList.add("disabled"); t.textContent = "Scratch"; }); buyBtn.disabled = false; buyBtn.textContent = "Buy ticket"; betUI.setDisabled(false); } function settle(){ const a = ticket[0], b = ticket[1], c = ticket[2]; const allSame = a === b && b === c; const twoSame = a === b || b === c || a === c; let payout = 0; if(allSame){ if(a === "💎") payout = lastBet * 8; else if(a === "7️⃣") payout = lastBet * 6; else payout = lastBet * 4; }else if(twoSame){ payout = Math.floor(lastBet * 1.75); } adjustBalance(payout); recordRound("scratch", lastBet, payout); const net = payout - lastBet; if(net > 0){ sfx.win(); popConfetti(clamp(net / Math.max(60, lastBet), 0.35, 1.2)); }else{ sfx.lose(); } openModal( net >= 0 ? "Ticket winner" : "Ticket blank", "You bet " + fmt(lastBet) + ".\nTicket: " + ticket.join(" ") + "\nPayout: " + fmt(payout) + ".\nNet: " + fmt(net) + ".", "New ticket", () => freshTicket() ); } function reveal(i){ if(!locked) return; if(revealed[i]) return; revealed[i] = true; const tiles = [tile0,tile1,tile2]; tiles[i].textContent = ticket[i]; sfx.scratch(); if(revealed[0] && revealed[1] && revealed[2]){ locked = false; settle(); } } tile0.onclick = () => reveal(0); tile1.onclick = () => reveal(1); tile2.onclick = () => reveal(2); buyBtn.onclick = () => { if(locked) return; lastBet = betUI.getBet(); if(lastBet > state.coinBalance) return; sfx.cash(); adjustBalance(-lastBet); locked = true; [tile0,tile1,tile2].forEach(t => t.classList.remove("disabled")); buyBtn.disabled = true; buyBtn.textContent = "Scratching"; betUI.setDisabled(true); }; newBtn.onclick = () => { if(locked) return; sfx.click(); freshTicket(); }; gamePanel.appendChild(hint); gamePanel.appendChild(scratchRow); gamePanel.appendChild(betUI.node); gamePanel.appendChild(buyBtn); gamePanel.appendChild(newBtn); freshTicket(); } function renderBlackjack(){ gameTitle.textContent = "Blackjack Lite"; gamePanel.innerHTML = ""; const hint = document.createElement("div"); hint.className = "hint"; hint.textContent = "Dealer hits to 17. Blackjack pays 2.5x. No splits."; const table = document.createElement("div"); table.style.marginTop = "14px"; table.style.padding = "14px"; table.style.borderRadius = "18px"; table.style.border = "1px solid rgba(15,23,42,.12)"; table.style.background = "rgba(255,255,255,.76)"; table.style.boxShadow = "0 14px 46px rgba(2,6,23,.08)"; const dealerLabel = document.createElement("div"); dealerLabel.style.color = "rgba(15,23,42,.62)"; dealerLabel.style.fontWeight = "950"; dealerLabel.textContent = "Dealer"; const dealerCards = document.createElement("div"); dealerCards.style.fontWeight = "950"; dealerCards.style.fontSize = "22px"; dealerCards.style.marginTop = "6px"; dealerCards.style.color = "rgba(15,23,42,.92)"; const dealerValue = document.createElement("div"); dealerValue.style.color = "rgba(15,23,42,.74)"; dealerValue.style.fontWeight = "900"; dealerValue.style.marginTop = "6px"; const youLabel = document.createElement("div"); youLabel.style.color = "rgba(15,23,42,.62)"; youLabel.style.fontWeight = "950"; youLabel.style.marginTop = "14px"; youLabel.textContent = "You"; const youCards = document.createElement("div"); youCards.style.fontWeight = "950"; youCards.style.fontSize = "22px"; youCards.style.marginTop = "6px"; youCards.style.color = "rgba(15,23,42,.92)"; const youValue = document.createElement("div"); youValue.style.color = "rgba(15,23,42,.74)"; youValue.style.fontWeight = "900"; youValue.style.marginTop = "6px"; table.appendChild(dealerLabel); table.appendChild(dealerCards); table.appendChild(dealerValue); table.appendChild(youLabel); table.appendChild(youCards); table.appendChild(youValue); const betUI = buildBetUI(50); const dealBtn = document.createElement("button"); dealBtn.className = "btn"; dealBtn.style.marginTop = "14px"; dealBtn.textContent = "Deal"; const actionRow = document.createElement("div"); actionRow.className = "actions"; actionRow.style.display = "none"; const hitBtn = document.createElement("button"); hitBtn.className = "btn"; hitBtn.textContent = "Hit"; const standBtn = document.createElement("button"); standBtn.className = "btn"; standBtn.textContent = "Stand"; const doubleBtn = document.createElement("button"); doubleBtn.className = "btn"; doubleBtn.textContent = "Double"; actionRow.appendChild(hitBtn); actionRow.appendChild(standBtn); actionRow.appendChild(doubleBtn); const ranks = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"]; function newCard(){ return pick(ranks); } function handValue(hand){ let total = 0; let aces = 0; for(const c of hand){ if(c === "A"){ aces += 1; total += 11; } else if(c === "K" || c === "Q" || c === "J"){ total += 10; } else total += parseInt(c, 10); } while(total > 21 && aces > 0){ total -= 10; aces -= 1; } return total; } let player = []; let dealer = []; let phase = "idle"; let baseBet = 50; function renderHands(showDealer){ if(showDealer){ dealerCards.textContent = dealer.join(" "); dealerValue.textContent = "Value: " + handValue(dealer); }else{ dealerCards.textContent = (dealer[0] ? dealer[0] : "?") + " 🂠"; dealerValue.textContent = "Value: ?"; } youCards.textContent = player.join(" "); youValue.textContent = "Value: " + handValue(player); } function endRound(payout, title, body, betForStats){ adjustBalance(payout); recordRound("blackjack", betForStats, payout); phase = "done"; actionRow.style.display = "none"; dealBtn.style.display = ""; betUI.setDisabled(false); if(payout > betForStats){ sfx.win(); popConfetti(clamp((payout - betForStats) / Math.max(60, betForStats), 0.35, 1.1)); }else if(payout === betForStats){ sfx.click(); }else{ sfx.lose(); } openModal(title, body, "Play again", () => { player = []; dealer = []; phase = "idle"; renderHands(false); }); } function dealerPlayAndSettle(totalBet){ while(handValue(dealer) < 17) dealer.push(newCard()); renderHands(true); const pv = handValue(player); const dv = handValue(dealer); if(pv > 21){ endRound(0, "Bust", "You busted with " + pv + ".\nLost: " + fmt(totalBet) + ".", totalBet); return; } if(dv > 21){ endRound(totalBet * 2, "Dealer bust", "Dealer busted with " + dv + ".\nPayout: " + fmt(totalBet * 2) + ".", totalBet); return; } if(pv > dv){ endRound(totalBet * 2, "You win", "You: " + pv + "\nDealer: " + dv + "\nPayout: " + fmt(totalBet * 2) + ".", totalBet); return; } if(pv === dv){ endRound(totalBet, "Push", "You: " + pv + "\nDealer: " + dv + "\nBet returned: " + fmt(totalBet) + ".", totalBet); return; } endRound(0, "You lose", "You: " + pv + "\nDealer: " + dv + "\nLost: " + fmt(totalBet) + ".", totalBet); } dealBtn.onclick = () => { if(phase !== "idle") return; baseBet = betUI.getBet(); if(baseBet > state.coinBalance) return; sfx.cash(); adjustBalance(-baseBet); betUI.setDisabled(true); player = [newCard(), newCard()]; dealer = [newCard(), newCard()]; phase = "playing"; renderHands(false); const pv = handValue(player); const dv = handValue(dealer); dealBtn.style.display = "none"; actionRow.style.display = ""; if(pv === 21){ const payout = Math.floor(baseBet * 2.5); renderHands(true); endRound(payout, "Blackjack", "You got 21.\nPayout: " + fmt(payout) + ".", baseBet); return; } if(dv === 21){ renderHands(true); endRound(0, "Dealer blackjack", "Dealer has 21.\nLost: " + fmt(baseBet) + ".", baseBet); return; } }; hitBtn.onclick = () => { if(phase !== "playing") return; sfx.click(); player.push(newCard()); renderHands(false); const pv = handValue(player); if(pv > 21){ renderHands(true); endRound(0, "Bust", "You busted with " + pv + ".\nLost: " + fmt(baseBet) + ".", baseBet); } }; standBtn.onclick = () => { if(phase !== "playing") return; sfx.click(); dealerPlayAndSettle(baseBet); }; doubleBtn.onclick = () => { if(phase !== "playing") return; sfx.click(); if(state.coinBalance < baseBet){ openModal("Not enough coins", "You need enough coins to match your bet for double.", "Ok", () => {}); return; } sfx.cash(); adjustBalance(-baseBet); const totalBet = baseBet * 2; player.push(newCard()); renderHands(false); setTimeout(() => { dealerPlayAndSettle(totalBet); }, 200); }; gamePanel.appendChild(hint); gamePanel.appendChild(table); gamePanel.appendChild(betUI.node); gamePanel.appendChild(dealBtn); gamePanel.appendChild(actionRow); dealerCards.textContent = " "; youCards.textContent = " "; dealerValue.textContent = "Value: ?"; youValue.textContent = " "; } const audioEngine = (() => { let ctx = null; let master = null; let musicBus = null; let sfxBus = null; let started = false; let scheduler = null; let nextTime = 0; let style = state.audio.musicStyle || "neon"; const styles = { neon: { bpm:104, swing:0.06, padCut:1400, bassCut:520, hatHp:6500, kick:0.105, hat:0.050, pad:0.046, lead:0.048, leadType:"triangle" }, upbeat: { bpm:122, swing:0.03, padCut:1700, bassCut:650, hatHp:7200, kick:0.120, hat:0.060, pad:0.038, lead:0.055, leadType:"sawtooth" }, chill: { bpm:92, swing:0.08, padCut:1200, bassCut:420, hatHp:5200, kick:0.085, hat:0.040, pad:0.050, lead:0.042, leadType:"triangle" }, arcade: { bpm:132, swing:0.02, padCut:2000, bassCut:760, hatHp:8400, kick:0.120, hat:0.065, pad:0.030, lead:0.060, leadType:"square" }, focus: { bpm:108, swing:0.04, padCut:1500, bassCut:520, hatHp:6800, kick:0.095, hat:0.045, pad:0.040, lead:0.040, leadType:"sine" } }; function ensure(){ if(ctx) return; const AC = window.AudioContext || window.webkitAudioContext; ctx = new AC(); master = ctx.createGain(); master.gain.value = 0.92; master.connect(ctx.destination); musicBus = ctx.createGain(); musicBus.gain.value = state.audio.musicOn ? state.audio.musicVol : 0; musicBus.connect(master); sfxBus = ctx.createGain(); sfxBus.gain.value = state.audio.sfxOn ? state.audio.sfxVol : 0; sfxBus.connect(master); } async function initIfNeeded(){ ensure(); if(ctx.state === "suspended"){ try{ await ctx.resume(); }catch(e){} } } function applySettings(){ if(!ctx) return; musicBus.gain.value = state.audio.musicOn ? state.audio.musicVol : 0; sfxBus.gain.value = state.audio.sfxOn ? state.audio.sfxVol : 0; } function stopMusic(){ if(scheduler) clearInterval(scheduler); scheduler = null; started = false; } function setStyle(newStyle){ style = styles[newStyle] ? newStyle : "neon"; state.audio.musicStyle = style; saveState(); if(started){ stopMusic(); startMusic(); } } function makeFilter(type, freq, q){ const f = ctx.createBiquadFilter(); f.type = type; f.frequency.value = freq; f.Q.value = q || 0.7; return f; } function oscTone(type, freq, t0, dur, gainVal, bus, filterHz){ const o = ctx.createOscillator(); o.type = type; const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(gainVal, t0 + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur); let node = o; if(filterHz){ const f = makeFilter("lowpass", filterHz, 0.75); node.connect(f); f.connect(g); }else{ node.connect(g); } g.connect(bus); o.frequency.setValueAtTime(freq, t0); o.start(t0); o.stop(t0 + dur + 0.02); } function noiseHat(t0, dur, gainVal, hpHz){ const len = Math.floor(ctx.sampleRate * dur); const buffer = ctx.createBuffer(1, len, ctx.sampleRate); const data = buffer.getChannelData(0); for(let i=0;i<len;i++){ data[i] = (Math.random() * 2 - 1) * (1 - i / len); } const src = ctx.createBufferSource(); src.buffer = buffer; const hp = makeFilter("highpass", hpHz, 0.7); const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(gainVal, t0 + 0.002); g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur); src.connect(hp); hp.connect(g); g.connect(musicBus); src.start(t0); src.stop(t0 + dur + 0.02); } function kick(t0, gainVal){ const o = ctx.createOscillator(); o.type = "sine"; const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(gainVal, t0 + 0.005); g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.11); o.frequency.setValueAtTime(120, t0); o.frequency.exponentialRampToValueAtTime(55, t0 + 0.11); o.connect(g); g.connect(musicBus); o.start(t0); o.stop(t0 + 0.13); } function startMusic(){ if(!ctx) return; if(started) return; started = true; const cfg = styles[style] || styles.neon; const bpm = cfg.bpm; const beat = 60 / bpm; nextTime = ctx.currentTime + 0.06; const chords = [ [261.63, 329.63, 392.00, 523.25], [293.66, 369.99, 440.00, 587.33], [246.94, 311.13, 392.00, 493.88], [220.00, 277.18, 329.63, 440.00] ]; const melodyScale = [261.63, 293.66, 329.63, 392.00, 440.00, 493.88, 523.25, 587.33]; let bar = 0; let melodicStep = 0; function scheduleBar(){ const chord = chords[bar % chords.length]; const t = nextTime; const hatDur = 0.042; for(let i=0;i<4;i++){ kick(t + beat * i, cfg.kick); const swing = (i % 2 === 1) ? cfg.swing : 0; noiseHat(t + beat * i + beat * 0.5 + swing, hatDur, cfg.hat, cfg.hatHp); } const root = chord[0]; oscTone("sine", root / 2, t, beat * 4, 0.12, musicBus, cfg.bassCut); const padGain = cfg.pad; for(let i=0;i<chord.length;i++){ const type = (i === 0) ? "triangle" : "sine"; oscTone(type, chord[i], t, beat * 4, padGain, musicBus, cfg.padCut); } for(let step=0; step<8; step++){ const offset = pick([0,1,2,4,5,6]); const note = melodyScale[(melodicStep + offset) % melodyScale.length]; const tt = t + beat * 0.5 * step; const swing = (step % 2 === 1) ? cfg.swing : 0; oscTone(cfg.leadType, note * (step % 2 ? 2 : 1), tt + swing, beat * 0.42, cfg.lead, musicBus, 2200); melodicStep = (melodicStep + 1) % 9999; } bar++; nextTime += beat * 4; } scheduleBar(); scheduler = setInterval(() => { if(!state.audio.musicOn) return; const lookAhead = 0.35; while(nextTime < ctx.currentTime + lookAhead){ scheduleBar(); } }, 120); } function sfxTone(freq, dur, type, gain, slideTo){ if(!ctx) return; const o = ctx.createOscillator(); o.type = type || "sine"; const g = ctx.createGain(); const t0 = ctx.currentTime; g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(gain || 0.08, t0 + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur); o.frequency.setValueAtTime(freq, t0); if(slideTo){ o.frequency.exponentialRampToValueAtTime(slideTo, t0 + dur); } const f = makeFilter("lowpass", 2600, 0.8); o.connect(f); f.connect(g); g.connect(sfxBus); o.start(); o.stop(t0 + dur + 0.02); } function noiseBurst(dur, gain, hp){ if(!ctx) return; const bufferSize = Math.max(1, Math.floor(ctx.sampleRate * dur)); const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate); const data = buffer.getChannelData(0); for(let i=0;i<bufferSize;i++){ data[i] = (Math.random() * 2 - 1) * (1 - i / bufferSize); } const src = ctx.createBufferSource(); src.buffer = buffer; const f = makeFilter("highpass", hp || 900, 0.7); const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, ctx.currentTime); g.gain.exponentialRampToValueAtTime(gain || 0.06, ctx.currentTime + 0.006); g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur); src.connect(f); f.connect(g); g.connect(sfxBus); src.start(); src.stop(ctx.currentTime + dur + 0.02); } return { initIfNeeded, applySettings, startMusic, stopMusic, setStyle, sfxTone, noiseBurst, get ctx(){ return ctx; } }; })(); const sfx = { click: () => { if(!audioEngine.ctx || !state.audio.sfxOn) return; audioEngine.sfxTone(520, 0.06, "triangle", 0.06, 420); }, whoosh: () => { if(!audioEngine.ctx || !state.audio.sfxOn) return; audioEngine.noiseBurst(0.12, 0.05, 1200); }, spin: () => { if(!audioEngine.ctx || !state.audio.sfxOn) return; audioEngine.sfxTone(320, 0.10, "sawtooth", 0.05, 740); setTimeout(() => audioEngine.sfxTone(240, 0.10, "sawtooth", 0.04, 560), 80); }, cash: () => { if(!audioEngine.ctx || !state.audio.sfxOn) return; audioEngine.sfxTone(740, 0.07, "square", 0.05, 1040); setTimeout(() => audioEngine.sfxTone(1040, 0.06, "square", 0.04, 740), 60); }, dice: () => { if(!audioEngine.ctx || !state.audio.sfxOn) return; audioEngine.noiseBurst(0.09, 0.06, 1000); setTimeout(() => audioEngine.sfxTone(420, 0.08, "triangle", 0.05, 280), 60); }, scratch: () => { if(!audioEngine.ctx || !state.audio.sfxOn) return; audioEngine.noiseBurst(0.06, 0.05, 1400); }, win: () => { if(!audioEngine.ctx || !state.audio.sfxOn) return; audioEngine.sfxTone(523.25, 0.10, "triangle", 0.085, 659.25); setTimeout(() => audioEngine.sfxTone(659.25, 0.12, "triangle", 0.085, 783.99), 90); setTimeout(() => audioEngine.sfxTone(783.99, 0.14, "triangle", 0.085, 1046.5), 190); }, lose: () => { if(!audioEngine.ctx || !state.audio.sfxOn) return; audioEngine.sfxTone(220, 0.14, "sine", 0.075, 160); setTimeout(() => audioEngine.sfxTone(160, 0.16, "sine", 0.065, 120), 110); } }; const enterGate = document.getElementById("enterGate"); const enterBtn = document.getElementById("enterBtn"); const musicToggle = document.getElementById("musicToggle"); const sfxToggle = document.getElementById("sfxToggle"); const musicVol = document.getElementById("musicVol"); const sfxVol = document.getElementById("sfxVol"); const musicSelectGate = document.getElementById("musicSelectGate"); const musicSelectSettings = document.getElementById("musicSelectSettings"); musicToggle.checked = state.audio.musicOn; sfxToggle.checked = state.audio.sfxOn; musicVol.value = String(Math.round(state.audio.musicVol * 100)); sfxVol.value = String(Math.round(state.audio.sfxVol * 100)); musicSelectGate.value = state.audio.musicStyle || "neon"; musicSelectSettings.value = state.audio.musicStyle || "neon"; function syncMusicSelects(val){ musicSelectGate.value = val; musicSelectSettings.value = val; } musicSelectGate.addEventListener("change", () => { const v = musicSelectGate.value; syncMusicSelects(v); state.audio.musicStyle = v; saveState(); audioEngine.setStyle(v); }); musicSelectSettings.addEventListener("change", () => { const v = musicSelectSettings.value; syncMusicSelects(v); state.audio.musicStyle = v; saveState(); audioEngine.setStyle(v); }); musicToggle.addEventListener("change", () => { state.audio.musicOn = !!musicToggle.checked; saveState(); audioEngine.applySettings(); if(state.audio.musicOn) audioEngine.startMusic(); }); sfxToggle.addEventListener("change", () => { state.audio.sfxOn = !!sfxToggle.checked; saveState(); audioEngine.applySettings(); }); musicVol.addEventListener("input", () => { state.audio.musicVol = clamp(parseInt(musicVol.value || "0", 10) / 100, 0, 1); saveState(); audioEngine.applySettings(); }); sfxVol.addEventListener("input", () => { state.audio.sfxVol = clamp(parseInt(sfxVol.value || "0", 10) / 100, 0, 1); saveState(); audioEngine.applySettings(); }); enterBtn.addEventListener("click", async () => { await audioEngine.initIfNeeded(); audioEngine.applySettings(); audioEngine.setStyle(state.audio.musicStyle || "neon"); audioEngine.startMusic(); sfx.click(); enterGate.style.display = "none"; }); document.getElementById("settingsMusic").addEventListener("click", () => { state.audio.musicOn = !state.audio.musicOn; saveState(); audioEngine.applySettings(); if(state.audio.musicOn) audioEngine.startMusic(); openModal("Music", state.audio.musicOn ? "Music is on." : "Music is off.", "Ok", () => {}); if(state.audio.musicOn) sfx.click(); }); document.getElementById("settingsSfx").addEventListener("click", () => { state.audio.sfxOn = !state.audio.sfxOn; saveState(); audioEngine.applySettings(); openModal("Sound effects", state.audio.sfxOn ? "SFX is on." : "SFX is off.", "Ok", () => {}); if(state.audio.sfxOn) sfx.click(); }); document.getElementById("settingsTest").addEventListener("click", () => { sfx.win(); popConfetti(0.7); }); document.addEventListener("click", async () => { if(!audioEngine.ctx) return; if(audioEngine.ctx.state === "suspended"){ try{ await audioEngine.initIfNeeded(); audioEngine.applySettings(); }catch(e){} } }); const musicStyleInit = state.audio.musicStyle || "neon"; syncMusicSelects(musicStyleInit); document.getElementById("modalWrap").addEventListener("click", (e) => { if(e.target && e.target.id === "modalWrap") closeModal(); }); setInterval(() => setFeatured(), 6000); renderWallet(); setFeatured(); showView("home"); saveState(); </script> </body> </html>
