@@ -1,17 +1,693 @@
-index.html
+<!doctype html> <html lang="en"> <head> <meta charset="utf-8"> <meta name="viewport" content="width=device-width,initial-scale=1"> <title>Big Yahu Gambling Scheme</title> <meta name="theme-color" content="#7c3aed"> <style> :root{ color-scheme: dark; --bg0:#070a1a; --bg1:#0b1028; --card:#0e1537cc; --card2:#101b44cc; --stroke:rgba(255,255,255,.10); --soft:rgba(255,255,255,.08); --text:#f8fafc; --muted:rgba(255,255,255,.72); --muted2:rgba(255,255,255,.58); --gold:#fbbf24; --pink:#ec4899; --cyan:#22d3ee; --lime:#a3e635; --violet:#a78bfa; --blue:#60a5fa; --shadow: 0 18px 60px rgba(0,0,0,.45); --radius: 18px; --radius2: 22px; }
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: radial-gradient(1200px 800px at 20% 10%, rgba(236,72,153,.22), transparent 55%),
+              radial-gradient(900px 700px at 85% 20%, rgba(34,211,238,.20), transparent 55%),
+              radial-gradient(1200px 900px at 70% 95%, rgba(163,230,53,.16), transparent 55%),
+              radial-gradient(1100px 900px at 25% 75%, rgba(167,139,250,.18), transparent 55%),
+              linear-gradient(180deg, var(--bg0), var(--bg1));
+  color:var(--text);
+  overflow-x:hidden;
+}
 
-<!doctype html> <html lang="en"> <head> <meta charset="utf-8"> <meta name="viewport" content="width=device-width,initial-scale=1"> <title>Lucky Lounge</title> <style> :root{ colorScheme: dark; } body{ margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:#0b0c10; color:#f9fafb; } .wrap{ max-width:1100px; margin:0 auto; padding:18px; } .topbar{ display:flex; gap:12px; align-items:center; justify-content:space-between; margin-bottom:14px; } .brand h1{ margin:0; font-size:22px; font-weight:900; letter-spacing:.2px; } .brand p{ margin:4px 0 0 0; color:#9ca3af; font-size:12px; line-height:1.3; } .walletRow{ display:flex; gap:10px; align-items:center; justify-content:flex-end; flex-wrap:wrap; } .pill{ display:inline-flex; align-items:center; gap:8px; padding:10px 12px; border-radius:999px; background:#111827; border:1px solid #1f2937; font-weight:900; user-select:none; } .btn{ cursor:pointer; border:none; border-radius:14px; padding:10px 12px; font-weight:900; background:#fbbf24; color:#0b0c10; } .btn:disabled{ opacity:.5; cursor:not-allowed; } .btnGhost{ cursor:pointer; border-radius:14px; padding:10px 12px; font-weight:900; background:#111827; border:1px solid #1f2937; color:#f9fafb; } .grid{ display:grid; grid-template-columns:repeat(12,1fr); gap:12px; } .featured{ grid-column:span 12; background:#111827; border:1px solid #1f2937; border-radius:16px; padding:16px; display:flex; align-items:center; justify-content:space-between; gap:12px; } .featured .left .kicker{ color:#9ca3af; font-size:12px; font-weight:900; } .featured .left .big{ margin-top:8px; font-size:20px; font-weight:900; } .featured .left .sub{ margin-top:6px; color:#d1d5db; line-height:1.35; } .cards{ grid-column:span 12; display:grid; grid-template-columns:repeat(12,1fr); gap:12px; } .card{ grid-column:span 6; background:#111827; border:1px solid #1f2937; border-radius:16px; padding:14px; cursor:pointer; user-select:none; display:flex; flex-direction:column; justify-content:space-between; min-height:132px; transition:transform .08s ease; } .card:active{ transform:scale(.99); } .cardTop{ display:flex; gap:10px; align-items:flex-start; } .emoji{ font-size:28px; line-height:1; margin-top:2px; } .cardTitle{ font-size:14px; font-weight:900; margin:0; } .cardSub{ margin:6px 0 0 0; color:#9ca3af; font-size:12px; line-height:1.35; } .cardBottom{ margin-top:12px; display:flex; align-items:center; justify-content:space-between; } .tag{ padding:6px 10px; border-radius:999px; background:#0b0c10; border:1px solid #1f2937; color:#d1d5db; font-size:11px; font-weight:900; } .playWord{ color:#fbbf24; font-weight:900; } .panel{ background:#111827; border:1px solid #1f2937; border-radius:16px; padding:16px; } .sectionTitle{ margin:18px 0 10px 0; font-weight:900; font-size:16px; } .gameHeader{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px; } .gameTitle{ font-weight:900; text-align:center; flex:1; } .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; } .betBox{ display:flex; gap:10px; align-items:center; justify-content:space-between; padding:12px; border-radius:16px; background:#0b0c10; border:1px solid #1f2937; margin-top:10px; } .betNum{ font-weight:900; font-size:18px; } .hint{ color:#9ca3af; font-size:12px; line-height:1.35; text-align:center; } .bigCenter{ font-size:44px; text-align:center; margin-top:12px; font-weight:900; letter-spacing:1px; } .choiceRow{ display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; } .choice{ flex:1; min-width:140px; padding:12px; border-radius:14px; background:#111827; border:1px solid #1f2937; color:#f9fafb; font-weight:900; cursor:pointer; text-align:center; user-select:none; } .choice.active{ background:#1f2937; } .actions{ display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; } .actions .btn{ flex:1; min-width:140px; } .scratchRow{ display:flex; gap:10px; margin-top:14px; } .scratchTile{ flex:1; height:76px; display:flex; align-items:center; justify-content:center; border-radius:16px; background:#111827; border:1px solid #1f2937; font-weight:900; cursor:pointer; user-select:none; } .scratchTile.disabled{ opacity:.55; cursor:not-allowed; } .modalWrap{ position:fixed; inset:0; background:rgba(0,0,0,.65); display:none; align-items:center; justify-content:center; padding:18px; } .modal{ width:min(460px,100%); background:#111827; border:1px solid #1f2937; border-radius:18px; padding:18px; } .modal h3{ margin:0; font-size:18px; font-weight:900; } .modal p{ margin:10px 0 0 0; color:#d1d5db; line-height:1.4; white-space:pre-line; } .modalBtns{ display:flex; gap:10px; justify-content:flex-end; margin-top:16px; flex-wrap:wrap; } .footerNote{ margin-top:18px; color:#9ca3af; font-size:12px; line-height:1.35; text-align:center; } @media (max-width:720px){ .card{ grid-column:span 12; } .featured{ flex-direction:column; align-items:flex-start; } .gameTitle{ text-align:left; } } </style> </head> <body> <div class="wrap"> <div class="topbar"> <div class="brand"> <h1>Lucky Lounge</h1> <p>Coins only. Entertainment only. No deposits. No cash out.</p> </div> <div class="walletRow"> <div class="pill" id="walletPill">🪙 <span id="walletAmt">0</span></div> <button class="btn" id="dailyBtn">Claim bonus</button> </div> </div>
-<div id="homeView">
+.bgNoise{
+  pointer-events:none;
+  position:fixed;
+  inset:0;
+  opacity:.055;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+  mix-blend-mode:overlay;
+}
+
+.wrap{
+  max-width:1120px;
+  margin:0 auto;
+  padding:18px;
+  position:relative;
+}
+
+.topbar{
+  display:flex;
+  gap:14px;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  margin-bottom:14px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:260px;
+}
+
+.logo{
+  width:44px;
+  height:44px;
+  border-radius:14px;
+  background:
+    radial-gradient(16px 16px at 30% 30%, rgba(255,255,255,.40), transparent 55%),
+    linear-gradient(135deg, rgba(236,72,153,.95), rgba(34,211,238,.95));
+  box-shadow: 0 16px 50px rgba(236,72,153,.18), 0 18px 56px rgba(34,211,238,.12);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:950;
+  letter-spacing:.6px;
+}
+
+.brandText h1{
+  margin:0;
+  font-size:20px;
+  font-weight:950;
+  letter-spacing:.3px;
+  line-height:1.1;
+}
+
+.brandText p{
+  margin:4px 0 0 0;
+  color:var(--muted2);
+  font-size:12px;
+  line-height:1.25;
+}
+
+.rightTools{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 12px;
+  border-radius:999px;
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+  border:1px solid var(--stroke);
+  box-shadow: 0 10px 30px rgba(0,0,0,.22);
+  font-weight:950;
+  user-select:none;
+  backdrop-filter: blur(10px);
+}
+
+.pillSmall{
+  padding:8px 10px;
+  font-weight:900;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.btn{
+  cursor:pointer;
+  border:none;
+  border-radius:16px;
+  padding:10px 12px;
+  font-weight:950;
+  letter-spacing:.2px;
+  background: linear-gradient(135deg, rgba(251,191,36,.95), rgba(236,72,153,.90));
+  color:#0b0c10;
+  box-shadow: 0 14px 40px rgba(251,191,36,.18), 0 16px 46px rgba(236,72,153,.14);
+  transition: transform .08s ease, filter .12s ease;
+}
+
+.btn:active{ transform: scale(.985); }
+.btn:disabled{ opacity:.55; cursor:not-allowed; filter:saturate(.8); }
+
+.btnGhost{
+  cursor:pointer;
+  border-radius:16px;
+  padding:10px 12px;
+  font-weight:950;
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+  border:1px solid var(--stroke);
+  color:var(--text);
+  box-shadow: 0 12px 40px rgba(0,0,0,.24);
+  transition: transform .08s ease, background .12s ease;
+  backdrop-filter: blur(10px);
+}
+
+.btnGhost:active{ transform: scale(.985); }
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:12px;
+}
+
+.featured{
+  grid-column:span 12;
+  border-radius: var(--radius2);
+  padding:16px;
+  border:1px solid var(--stroke);
+  background:
+    radial-gradient(600px 240px at 10% 10%, rgba(34,211,238,.22), transparent 60%),
+    radial-gradient(600px 260px at 90% 15%, rgba(236,72,153,.18), transparent 60%),
+    radial-gradient(800px 320px at 30% 130%, rgba(163,230,53,.14), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  position:relative;
+  overflow:hidden;
+}
+
+.featured:before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background: conic-gradient(from 180deg at 50% 50%,
+    rgba(236,72,153,.0),
+    rgba(236,72,153,.20),
+    rgba(34,211,238,.18),
+    rgba(163,230,53,.16),
+    rgba(167,139,250,.18),
+    rgba(236,72,153,.20),
+    rgba(236,72,153,.0));
+  filter: blur(24px);
+  opacity:.55;
+  pointer-events:none;
+}
+
+.featuredInner{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  width:100%;
+  gap:12px;
+}
+
+.featuredLeft .kicker{
+  color:var(--muted2);
+  font-size:12px;
+  font-weight:950;
+  letter-spacing:.3px;
+  text-transform:uppercase;
+}
+
+.featuredLeft .big{
+  margin-top:8px;
+  font-size:22px;
+  font-weight:950;
+  letter-spacing:.2px;
+}
+
+.featuredLeft .sub{
+  margin-top:6px;
+  color:var(--muted);
+  line-height:1.35;
+  max-width:720px;
+}
+
+.cards{
+  grid-column:span 12;
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:12px;
+  margin-top:2px;
+}
+
+.card{
+  grid-column:span 6;
+  border-radius: var(--radius2);
+  padding:14px;
+  cursor:pointer;
+  user-select:none;
+  border:1px solid var(--stroke);
+  background:
+    radial-gradient(420px 240px at 15% 15%, rgba(34,211,238,.16), transparent 60%),
+    radial-gradient(420px 240px at 85% 0%, rgba(236,72,153,.14), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+  box-shadow: 0 18px 60px rgba(0,0,0,.35);
+  backdrop-filter: blur(12px);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  min-height:136px;
+  transition: transform .10s ease, border-color .12s ease, filter .12s ease;
+  position:relative;
+  overflow:hidden;
+}
+
+.card:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(420px 180px at 50% 0%, rgba(255,255,255,.10), transparent 60%);
+  opacity:.75;
+  pointer-events:none;
+}
+
+.card:hover{
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,.18);
+  filter:saturate(1.08);
+}
+
+.cardTop{
+  position:relative;
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+}
+
+.emoji{
+  font-size:30px;
+  line-height:1;
+  margin-top:2px;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,.30));
+}
+
+.cardTitle{
+  font-size:14px;
+  font-weight:950;
+  margin:0;
+  letter-spacing:.2px;
+}
+
+.cardSub{
+  margin:6px 0 0 0;
+  color:var(--muted2);
+  font-size:12px;
+  line-height:1.35;
+}
+
+.cardBottom{
+  position:relative;
+  margin-top:12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.tag{
+  padding:6px 10px;
+  border-radius:999px;
+  background: rgba(0,0,0,.25);
+  border:1px solid var(--stroke);
+  color:var(--muted);
+  font-size:11px;
+  font-weight:950;
+  backdrop-filter: blur(10px);
+}
+
+.playWord{
+  font-weight:950;
+  color: var(--gold);
+  text-shadow: 0 12px 26px rgba(251,191,36,.22);
+}
+
+.footerNote{
+  margin-top:18px;
+  color:var(--muted2);
+  font-size:12px;
+  line-height:1.35;
+  text-align:center;
+}
+
+.view{ display:none; }
+.view.active{ display:block; }
+
+.panel{
+  border-radius: var(--radius2);
+  padding:16px;
+  border:1px solid var(--stroke);
+  background:
+    radial-gradient(480px 240px at 10% 10%, rgba(167,139,250,.16), transparent 60%),
+    radial-gradient(480px 240px at 90% 0%, rgba(34,211,238,.14), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+}
+
+.sectionTitle{
+  margin:18px 0 10px 0;
+  font-weight:950;
+  font-size:16px;
+  letter-spacing:.2px;
+}
+
+.gameHeader{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:12px;
+  flex-wrap:wrap;
+}
+
+.gameTitle{
+  font-weight:950;
+  text-align:center;
+  flex:1;
+  letter-spacing:.2px;
+}
+
+.hint{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.35;
+  text-align:center;
+}
+
+.bigCenter{
+  font-size:46px;
+  text-align:center;
+  margin-top:12px;
+  font-weight:950;
+  letter-spacing:1px;
+  filter: drop-shadow(0 18px 26px rgba(0,0,0,.35));
+}
+
+.row{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.betBox{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px;
+  border-radius: var(--radius);
+  background: rgba(0,0,0,.22);
+  border:1px solid var(--stroke);
+  margin-top:10px;
+  box-shadow: 0 14px 46px rgba(0,0,0,.18);
+}
+
+.betNum{
+  font-weight:950;
+  font-size:18px;
+  letter-spacing:.2px;
+}
+
+.choiceRow{
+  display:flex;
+  gap:10px;
+  margin-top:12px;
+  flex-wrap:wrap;
+}
+
+.choice{
+  flex:1;
+  min-width:140px;
+  padding:12px;
+  border-radius:16px;
+  border:1px solid var(--stroke);
+  background: rgba(0,0,0,.20);
+  color:var(--text);
+  font-weight:950;
+  cursor:pointer;
+  text-align:center;
+  user-select:none;
+  box-shadow: 0 14px 46px rgba(0,0,0,.18);
+  transition: transform .08s ease, background .12s ease, border-color .12s ease;
+}
+
+.choice:active{ transform: scale(.985); }
+.choice.active{
+  background: linear-gradient(135deg, rgba(34,211,238,.30), rgba(236,72,153,.22));
+  border-color: rgba(255,255,255,.18);
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:14px;
+  flex-wrap:wrap;
+}
+
+.actions .btn{
+  flex:1;
+  min-width:140px;
+}
+
+.scratchRow{
+  display:flex;
+  gap:10px;
+  margin-top:14px;
+}
+
+.scratchTile{
+  flex:1;
+  height:78px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:18px;
+  border:1px solid var(--stroke);
+  background:
+    radial-gradient(220px 120px at 50% 0%, rgba(255,255,255,.10), transparent 60%),
+    rgba(0,0,0,.20);
+  font-weight:950;
+  cursor:pointer;
+  user-select:none;
+  box-shadow: 0 14px 46px rgba(0,0,0,.18);
+  transition: transform .08s ease, filter .12s ease;
+}
+
+.scratchTile:active{ transform: scale(.985); }
+.scratchTile.disabled{
+  opacity:.6;
+  cursor:not-allowed;
+  filter:saturate(.8);
+}
+
+.modalWrap{
+  position:fixed;
+  inset:0;
+  background: rgba(0,0,0,.66);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  z-index:50;
+}
+
+.modal{
+  width:min(520px,100%);
+  border-radius: 22px;
+  padding:18px;
+  border:1px solid var(--stroke);
+  background:
+    radial-gradient(520px 260px at 10% 10%, rgba(236,72,153,.18), transparent 60%),
+    radial-gradient(520px 260px at 90% 0%, rgba(34,211,238,.16), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+  box-shadow: 0 22px 80px rgba(0,0,0,.55);
+  backdrop-filter: blur(14px);
+}
+
+.modal h3{
+  margin:0;
+  font-size:18px;
+  font-weight:950;
+  letter-spacing:.2px;
+}
+
+.modal p{
+  margin:10px 0 0 0;
+  color:var(--muted);
+  line-height:1.4;
+  white-space:pre-line;
+}
+
+.modalBtns{
+  display:flex;
+  gap:10px;
+  justify-content:flex-end;
+  margin-top:16px;
+  flex-wrap:wrap;
+}
+
+.enterGate{
+  position:fixed;
+  inset:0;
+  z-index:80;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:
+    radial-gradient(900px 520px at 30% 20%, rgba(236,72,153,.22), transparent 60%),
+    radial-gradient(900px 520px at 80% 25%, rgba(34,211,238,.20), transparent 60%),
+    radial-gradient(900px 560px at 50% 95%, rgba(163,230,53,.16), transparent 60%),
+    linear-gradient(180deg, rgba(5,6,16,.92), rgba(10,12,30,.92));
+  backdrop-filter: blur(10px);
+}
+
+.enterCard{
+  width:min(560px,100%);
+  border-radius: 24px;
+  padding:20px;
+  border:1px solid rgba(255,255,255,.14);
+  background:
+    radial-gradient(560px 280px at 10% 10%, rgba(167,139,250,.20), transparent 60%),
+    radial-gradient(560px 280px at 90% 0%, rgba(251,191,36,.18), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+  box-shadow: 0 30px 120px rgba(0,0,0,.62);
+  text-align:left;
+  position:relative;
+  overflow:hidden;
+}
+
+.enterCard:before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background: conic-gradient(from 90deg at 50% 50%,
+    rgba(236,72,153,.22),
+    rgba(34,211,238,.18),
+    rgba(163,230,53,.14),
+    rgba(167,139,250,.18),
+    rgba(251,191,36,.14),
+    rgba(236,72,153,.22));
+  filter: blur(26px);
+  opacity:.40;
+  pointer-events:none;
+}
+
+.enterInner{
+  position:relative;
+}
+
+.enterTitle{
+  font-size:22px;
+  font-weight:950;
+  margin:0;
+  letter-spacing:.2px;
+}
+
+.enterSub{
+  margin:8px 0 0 0;
+  color:var(--muted);
+  line-height:1.4;
+}
+
+.toggleRow{
+  margin-top:14px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px;
+  border-radius: 18px;
+  border:1px solid var(--stroke);
+  background: rgba(0,0,0,.22);
+}
+
+.toggleRow label{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  color:var(--muted);
+  font-weight:900;
+  user-select:none;
+}
+
+.toggleRow input[type="checkbox"]{
+  width:18px;
+  height:18px;
+  accent-color: #fbbf24;
+}
+
+.rangeRow{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin-top:10px;
+  color:var(--muted2);
+  font-weight:900;
+  font-size:12px;
+}
+
+input[type="range"]{
+  width:220px;
+  accent-color:#22d3ee;
+}
+
+.confetti{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:60;
+  overflow:hidden;
+}
+
+.confetti span{
+  position:absolute;
+  top:-20px;
+  width:10px;
+  height:14px;
+  opacity:.95;
+  border-radius:3px;
+  animation: fall 1.1s linear forwards;
+  filter: drop-shadow(0 10px 14px rgba(0,0,0,.26));
+}
+
+@keyframes fall{
+  to{ transform: translate3d(var(--dx), 110vh, 0) rotate(var(--rot)); }
+}
+
+@media (max-width:720px){
+  .card{ grid-column:span 12; }
+  .featuredInner{ flex-direction:column; align-items:flex-start; }
+  .gameTitle{ text-align:left; }
+  input[type="range"]{ width:180px; }
+}
+
+</style> </head> <body> <div class="bgNoise"></div> <div class="confetti" id="confetti"></div> <div class="enterGate" id="enterGate"> <div class="enterCard"> <div class="enterInner"> <p class="enterTitle">Big Yahu Gambling Scheme</p> <p class="enterSub"> Tap to enter so your browser lets audio play. This is a coins only arcade. No deposits. No cash out. Just vibes and questionable decision making. </p>
+    <div class="toggleRow">
+      <label><input type="checkbox" id="musicToggle" checked> Music</label>
+      <label><input type="checkbox" id="sfxToggle" checked> Sound effects</label>
+      <button class="btn" id="enterBtn">Enter</button>
+    </div>
+
+    <div class="rangeRow">
+      <span>Music volume</span>
+      <input type="range" id="musicVol" min="0" max="100" value="35">
+      <span>SFX volume</span>
+      <input type="range" id="sfxVol" min="0" max="100" value="55">
+    </div>
+  </div>
+</div>
+
+</div> <div class="wrap"> <div class="topbar"> <div class="brand"> <div class="logo">BY</div> <div class="brandText"> <h1>Big Yahu Gambling Scheme</h1> <p>Coins only. Entertainment only. No deposits. No cash out.</p> </div> </div>
+  <div class="rightTools">
+    <div class="pill" id="walletPill">🪙 <span id="walletAmt">0</span></div>
+    <button class="btn" id="dailyBtn">Claim bonus</button>
+    <button class="btnGhost" id="audioBtn">Audio</button>
+  </div>
+</div>
+
+<div id="homeView" class="view active">
   <div class="grid">
     <div class="featured">
-      <div class="left">
-        <div class="kicker">Featured</div>
-        <div class="big" id="featuredBig">🎰 Lucky Pick</div>
-        <div class="sub">Pick a game. Win coins. Lose coins. Repeat until you remember you have homework.</div>
-      </div>
-      <div class="row">
-        <button class="btnGhost" id="toStatsBtn">Stats</button>
-        <button class="btnGhost" id="toSettingsBtn">Settings</button>
+      <div class="featuredInner">
+        <div class="featuredLeft">
+          <div class="kicker">Featured</div>
+          <div class="big" id="featuredBig">🎰 Lucky Pick</div>
+          <div class="sub">Pick a game. Win coins. Lose coins. Repeat until you remember you are a human with responsibilities.</div>
+        </div>
+        <div class="row">
+          <button class="btnGhost" id="toStatsBtn">Stats</button>
+          <button class="btnGhost" id="toSettingsBtn">Settings</button>
+        </div>
       </div>
     </div>
 
@@ -21,7 +697,7 @@ index.html
           <div class="emoji">🎰</div>
           <div>
             <p class="cardTitle">Slots Sprint</p>
-            <p class="cardSub">Fast spins. Simple payouts. Big vibes.</p>
+            <p class="cardSub">Fast spins. Simple payouts. Loud colors.</p>
           </div>
         </div>
         <div class="cardBottom">
@@ -89,15 +765,15 @@ index.html
   </div>
 
   <div class="footerNote">
-    This is a toy casino with virtual coins only. If you want real money gambling, do it legally and responsibly.
+    Virtual coins only. If you do real money gambling, do it legally and responsibly. Preferably while seated.
   </div>
 </div>
 
-<div id="statsView" style="display:none;">
+<div id="statsView" class="view">
   <div class="gameHeader">
     <button class="btnGhost" id="backFromStats">Back</button>
     <div class="gameTitle">Stats</div>
-    <div style="width:84px"></div>
+    <div style="width:90px"></div>
   </div>
 
   <div class="panel">
@@ -109,22 +785,30 @@ index.html
   </div>
 </div>
 
-<div id="settingsView" style="display:none;">
+<div id="settingsView" class="view">
   <div class="gameHeader">
     <button class="btnGhost" id="backFromSettings">Back</button>
     <div class="gameTitle">Settings</div>
-    <div style="width:84px"></div>
+    <div style="width:90px"></div>
   </div>
 
   <div class="panel">
     <div class="sectionTitle" style="margin-top:0;">Responsible play</div>
-    <div style="color:#d1d5db; line-height:1.4;">
-      Coins only. No deposits. No cash out. This is entertainment. The randomness is Math.random. This is not a regulated casino system.
+    <div style="color:rgba(255,255,255,.74); line-height:1.45;">
+      Coins only. No deposits. No cash out. This is entertainment. Randomness is Math.random plus Web Audio bleeps.
+      This is not a regulated casino system.
+    </div>
+
+    <div class="sectionTitle">Audio</div>
+    <div class="row">
+      <button class="btnGhost" id="settingsMusic">Toggle music</button>
+      <button class="btnGhost" id="settingsSfx">Toggle sound effects</button>
+      <button class="btnGhost" id="settingsTest">Test sound</button>
     </div>
   </div>
 </div>
 
-<div id="gameView" style="display:none;">
+<div id="gameView" class="view">
   <div class="gameHeader">
     <button class="btnGhost" id="backBtn">Back</button>
     <div class="gameTitle" id="gameTitle">Game</div>
@@ -134,4 +818,4 @@ index.html
   <div class="panel" id="gamePanel"></div>
 </div>
 
-</div> <div class="modalWrap" id="modalWrap"> <div class="modal"> <h3 id="modalTitle">Result</h3> <p id="modalBody"></p> <div class="modalBtns"> <button class="btnGhost" id="modalHome">Home</button> <button class="btn" id="modalAgain">Play again</button> </div> </div> </div> <script> const storageKey = "luckyLoungeWebV1"; const defaultState = { coinBalance: 5000, lastDailyClaimMs: 0, dailyStreak: 0, stats: { totalBets: 0, totalPayout: 0, biggestWin: 0, gamesPlayed: { slots:0, blackjack:0, roulette:0, dice:0, scratch:0 } } }; function loadState(){ try{ const raw = localStorage.getItem(storageKey); if(!raw) return structuredClone(defaultState); const parsed = JSON.parse(raw); return mergeState(parsed); }catch(e){ return structuredClone(defaultState); } } function mergeState(s){ const out = structuredClone(defaultState); if(s && typeof s === "object"){ if(Number.isFinite(s.coinBalance)) out.coinBalance = Math.max(0, Math.trunc(s.coinBalance)); if(Number.isFinite(s.lastDailyClaimMs)) out.lastDailyClaimMs = Math.trunc(s.lastDailyClaimMs); if(Number.isFinite(s.dailyStreak)) out.dailyStreak = Math.max(0, Math.trunc(s.dailyStreak)); if(s.stats && typeof s.stats === "object"){ out.stats.totalBets = Math.max(0, Math.trunc(s.stats.totalBets || 0)); out.stats.totalPayout = Math.max(0, Math.trunc(s.stats.totalPayout || 0)); out.stats.biggestWin = Math.max(0, Math.trunc(s.stats.biggestWin || 0)); const gp = s.stats.gamesPlayed || {}; out.stats.gamesPlayed = { slots: Math.max(0, Math.trunc(gp.slots || 0)), blackjack: Math.max(0, Math.trunc(gp.blackjack || 0)), roulette: Math.max(0, Math.trunc(gp.roulette || 0)), dice: Math.max(0, Math.trunc(gp.dice || 0)), scratch: Math.max(0, Math.trunc(gp.scratch || 0)), }; } } return out; } function saveState(){ try{ localStorage.setItem(storageKey, JSON.stringify(state)); }catch(e){} } function fmt(n){ const x = Math.max(0, Math.trunc(n)); return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); } function randInt(min, max){ return Math.floor(Math.random() * (max - min + 1)) + min; } function pick(arr){ return arr[randInt(0, arr.length - 1)]; } function sameLocalDay(aMs, bMs){ const a = new Date(aMs); const b = new Date(bMs); return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate(); } function dailyBonus(streak){ const base = 300; const extra = Math.min(1700, Math.max(0, Math.trunc(streak)) * 50); return base + extra; } function canClaimDaily(){ if(!state.lastDailyClaimMs) return true; return !sameLocalDay(state.lastDailyClaimMs, Date.now()); } function adjustBalance(delta){ state.coinBalance = Math.max(0, state.coinBalance + Math.trunc(delta)); saveState(); renderWallet(); } function recordRound(gameId, bet, payout){ state.stats.totalBets += bet; state.stats.totalPayout += payout; const net = payout - bet; state.stats.biggestWin = Math.max(state.stats.biggestWin, net); state.stats.gamesPlayed[gameId] = (state.stats.gamesPlayed[gameId] || 0) + 1; saveState(); } const state = loadState(); const homeView = document.getElementById("homeView"); const statsView = document.getElementById("statsView"); const settingsView = document.getElementById("settingsView"); const gameView = document.getElementById("gameView"); const walletAmt = document.getElementById("walletAmt"); const walletAmt2 = document.getElementById("walletAmt2"); const dailyBtn = document.getElementById("dailyBtn"); const featuredBig = document.getElementById("featuredBig"); const modalWrap = document.getElementById("modalWrap"); const modalTitle = document.getElementById("modalTitle"); const modalBody = document.getElementById("modalBody"); const modalHome = document.getElementById("modalHome"); const modalAgain = document.getElementById("modalAgain"); const gameTitle = document.getElementById("gameTitle"); const gamePanel = document.getElementById("gamePanel"); const statsLines = document.getElementById("statsLines"); let activeGame = null; let playAgainFn = null; function showView(which){ homeView.style.display = which === "home" ? "" : "none"; statsView.style.display = which === "stats" ? "" : "none"; settingsView.style.display = which === "settings" ? "" : "none"; gameView.style.display = which === "game" ? "" : "none"; } function renderWallet(){ walletAmt.textContent = fmt(state.coinBalance); walletAmt2.textContent = fmt(state.coinBalance); dailyBtn.disabled = !canClaimDaily(); dailyBtn.textContent = canClaimDaily() ? "Claim bonus" : "Claimed"; } function openModal(title, body, againLabel, againFn){ modalTitle.textContent = title; modalBody.textContent = body; modalAgain.textContent = againLabel || "Play again"; playAgainFn = againFn || null; modalWrap.style.display = "flex"; } function closeModal(){ modalWrap.style.display = "none"; playAgainFn = null; } modalHome.addEventListener("click", () => { closeModal(); activeGame = null; showView("home"); }); modalAgain.addEventListener("click", () => { closeModal(); if(playAgainFn) playAgainFn(); }); dailyBtn.addEventListener("click", () => { if(!canClaimDaily()) return; const now = Date.now(); let nextStreak = 1; if(state.lastDailyClaimMs){ const y = new Date(); y.setDate(y.getDate() - 1); nextStreak = sameLocalDay(state.lastDailyClaimMs, y.getTime()) ? state.dailyStreak + 1 : 1; } state.dailyStreak = nextStreak; state.lastDailyClaimMs = now; const bonus = dailyBonus(nextStreak); adjustBalance(bonus); openModal("Daily bonus", "You got " + fmt(bonus) + " coins.\nStreak: " + nextStreak, "Nice", () => showView("home")); saveState(); renderWallet(); }); document.getElementById("toStatsBtn").addEventListener("click", () => { renderStats(); showView("stats"); }); document.getElementById("toSettingsBtn").addEventListener("click", () => { showView("settings"); }); document.getElementById("backFromStats").addEventListener("click", () => showView("home")); document.getElementById("backFromSettings").addEventListener("click", () => showView("home")); document.getElementById("resetBtn").addEventListener("click", () => { const ok = confirm("Reset coins and stats?"); if(!ok) return; Object.assign(state, structuredClone(defaultState)); saveState(); renderWallet(); renderStats(); }); document.getElementById("backBtn").addEventListener("click", () => { activeGame = null; showView("home"); }); function renderStats(){ const gp = state.stats.gamesPlayed; const lines = [ "Total bets: " + fmt(state.stats.totalBets), "Total payout: " + fmt(state.stats.totalPayout), "Biggest win: " + fmt(state.stats.biggestWin), "Daily streak: " + fmt(state.dailyStreak), "", "Games played", "Slots: " + fmt(gp.slots), "Blackjack: " + fmt(gp.blackjack), "Roulette: " + fmt(gp.roulette), "Dice: " + fmt(gp.dice), "Scratch: " + fmt(gp.scratch), ]; statsLines.textContent = lines.join("\n"); statsLines.style.whiteSpace = "pre-line"; statsLines.style.color = "#d1d5db"; statsLines.style.lineHeight = "1.5"; statsLines.style.fontWeight = "800"; } function setFeatured(){ featuredBig.textContent = pick(["🎰 Lucky Pick","🎡 Lucky Pick","🎲 Lucky Pick","🂡 Lucky Pick","🧾 Lucky Pick"]); } function buildBetUI(initialBet){ let bet = Math.min(Math.max(1, Math.trunc(initialBet || 50)), Math.max(1, state.coinBalance)); const maxBet = () => Math.max(1, state.coinBalance); const betWrap = document.createElement("div"); betWrap.className = "panel"; betWrap.style.background = "#111827"; betWrap.style.border = "1px solid #1f2937"; const top = document.createElement("div"); top.className = "betBox"; const left = document.createElement("div"); const label = document.createElement("div"); label.style.color = "#9ca3af"; label.style.fontWeight = "900"; label.style.fontSize = "12px"; label.textContent = "Bet"; const val = document.createElement("div"); val.className = "betNum"; val.textContent = fmt(bet); const cap = document.createElement("div"); cap.style.color = "#9ca3af"; cap.style.fontSize = "12px"; cap.textContent = "Max " + fmt(maxBet()); left.appendChild(label); left.appendChild(val); left.appendChild(cap); const right = document.createElement("div"); right.className = "row"; const minus = document.createElement("button"); minus.className = "btnGhost"; minus.textContent = "Minus"; const plus = document.createElement("button"); plus.className = "btnGhost"; plus.textContent = "Plus"; function sync(){ bet = Math.min(Math.max(1, bet), maxBet()); val.textContent = fmt(bet); cap.textContent = "Max " + fmt(maxBet()); } minus.onclick = () => { bet = bet - 10; sync(); }; plus.onclick = () => { bet = bet + 10; sync(); }; right.appendChild(minus); right.appendChild(plus); top.appendChild(left); top.appendChild(right); const chips = document.createElement("div"); chips.className = "row"; chips.style.marginTop = "10px"; [10,25,50,100,250,500].forEach(n => { const b = document.createElement("button"); b.className = "btnGhost"; b.textContent = fmt(n); b.onclick = () => { bet = n; sync(); }; chips.appendChild(b); }); betWrap.appendChild(top); betWrap.appendChild(chips); return { node: betWrap, getBet: () => Math.min(Math.max(1, Math.trunc(bet)), maxBet()), setDisabled: (disabled) => { [...betWrap.querySelectorAll("button")].forEach(x => x.disabled = !!disabled); betWrap.style.opacity = disabled ? ".7" : "1"; } }; } function openGame(id){ activeGame = id; showView("game"); renderWallet(); if(id === "slots") renderSlots(); if(id === "blackjack") renderBlackjack(); if(id === "roulette") renderRoulette(); if(id === "dice") renderDice(); if(id === "scratch") renderScratch(); } document.querySelectorAll(".card").forEach(el => { el.addEventListener("click", () => { openGame(el.getAttribute("dataGame")); }); }); function renderSlots(){ gameTitle.textContent = "Slots Sprint"; gamePanel.innerHTML = ""; const display = document.createElement("div"); display.className = "bigCenter"; let reels = ["🍒","🍋","🔔"]; display.textContent = reels.join(" "); const hint = document.createElement("div"); hint.className = "hint"; hint.textContent = "3 match pays big. 2 match pays small."; const betUI = buildBetUI(50); const spinBtn = document.createElement("button"); spinBtn.className = "btn"; spinBtn.style.marginTop = "14px"; spinBtn.textContent = "Spin"; function payoutFor(a,b,c,bet){ const allSame = a === b && b === c; const twoSame = a === b || b === c || a === c; if(allSame){ if(a === "7️⃣") return bet * 10; if(a === "⭐") return bet * 6; if(a === "🔔") return bet * 4; return bet * 3; } if(twoSame) return Math.floor(bet * 1.5); return 0; } spinBtn.onclick = () => { const bet = betUI.getBet(); if(bet > state.coinBalance) return; betUI.setDisabled(true); spinBtn.disabled = true; spinBtn.textContent = "Spinning"; adjustBalance(-bet); setTimeout(() => { const symbols = ["🍒","🍋","🍇","🍉","🔔","⭐","7️⃣"]; const r1 = pick(symbols); const r2 = pick(symbols); const r3 = pick(symbols); reels = [r1,r2,r3]; display.textContent = reels.join(" "); const payout = payoutFor(r1,r2,r3,bet); adjustBalance(payout); recordRound("slots", bet, payout); const net = payout - bet; openModal(net >= 0 ? "Nice" : "Ouch", "You bet " + fmt(bet) + ".\nResult: " + reels.join(" ") + "\nPayout: " + fmt(payout) + ".\nNet: " + fmt(net) + ".", "Spin again", () => { betUI.setDisabled(false); spinBtn.disabled = false; spinBtn.textContent = "Spin"; } ); betUI.setDisabled(false); spinBtn.disabled = false; spinBtn.textContent = "Spin"; }, 650); }; gamePanel.appendChild(display); gamePanel.appendChild(hint); gamePanel.appendChild(betUI.node); gamePanel.appendChild(spinBtn); } function renderRoulette(){ gameTitle.textContent = "Roulette Pop"; gamePanel.innerHTML = ""; const display = document.createElement("div"); display.className = "bigCenter"; display.textContent = "🎡"; const hint = document.createElement("div"); hint.className = "hint"; hint.textContent = "Red or black pays 2x. Exact number pays 36x."; const choiceRow = document.createElement("div"); choiceRow.className = "choiceRow"; const btnRed = document.createElement("div"); btnRed.className = "choice active"; btnRed.textContent = "Red"; const btnBlack = document.createElement("div"); btnBlack.className = "choice"; btnBlack.textContent = "Black"; const btnNumber = document.createElement("div"); btnNumber.className = "choice"; btnNumber.textContent = "Number"; let pickType = "red"; let pickNumber = 7; function setActive(){ btnRed.classList.toggle("active", pickType === "red"); btnBlack.classList.toggle("active", pickType === "black"); btnNumber.classList.toggle("active", pickType === "number"); numWrap.style.display = pickType === "number" ? "" : "none"; } btnRed.onclick = () => { pickType = "red"; setActive(); }; btnBlack.onclick = () => { pickType = "black"; setActive(); }; btnNumber.onclick = () => { pickType = "number"; setActive(); }; choiceRow.appendChild(btnRed); choiceRow.appendChild(btnBlack); choiceRow.appendChild(btnNumber); const numWrap = document.createElement("div"); numWrap.style.marginTop = "10px"; const numLabel = document.createElement("div"); numLabel.style.color = "#9ca3af"; numLabel.style.fontWeight = "900"; numLabel.style.fontSize = "12px"; numLabel.textContent = "Pick 0 to 36"; const numInput = document.createElement("input"); numInput.value = "7"; numInput.inputMode = "numeric"; numInput.style.marginTop = "8px"; numInput.style.width = "100%"; numInput.style.padding = "12px 14px"; numInput.style.borderRadius = "14px"; numInput.style.border = "1px solid #1f2937"; numInput.style.background = "#0b0c10"; numInput.style.color = "#f9fafb"; numInput.style.fontWeight = "900"; numInput.oninput = () => { const t = String(numInput.value || "").replace(/[^\d]/g,"").slice(0,2); numInput.value = t; pickNumber = Math.max(0, Math.min(36, parseInt(t || "0", 10))); }; numWrap.appendChild(numLabel); numWrap.appendChild(numInput); numWrap.style.display = "none"; const betUI = buildBetUI(50); const spinBtn = document.createElement("button"); spinBtn.className = "btn"; spinBtn.style.marginTop = "14px"; spinBtn.textContent = "Spin"; const redNums = new Set([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]); spinBtn.onclick = () => { const bet = betUI.getBet(); if(bet > state.coinBalance) return; betUI.setDisabled(true); spinBtn.disabled = true; spinBtn.textContent = "Spinning"; adjustBalance(-bet); setTimeout(() => { const landed = randInt(0,36); const color = landed === 0 ? "green" : (redNums.has(landed) ? "red" : "black"); let payout = 0; if(pickType === "red" || pickType === "black"){ if(color === pickType) payout = bet * 2; }else{ if(landed === pickNumber) payout = bet * 36; } adjustBalance(payout); recordRound("roulette", bet, payout); const net = payout - bet; openModal(net >= 0 ? "Winner" : "Not today", "You bet " + fmt(bet) + ".\nLanded: " + landed + " (" + color + ").\nPayout: " + fmt(payout) + ".\nNet: " + fmt(net) + ".", "Spin again", () => { betUI.setDisabled(false); spinBtn.disabled = false; spinBtn.textContent = "Spin"; } ); betUI.setDisabled(false); spinBtn.disabled = false; spinBtn.textContent = "Spin"; }, 750); }; gamePanel.appendChild(display); gamePanel.appendChild(hint); gamePanel.appendChild(choiceRow); gamePanel.appendChild(numWrap); gamePanel.appendChild(betUI.node); gamePanel.appendChild(spinBtn); setActive(); } function renderDice(){ gameTitle.textContent = "Dice Duel"; gamePanel.innerHTML = ""; const display = document.createElement("div"); display.className = "bigCenter"; let d1 = 1, d2 = 1; display.textContent = "🎲 " + d1 + " " + d2; const hint = document.createElement("div"); hint.className = "hint"; hint.textContent = "Over or under 7 pays 2x. Exactly 7 loses."; let choice = "over"; const choiceRow = document.createElement("div"); choiceRow.className = "choiceRow"; const underBtn = document.createElement("div"); underBtn.className = "choice"; underBtn.textContent = "Under 7"; const overBtn = document.createElement("div"); overBtn.className = "choice active"; overBtn.textContent = "Over 7"; function setActive(){ underBtn.classList.toggle("active", choice === "under"); overBtn.classList.toggle("active", choice === "over"); } underBtn.onclick = () => { choice = "under"; setActive(); }; overBtn.onclick = () => { choice = "over"; setActive(); }; choiceRow.appendChild(underBtn); choiceRow.appendChild(overBtn); const betUI = buildBetUI(50); const rollBtn = document.createElement("button"); rollBtn.className = "btn"; rollBtn.style.marginTop = "14px"; rollBtn.textContent = "Roll"; rollBtn.onclick = () => { const bet = betUI.getBet(); if(bet > state.coinBalance) return; betUI.setDisabled(true); rollBtn.disabled = true; rollBtn.textContent = "Rolling"; adjustBalance(-bet); setTimeout(() => { d1 = randInt(1,6); d2 = randInt(1,6); const sum = d1 + d2; display.textContent = "🎲 " + d1 + " " + d2; let payout = 0; if(sum === 7) payout = 0; else if(choice === "over" && sum > 7) payout = bet * 2; else if(choice === "under" && sum < 7) payout = bet * 2; adjustBalance(payout); recordRound("dice", bet, payout); const net = payout - bet; openModal(net >= 0 ? "Good call" : "Rough", "You bet " + fmt(bet) + " on " + (choice === "over" ? "over" : "under") + " 7.\nRoll: " + d1 + " + " + d2 + " = " + sum + "\nPayout: " + fmt(payout) + ".\nNet: " + fmt(net) + ".", "Roll again", () => { betUI.setDisabled(false); rollBtn.disabled = false; rollBtn.textContent = "Roll"; } ); betUI.setDisabled(false); rollBtn.disabled = false; rollBtn.textContent = "Roll"; }, 550); }; gamePanel.appendChild(display); gamePanel.appendChild(hint); gamePanel.appendChild(choiceRow); gamePanel.appendChild(betUI.node); gamePanel.appendChild(rollBtn); setActive(); } function renderScratch(){ gameTitle.textContent = "Scratch Cards"; gamePanel.innerHTML = ""; const hint = document.createElement("div"); hint.className = "hint"; hint.textContent = "Tap three panels. 2 match pays small. 3 match pays big."; const scratchRow = document.createElement("div"); scratchRow.className = "scratchRow"; const tile0 = document.createElement("div"); const tile1 = document.createElement("div"); const tile2 = document.createElement("div"); [tile0,tile1,tile2].forEach(t => { t.className = "scratchTile disabled"; t.textContent = "Scratch"; }); scratchRow.appendChild(tile0); scratchRow.appendChild(tile1); scratchRow.appendChild(tile2); const betUI = buildBetUI(50); const buyBtn = document.createElement("button"); buyBtn.className = "btn"; buyBtn.style.marginTop = "14px"; buyBtn.textContent = "Buy ticket"; const newBtn = document.createElement("button"); newBtn.className = "btnGhost"; newBtn.style.marginTop = "10px"; newBtn.textContent = "New ticket"; const symbols = ["🍀","⭐","💎","🍒","7️⃣","🔔"]; let ticket = ["🍀","⭐","🍒"]; let revealed = [false,false,false]; let locked = false; let lastBet = 50; function freshTicket(){ ticket = [pick(symbols), pick(symbols), pick(symbols)]; revealed = [false,false,false]; locked = false; [tile0,tile1,tile2].forEach(t => { t.classList.add("disabled"); t.textContent = "Scratch"; }); buyBtn.disabled = false; buyBtn.textContent = "Buy ticket"; betUI.setDisabled(false); } function settle(){ const [a,b,c] = ticket; const allSame = a === b && b === c; const twoSame = a === b || b === c || a === c; let payout = 0; if(allSame){ if(a === "💎") payout = lastBet * 8; else if(a === "7️⃣") payout = lastBet * 6; else payout = lastBet * 4; }else if(twoSame){ payout = Math.floor(lastBet * 1.75); }else{ payout = 0; } adjustBalance(payout); recordRound("scratch", lastBet, payout); const net = payout - lastBet; openModal(net >= 0 ? "Ticket winner" : "Ticket blank", "You bet " + fmt(lastBet) + ".\nTicket: " + ticket.join(" ") + "\nPayout: " + fmt(payout) + ".\nNet: " + fmt(net) + ".", "New ticket", () => { freshTicket(); } ); } function reveal(i){ if(!locked) return; if(revealed[i]) return; revealed[i] = true; const tiles = [tile0,tile1,tile2]; tiles[i].textContent = ticket[i]; if(revealed.every(Boolean)){ locked = false; settle(); } } tile0.onclick = () => reveal(0); tile1.onclick = () => reveal(1); tile2.onclick = () => reveal(2); buyBtn.onclick = () => { if(locked) return; lastBet = betUI.getBet(); if(lastBet > state.coinBalance) return; adjustBalance(-lastBet); locked = true; [tile0,tile1,tile2].forEach(t => t.classList.remove("disabled")); buyBtn.disabled = true; buyBtn.textContent = "Scratching"; betUI.setDisabled(true); }; newBtn.onclick = () => { if(locked) return; freshTicket(); }; gamePanel.appendChild(hint); gamePanel.appendChild(scratchRow); gamePanel.appendChild(betUI.node); gamePanel.appendChild(buyBtn); gamePanel.appendChild(newBtn); freshTicket(); } function renderBlackjack(){ gameTitle.textContent = "Blackjack Lite"; gamePanel.innerHTML = ""; const hint = document.createElement("div"); hint.className = "hint"; hint.textContent = "Dealer hits to 17. Blackjack pays 2.5x. No splits."; const table = document.createElement("div"); table.className = "panel"; table.style.marginTop = "14px"; const dealerLabel = document.createElement("div"); dealerLabel.style.color = "#9ca3af"; dealerLabel.style.fontWeight = "900"; dealerLabel.textContent = "Dealer"; const dealerCards = document.createElement("div"); dealerCards.style.fontWeight = "900"; dealerCards.style.fontSize = "22px"; dealerCards.style.marginTop = "6px"; const dealerValue = document.createElement("div"); dealerValue.style.color = "#d1d5db"; dealerValue.style.fontWeight = "800"; dealerValue.style.marginTop = "6px"; const youLabel = document.createElement("div"); youLabel.style.color = "#9ca3af"; youLabel.style.fontWeight = "900"; youLabel.style.marginTop = "14px"; youLabel.textContent = "You"; const youCards = document.createElement("div"); youCards.style.fontWeight = "900"; youCards.style.fontSize = "22px"; youCards.style.marginTop = "6px"; const youValue = document.createElement("div"); youValue.style.color = "#d1d5db"; youValue.style.fontWeight = "800"; youValue.style.marginTop = "6px"; table.appendChild(dealerLabel); table.appendChild(dealerCards); table.appendChild(dealerValue); table.appendChild(youLabel); table.appendChild(youCards); table.appendChild(youValue); const betUI = buildBetUI(50); const dealBtn = document.createElement("button"); dealBtn.className = "btn"; dealBtn.style.marginTop = "14px"; dealBtn.textContent = "Deal"; const actionRow = document.createElement("div"); actionRow.className = "actions"; actionRow.style.display = "none"; const hitBtn = document.createElement("button"); hitBtn.className = "btn"; hitBtn.textContent = "Hit"; const standBtn = document.createElement("button"); standBtn.className = "btn"; standBtn.textContent = "Stand"; const doubleBtn = document.createElement("button"); doubleBtn.className = "btn"; doubleBtn.textContent = "Double"; actionRow.appendChild(hitBtn); actionRow.appendChild(standBtn); actionRow.appendChild(doubleBtn); const ranks = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"]; function newCard(){ return pick(ranks); } function handValue(hand){ let total = 0; let aces = 0; for(const c of hand){ if(c === "A"){ aces += 1; total += 11; } else if(c === "K" || c === "Q" || c === "J"){ total += 10; } else total += parseInt(c, 10); } while(total > 21 && aces > 0){ total -= 10; aces -= 1; } return total; } let player = []; let dealer = []; let phase = "idle"; let baseBet = 50; function renderHands(showDealer){ if(showDealer){ dealerCards.textContent = dealer.join(" "); dealerValue.textContent = "Value: " + handValue(dealer); }else{ dealerCards.textContent = (dealer[0] ? dealer[0] : "?") + " 🂠"; dealerValue.textContent = "Value: ?"; } youCards.textContent = player.join(" "); youValue.textContent = "Value: " + handValue(player); } function endRound(payout, title, body){ adjustBalance(payout); recordRound("blackjack", baseBet, payout); phase = "done"; actionRow.style.display = "none"; dealBtn.style.display = ""; betUI.setDisabled(false); openModal(title, body, "Play again", () => { player = []; dealer = []; phase = "idle"; renderHands(false); }); } function dealerPlayAndSettle(doubled){ while(handValue(dealer) < 17) dealer.push(newCard()); renderHands(true); const pv = handValue(player); const dv = handValue(dealer); if(dv > 21){ const payout = doubled ? baseBet * 4 : baseBet * 2; endRound(payout, "Dealer bust", "Dealer busted with " + dv + ".\nPayout: " + fmt(payout) + "."); return; } if(pv > dv){ const payout = doubled ? baseBet * 4 : baseBet * 2; endRound(payout, "You win", "You: " + pv + "\nDealer: " + dv + "\nPayout: " + fmt(payout) + "."); return; } if(pv === dv){ const payout = doubled ? baseBet * 2 : baseBet; endRound(payout, "Push", "You: " + pv + "\nDealer: " + dv + "\nBet returned: " + fmt(payout) + "."); return; } endRound(0, "You lose", "You: " + pv + "\nDealer: " + dv + "\nLost: " + fmt(baseBet) + "."); } dealBtn.onclick = () => { if(phase !== "idle") return; baseBet = betUI.getBet(); if(baseBet > state.coinBalance) return; adjustBalance(-baseBet); betUI.setDisabled(true); player = [newCard(), newCard()]; dealer = [newCard(), newCard()]; phase = "playing"; renderHands(false); const pv = handValue(player); const dv = handValue(dealer); dealBtn.style.display = "none"; actionRow.style.display = ""; if(pv === 21){ const payout = Math.floor(baseBet * 2.5); renderHands(true); endRound(payout, "Blackjack", "You got 21.\nPayout: " + fmt(payout) + "."); return; } if(dv === 21){ renderHands(true); endRound(0, "Dealer blackjack", "Dealer has 21.\nYou lose " + fmt(baseBet) + "."); return; } }; hitBtn.onclick = () => { if(phase !== "playing") return; player.push(newCard()); renderHands(false); const pv = handValue(player); if(pv > 21){ renderHands(true); endRound(0, "Bust", "You busted with " + pv + ".\nYou lose " + fmt(baseBet) + "."); } }; standBtn.onclick = () => { if(phase !== "playing") return; dealerPlayAndSettle(false); }; doubleBtn.onclick = () => { if(phase !== "playing") return; if(state.coinBalance < baseBet){ openModal("Not enough coins", "You need enough coins to match your bet for double.", "Ok", () => {}); return; } adjustBalance(-baseBet); const original = baseBet; baseBet = baseBet * 2; player.push(newCard()); renderHands(false); setTimeout(() => { dealerPlayAndSettle(true); baseBet = original; }, 200); }; gamePanel.appendChild(hint); gamePanel.appendChild(table); gamePanel.appendChild(betUI.node); gamePanel.appendChild(dealBtn); gamePanel.appendChild(actionRow); player = [" "]; dealer = [" "]; dealerCards.textContent = " "; youCards.textContent = " "; dealerValue.textContent = "Value: ?"; youValue.textContent = " "; } setFeatured(); renderWallet(); showView("home"); </script> </body> </html>
+</div> <div class="modalWrap" id="modalWrap"> <div class="modal"> <h3 id="modalTitle">Result</h3> <p id="modalBody"></p> <div class="modalBtns"> <button class="btnGhost" id="modalHome">Home</button> <button class="btn" id="modalAgain">Play again</button> </div> </div> </div> <script> const storageKey = "bigYahuGamblingSchemeV2"; const defaultState = { coinBalance: 5000, lastDailyClaimMs: 0, dailyStreak: 0, stats: { totalBets: 0, totalPayout: 0, biggestWin: 0, gamesPlayed: { slots:0, blackjack:0, roulette:0, dice:0, scratch:0 } }, audio: { musicOn: true, sfxOn: true, musicVol: 0.35, sfxVol: 0.55 } }; function deepClone(obj){ return JSON.parse(JSON.stringify(obj)); } function loadState(){ try{ const raw = localStorage.getItem(storageKey); if(!raw) return deepClone(defaultState); const parsed = JSON.parse(raw); return mergeState(parsed); }catch(e){ return deepClone(defaultState); } } function mergeState(s){ const out = deepClone(defaultState); if(s && typeof s === "object"){ if(Number.isFinite(s.coinBalance)) out.coinBalance = Math.max(0, Math.trunc(s.coinBalance)); if(Number.isFinite(s.lastDailyClaimMs)) out.lastDailyClaimMs = Math.trunc(s.lastDailyClaimMs); if(Number.isFinite(s.dailyStreak)) out.dailyStreak = Math.max(0, Math.trunc(s.dailyStreak)); if(s.stats && typeof s.stats === "object"){ out.stats.totalBets = Math.max(0, Math.trunc(s.stats.totalBets || 0)); out.stats.totalPayout = Math.max(0, Math.trunc(s.stats.totalPayout || 0)); out.stats.biggestWin = Math.max(0, Math.trunc(s.stats.biggestWin || 0)); const gp = s.stats.gamesPlayed || {}; out.stats.gamesPlayed = { slots: Math.max(0, Math.trunc(gp.slots || 0)), blackjack: Math.max(0, Math.trunc(gp.blackjack || 0)), roulette: Math.max(0, Math.trunc(gp.roulette || 0)), dice: Math.max(0, Math.trunc(gp.dice || 0)), scratch: Math.max(0, Math.trunc(gp.scratch || 0)), }; } if(s.audio && typeof s.audio === "object"){ out.audio.musicOn = s.audio.musicOn !== false; out.audio.sfxOn = s.audio.sfxOn !== false; if(Number.isFinite(s.audio.musicVol)) out.audio.musicVol = clamp(s.audio.musicVol, 0, 1); if(Number.isFinite(s.audio.sfxVol)) out.audio.sfxVol = clamp(s.audio.sfxVol, 0, 1); } } return out; } function saveState(){ try{ localStorage.setItem(storageKey, JSON.stringify(state)); }catch(e){} } function clamp(n,min,max){ return Math.max(min, Math.min(max, n)); } function fmt(n){ const x = Math.max(0, Math.trunc(n)); return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); } function randInt(min, max){ return Math.floor(Math.random() * (max - min + 1)) + min; } function pick(arr){ return arr[randInt(0, arr.length - 1)]; } function sameLocalDay(aMs, bMs){ const a = new Date(aMs); const b = new Date(bMs); return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate(); } function dailyBonus(streak){ const base = 350; const extra = Math.min(1900, Math.max(0, Math.trunc(streak)) * 60); return base + extra; } const state = loadState(); const views = { home: document.getElementById("homeView"), stats: document.getElementById("statsView"), settings: document.getElementById("settingsView"), game: document.getElementById("gameView") }; const walletAmt = document.getElementById("walletAmt"); const walletAmt2 = document.getElementById("walletAmt2"); const dailyBtn = document.getElementById("dailyBtn"); const featuredBig = document.getElementById("featuredBig"); const modalWrap = document.getElementById("modalWrap"); const modalTitle = document.getElementById("modalTitle"); const modalBody = document.getElementById("modalBody"); const modalHome = document.getElementById("modalHome"); const modalAgain = document.getElementById("modalAgain"); const gameTitle = document.getElementById("gameTitle"); const gamePanel = document.getElementById("gamePanel"); const statsLines = document.getElementById("statsLines"); const confetti = document.getElementById("confetti"); let activeGame = null; let playAgainFn = null; function showView(which){ Object.keys(views).forEach(k => views[k].classList.remove("active")); views[which].classList.add("active"); } function canClaimDaily(){ if(!state.lastDailyClaimMs) return true; return !sameLocalDay(state.lastDailyClaimMs, Date.now()); } function renderWallet(){ walletAmt.textContent = fmt(state.coinBalance); walletAmt2.textContent = fmt(state.coinBalance); dailyBtn.disabled = !canClaimDaily(); dailyBtn.textContent = canClaimDaily() ? "Claim bonus" : "Claimed"; } function adjustBalance(delta){ state.coinBalance = Math.max(0, state.coinBalance + Math.trunc(delta)); saveState(); renderWallet(); } function recordRound(gameId, bet, payout){ state.stats.totalBets += bet; state.stats.totalPayout += payout; const net = payout - bet; state.stats.biggestWin = Math.max(state.stats.biggestWin, net); state.stats.gamesPlayed[gameId] = (state.stats.gamesPlayed[gameId] || 0) + 1; saveState(); } function openModal(title, body, againLabel, againFn){ modalTitle.textContent = title; modalBody.textContent = body; modalAgain.textContent = againLabel || "Play again"; playAgainFn = againFn || null; modalWrap.style.display = "flex"; } function closeModal(){ modalWrap.style.display = "none"; playAgainFn = null; } modalHome.addEventListener("click", () => { sfx.click(); closeModal(); activeGame = null; showView("home"); }); modalAgain.addEventListener("click", () => { sfx.click(); closeModal(); if(playAgainFn) playAgainFn(); }); function renderStats(){ const gp = state.stats.gamesPlayed; const lines = [ "Total bets: " + fmt(state.stats.totalBets), "Total payout: " + fmt(state.stats.totalPayout), "Biggest win: " + fmt(state.stats.biggestWin), "Daily streak: " + fmt(state.dailyStreak), "", "Games played", "Slots: " + fmt(gp.slots), "Blackjack: " + fmt(gp.blackjack), "Roulette: " + fmt(gp.roulette), "Dice: " + fmt(gp.dice), "Scratch: " + fmt(gp.scratch), ]; statsLines.textContent = lines.join("\n"); statsLines.style.whiteSpace = "pre-line"; statsLines.style.color = "rgba(255,255,255,.78)"; statsLines.style.lineHeight = "1.55"; statsLines.style.fontWeight = "900"; statsLines.style.letterSpacing = ".2px"; } function setFeatured(){ featuredBig.textContent = pick([ "🎰 Neon Slots Day", "🎡 Wheel of Consequences", "🎲 Dice and Chill", "🂡 Dealer Anxiety Simulator", "🧾 Scratch and Pray" ]); } function popConfetti(power){ const count = clamp(Math.trunc(18 + power * 18), 18, 42); for(let i=0;i<count;i++){ const p = document.createElement("span"); const x = randInt(0, 100); const dx = randInt(-120, 120) + "px"; const rot = randInt(-480, 480) + "deg"; p.style.left = x + "vw"; p.style.setProperty("--dx", dx); p.style.setProperty("--rot", rot); p.style.background = pick(["#fbbf24","#22d3ee","#ec4899","#a3e635","#a78bfa","#60a5fa"]); p.style.opacity = String(0.85 + Math.random() * 0.15); p.style.width = randInt(8, 12) + "px"; p.style.height = randInt(10, 16) + "px"; confetti.appendChild(p); setTimeout(() => { p.remove(); }, 1300); } } function buildBetUI(initialBet){ let bet = Math.min(Math.max(1, Math.trunc(initialBet || 50)), Math.max(1, state.coinBalance)); const maxBet = () => Math.max(1, state.coinBalance); const wrap = document.createElement("div"); wrap.style.marginTop = "12px"; const betBox = document.createElement("div"); betBox.className = "betBox"; const left = document.createElement("div"); const label = document.createElement("div"); label.style.color = "rgba(255,255,255,.62)"; label.style.fontWeight = "950"; label.style.fontSize = "12px"; label.textContent = "Bet"; const val = document.createElement("div"); val.className = "betNum"; val.textContent = fmt(bet); const cap = document.createElement("div"); cap.style.color = "rgba(255,255,255,.52)"; cap.style.fontSize = "12px"; cap.style.fontWeight = "900"; cap.textContent = "Max " + fmt(maxBet()); left.appendChild(label); left.appendChild(val); left.appendChild(cap); const right = document.createElement("div"); right.className = "row"; const minus = document.createElement("button"); minus.className = "btnGhost"; minus.textContent = "Minus"; const plus = document.createElement("button"); plus.className = "btnGhost"; plus.textContent = "Plus"; function sync(){ bet = Math.min(Math.max(1, bet), maxBet()); val.textContent = fmt(bet); cap.textContent = "Max " + fmt(maxBet()); } minus.onclick = () => { sfx.click(); bet = bet - 10; sync(); }; plus.onclick = () => { sfx.click(); bet = bet + 10; sync(); }; right.appendChild(minus); right.appendChild(plus); betBox.appendChild(left); betBox.appendChild(right); const chips = document.createElement("div"); chips.className = "row"; chips.style.marginTop = "10px"; [10,25,50,100,250,500].forEach(n => { const b = document.createElement("button"); b.className = "btnGhost"; b.textContent = fmt(n); b.onclick = () => { sfx.click(); bet = n; sync(); }; chips.appendChild(b); }); wrap.appendChild(betBox); wrap.appendChild(chips); return { node: wrap, getBet: () => Math.min(Math.max(1, Math.trunc(bet)), maxBet()), setDisabled: (disabled) => { [...wrap.querySelectorAll("button")].forEach(x => x.disabled = !!disabled); wrap.style.opacity = disabled ? ".7" : "1"; } }; } function openGame(id){ activeGame = id; showView("game"); renderWallet(); sfx.whoosh(); if(id === "slots") renderSlots(); if(id === "blackjack") renderBlackjack(); if(id === "roulette") renderRoulette(); if(id === "dice") renderDice(); if(id === "scratch") renderScratch(); } document.querySelectorAll(".card").forEach(el => { el.addEventListener("click", () => openGame(el.getAttribute("dataGame"))); }); document.getElementById("toStatsBtn").addEventListener("click", () => { sfx.click(); renderStats(); showView("stats"); }); document.getElementById("toSettingsBtn").addEventListener("click", () => { sfx.click(); showView("settings"); }); document.getElementById("backFromStats").addEventListener("click", () => { sfx.click(); showView("home"); }); document.getElementById("backFromSettings").addEventListener("click", () => { sfx.click(); showView("home"); }); document.getElementById("backBtn").addEventListener("click", () => { sfx.click(); activeGame = null; showView("home"); }); document.getElementById("resetBtn").addEventListener("click", () => { sfx.click(); const ok = confirm("Reset coins and stats?"); if(!ok) return; const keepAudio = deepClone(state.audio); Object.assign(state, deepClone(defaultState)); state.audio = keepAudio; saveState(); renderWallet(); renderStats(); }); dailyBtn.addEventListener("click", () => { if(!canClaimDaily()) return; const now = Date.now(); let nextStreak = 1; if(state.lastDailyClaimMs){ const y = new Date(); y.setDate(y.getDate() - 1); nextStreak = sameLocalDay(state.lastDailyClaimMs, y.getTime()) ? state.dailyStreak + 1 : 1; } state.dailyStreak = nextStreak; state.lastDailyClaimMs = now; const bonus = dailyBonus(nextStreak); adjustBalance(bonus); sfx.win(); popConfetti(1); openModal( "Daily bonus", "You got " + fmt(bonus) + " coins.\nStreak: " + nextStreak, "Nice", () => showView("home") ); saveState(); renderWallet(); }); const audioBtn = document.getElementById("audioBtn"); audioBtn.addEventListener("click", () => { sfx.click(); showView("settings"); }); const settingsMusic = document.getElementById("settingsMusic"); const settingsSfx = document.getElementById("settingsSfx"); const settingsTest = document.getElementById("settingsTest"); settingsMusic.addEventListener("click", () => { state.audio.musicOn = !state.audio.musicOn; saveState(); audioEngine.applySettings(); openModal("Music", state.audio.musicOn ? "Music is on." : "Music is off.", "Ok", () => {}); if(state.audio.musicOn) sfx.click(); }); settingsSfx.addEventListener("click", () => { state.audio.sfxOn = !state.audio.sfxOn; saveState(); audioEngine.applySettings(); openModal("Sound effects", state.audio.sfxOn ? "SFX is on." : "SFX is off.", "Ok", () => {}); if(state.audio.sfxOn) sfx.click(); }); settingsTest.addEventListener("click", () => { sfx.win(); popConfetti(0.6); }); function renderSlots(){ gameTitle.textContent = "Slots Sprint"; gamePanel.innerHTML = ""; const display = document.createElement("div"); display.className = "bigCenter"; let reels = ["🍒","🍋","🔔"]; display.textContent = reels.join(" "); const hint = document.createElement("div"); hint.className = "hint"; hint.textContent = "3 match pays big. 2 match pays small."; const betUI = buildBetUI(50); const spinBtn = document.createElement("button"); spinBtn.className = "btn"; spinBtn.style.marginTop = "14px"; spinBtn.textContent = "Spin"; function payoutFor(a,b,c,bet){ const allSame = a === b && b === c; const twoSame = a === b || b === c || a === c; if(allSame){ if(a === "7️⃣") return bet * 10; if(a === "⭐") return bet * 6; if(a === "🔔") return bet * 4; return bet * 3; } if(twoSame) return Math.floor(bet * 1.5); return 0; } spinBtn.onclick = () => { const bet = betUI.getBet(); if(bet > state.coinBalance) return; betUI.setDisabled(true); spinBtn.disabled = true; spinBtn.textContent = "Spinning"; sfx.spin(); adjustBalance(-bet); setTimeout(() => { const symbols = ["🍒","🍋","🍇","🍉","🔔","⭐","7️⃣"]; const r1 = pick(symbols); const r2 = pick(symbols); const r3 = pick(symbols); reels = [r1,r2,r3]; display.textContent = reels.join(" "); const payout = payoutFor(r1,r2,r3,bet); adjustBalance(payout); recordRound("slots", bet, payout); const net = payout - bet; if(net > 0){ sfx.win(); popConfetti(clamp(net / Math.max(50, bet), 0.35, 1.2)); }else{ sfx.lose(); } openModal( net >= 0 ? "Nice" : "Ouch", "You bet " + fmt(bet) + ".\nResult: " + reels.join(" ") + "\nPayout: " + fmt(payout) + ".\nNet: " + fmt(net) + ".", "Spin again", () => {} ); betUI.setDisabled(false); spinBtn.disabled = false; spinBtn.textContent = "Spin"; }, 650); }; gamePanel.appendChild(display); gamePanel.appendChild(hint); gamePanel.appendChild(betUI.node); gamePanel.appendChild(spinBtn); } function renderRoulette(){ gameTitle.textContent = "Roulette Pop"; gamePanel.innerHTML = ""; const display = document.createElement("div"); display.className = "bigCenter"; display.textContent = "🎡"; const hint = document.createElement("div"); hint.className = "hint"; hint.textContent = "Red or black pays 2x. Exact number pays 36x."; const choiceRow = document.createElement("div"); choiceRow.className = "choiceRow"; const btnRed = document.createElement("div"); btnRed.className = "choice active"; btnRed.textContent = "Red"; const btnBlack = document.createElement("div"); btnBlack.className = "choice"; btnBlack.textContent = "Black"; const btnNumber = document.createElement("div"); btnNumber.className = "choice"; btnNumber.textContent = "Number"; let pickType = "red"; let pickNumber = 7; function setActive(){ btnRed.classList.toggle("active", pickType === "red"); btnBlack.classList.toggle("active", pickType === "black"); btnNumber.classList.toggle("active", pickType === "number"); numWrap.style.display = pickType === "number" ? "" : "none"; } btnRed.onclick = () => { sfx.click(); pickType = "red"; setActive(); }; btnBlack.onclick = () => { sfx.click(); pickType = "black"; setActive(); }; btnNumber.onclick = () => { sfx.click(); pickType = "number"; setActive(); }; choiceRow.appendChild(btnRed); choiceRow.appendChild(btnBlack); choiceRow.appendChild(btnNumber); const numWrap = document.createElement("div"); numWrap.style.marginTop = "10px"; const numLabel = document.createElement("div"); numLabel.style.color = "rgba(255,255,255,.62)"; numLabel.style.fontWeight = "950"; numLabel.style.fontSize = "12px"; numLabel.textContent = "Pick 0 to 36"; const numInput = document.createElement("input"); numInput.value = "7"; numInput.inputMode = "numeric"; numInput.style.marginTop = "8px"; numInput.style.width = "100%"; numInput.style.padding = "12px 14px"; numInput.style.borderRadius = "16px"; numInput.style.border = "1px solid rgba(255,255,255,.12)"; numInput.style.background = "rgba(0,0,0,.22)"; numInput.style.color = "rgba(255,255,255,.92)"; numInput.style.fontWeight = "950"; numInput.oninput = () => { const t = String(numInput.value || "").replace(/[^\d]/g,"").slice(0,2); numInput.value = t; pickNumber = Math.max(0, Math.min(36, parseInt(t || "0", 10))); }; numWrap.appendChild(numLabel); numWrap.appendChild(numInput); numWrap.style.display = "none"; const betUI = buildBetUI(50); const spinBtn = document.createElement("button"); spinBtn.className = "btn"; spinBtn.style.marginTop = "14px"; spinBtn.textContent = "Spin"; const redNums = new Set([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]); spinBtn.onclick = () => { const bet = betUI.getBet(); if(bet > state.coinBalance) return; betUI.setDisabled(true); spinBtn.disabled = true; spinBtn.textContent = "Spinning"; sfx.spin(); adjustBalance(-bet); setTimeout(() => { const landed = randInt(0,36); const color = landed === 0 ? "green" : (redNums.has(landed) ? "red" : "black"); let payout = 0; if(pickType === "red" || pickType === "black"){ if(color === pickType) payout = bet * 2; }else{ if(landed === pickNumber) payout = bet * 36; } adjustBalance(payout); recordRound("roulette", bet, payout); const net = payout - bet; if(net > 0){ sfx.win(); popConfetti(clamp(net / Math.max(60, bet), 0.35, 1.3)); }else{ sfx.lose(); } openModal( net >= 0 ? "Winner" : "Not today", "You bet " + fmt(bet) + ".\nLanded: " + landed + " (" + color + ").\nPayout: " + fmt(payout) + ".\nNet: " + fmt(net) + ".", "Spin again", () => {} ); betUI.setDisabled(false); spinBtn.disabled = false; spinBtn.textContent = "Spin"; }, 750); }; gamePanel.appendChild(display); gamePanel.appendChild(hint); gamePanel.appendChild(choiceRow); gamePanel.appendChild(numWrap); gamePanel.appendChild(betUI.node); gamePanel.appendChild(spinBtn); setActive(); } function renderDice(){ gameTitle.textContent = "Dice Duel"; gamePanel.innerHTML = ""; const display = document.createElement("div"); display.className = "bigCenter"; let d1 = 1, d2 = 1; display.textContent = "🎲 " + d1 + " " + d2; const hint = document.createElement("div"); hint.className = "hint"; hint.textContent = "Over or under 7 pays 2x. Exactly 7 loses."; let choice = "over"; const choiceRow = document.createElement("div"); choiceRow.className = "choiceRow"; const underBtn = document.createElement("div"); underBtn.className = "choice"; underBtn.textContent = "Under 7"; const overBtn = document.createElement("div"); overBtn.className = "choice active"; overBtn.textContent = "Over 7"; function setActive(){ underBtn.classList.toggle("active", choice === "under"); overBtn.classList.toggle("active", choice === "over"); } underBtn.onclick = () => { sfx.click(); choice = "under"; setActive(); }; overBtn.onclick = () => { sfx.click(); choice = "over"; setActive(); }; choiceRow.appendChild(underBtn); choiceRow.appendChild(overBtn); const betUI = buildBetUI(50); const rollBtn = document.createElement("button"); rollBtn.className = "btn"; rollBtn.style.marginTop = "14px"; rollBtn.textContent = "Roll"; rollBtn.onclick = () => { const bet = betUI.getBet(); if(bet > state.coinBalance) return; betUI.setDisabled(true); rollBtn.disabled = true; rollBtn.textContent = "Rolling"; sfx.dice(); adjustBalance(-bet); setTimeout(() => { d1 = randInt(1,6); d2 = randInt(1,6); const sum = d1 + d2; display.textContent = "🎲 " + d1 + " " + d2; let payout = 0; if(sum === 7) payout = 0; else if(choice === "over" && sum > 7) payout = bet * 2; else if(choice === "under" && sum < 7) payout = bet * 2; adjustBalance(payout); recordRound("dice", bet, payout); const net = payout - bet; if(net > 0){ sfx.win(); popConfetti(clamp(net / Math.max(60, bet), 0.35, 1.0)); }else{ sfx.lose(); } openModal( net >= 0 ? "Good call" : "Rough", "You bet " + fmt(bet) + " on " + (choice === "over" ? "over" : "under") + " 7.\nRoll: " + d1 + " + " + d2 + " = " + sum + "\nPayout: " + fmt(payout) + ".\nNet: " + fmt(net) + ".", "Roll again", () => {} ); betUI.setDisabled(false); rollBtn.disabled = false; rollBtn.textContent = "Roll"; }, 550); }; gamePanel.appendChild(display); gamePanel.appendChild(hint); gamePanel.appendChild(choiceRow); gamePanel.appendChild(betUI.node); gamePanel.appendChild(rollBtn); setActive(); } function renderScratch(){ gameTitle.textContent = "Scratch Cards"; gamePanel.innerHTML = ""; const hint = document.createElement("div"); hint.className = "hint"; hint.textContent = "Tap three panels. 2 match pays small. 3 match pays big."; const scratchRow = document.createElement("div"); scratchRow.className = "scratchRow"; const tile0 = document.createElement("div"); const tile1 = document.createElement("div"); const tile2 = document.createElement("div"); [tile0,tile1,tile2].forEach(t => { t.className = "scratchTile disabled"; t.textContent = "Scratch"; }); scratchRow.appendChild(tile0); scratchRow.appendChild(tile1); scratchRow.appendChild(tile2); const betUI = buildBetUI(50); const buyBtn = document.createElement("button"); buyBtn.className = "btn"; buyBtn.style.marginTop = "14px"; buyBtn.textContent = "Buy ticket"; const newBtn = document.createElement("button"); newBtn.className = "btnGhost"; newBtn.style.marginTop = "10px"; newBtn.textContent = "New ticket"; const symbols = ["🍀","⭐","💎","🍒","7️⃣","🔔"]; let ticket = ["🍀","⭐","🍒"]; let revealed = [false,false,false]; let locked = false; let lastBet = 50; function freshTicket(){ ticket = [pick(symbols), pick(symbols), pick(symbols)]; revealed = [false,false,false]; locked = false; [tile0,tile1,tile2].forEach(t => { t.classList.add("disabled"); t.textContent = "Scratch"; }); buyBtn.disabled = false; buyBtn.textContent = "Buy ticket"; betUI.setDisabled(false); } function settle(){ const a = ticket[0], b = ticket[1], c = ticket[2]; const allSame = a === b && b === c; const twoSame = a === b || b === c || a === c; let payout = 0; if(allSame){ if(a === "💎") payout = lastBet * 8; else if(a === "7️⃣") payout = lastBet * 6; else payout = lastBet * 4; }else if(twoSame){ payout = Math.floor(lastBet * 1.75); } adjustBalance(payout); recordRound("scratch", lastBet, payout); const net = payout - lastBet; if(net > 0){ sfx.win(); popConfetti(clamp(net / Math.max(60, lastBet), 0.35, 1.2)); }else{ sfx.lose(); } openModal( net >= 0 ? "Ticket winner" : "Ticket blank", "You bet " + fmt(lastBet) + ".\nTicket: " + ticket.join(" ") + "\nPayout: " + fmt(payout) + ".\nNet: " + fmt(net) + ".", "New ticket", () => freshTicket() ); } function reveal(i){ if(!locked) return; if(revealed[i]) return; revealed[i] = true; const tiles = [tile0,tile1,tile2]; tiles[i].textContent = ticket[i]; sfx.scratch(); if(revealed[0] && revealed[1] && revealed[2]){ locked = false; settle(); } } tile0.onclick = () => reveal(0); tile1.onclick = () => reveal(1); tile2.onclick = () => reveal(2); buyBtn.onclick = () => { if(locked) return; lastBet = betUI.getBet(); if(lastBet > state.coinBalance) return; sfx.cash(); adjustBalance(-lastBet); locked = true; [tile0,tile1,tile2].forEach(t => t.classList.remove("disabled")); buyBtn.disabled = true; buyBtn.textContent = "Scratching"; betUI.setDisabled(true); }; newBtn.onclick = () => { if(locked) return; sfx.click(); freshTicket(); }; gamePanel.appendChild(hint); gamePanel.appendChild(scratchRow); gamePanel.appendChild(betUI.node); gamePanel.appendChild(buyBtn); gamePanel.appendChild(newBtn); freshTicket(); } function renderBlackjack(){ gameTitle.textContent = "Blackjack Lite"; gamePanel.innerHTML = ""; const hint = document.createElement("div"); hint.className = "hint"; hint.textContent = "Dealer hits to 17. Blackjack pays 2.5x. No splits."; const table = document.createElement("div"); table.style.marginTop = "14px"; table.style.padding = "14px"; table.style.borderRadius = "18px"; table.style.border = "1px solid rgba(255,255,255,.12)"; table.style.background = "rgba(0,0,0,.22)"; const dealerLabel = document.createElement("div"); dealerLabel.style.color = "rgba(255,255,255,.62)"; dealerLabel.style.fontWeight = "950"; dealerLabel.textContent = "Dealer"; const dealerCards = document.createElement("div"); dealerCards.style.fontWeight = "950"; dealerCards.style.fontSize = "22px"; dealerCards.style.marginTop = "6px"; const dealerValue = document.createElement("div"); dealerValue.style.color = "rgba(255,255,255,.74)"; dealerValue.style.fontWeight = "900"; dealerValue.style.marginTop = "6px"; const youLabel = document.createElement("div"); youLabel.style.color = "rgba(255,255,255,.62)"; youLabel.style.fontWeight = "950"; youLabel.style.marginTop = "14px"; youLabel.textContent = "You"; const youCards = document.createElement("div"); youCards.style.fontWeight = "950"; youCards.style.fontSize = "22px"; youCards.style.marginTop = "6px"; const youValue = document.createElement("div"); youValue.style.color = "rgba(255,255,255,.74)"; youValue.style.fontWeight = "900"; youValue.style.marginTop = "6px"; table.appendChild(dealerLabel); table.appendChild(dealerCards); table.appendChild(dealerValue); table.appendChild(youLabel); table.appendChild(youCards); table.appendChild(youValue); const betUI = buildBetUI(50); const dealBtn = document.createElement("button"); dealBtn.className = "btn"; dealBtn.style.marginTop = "14px"; dealBtn.textContent = "Deal"; const actionRow = document.createElement("div"); actionRow.className = "actions"; actionRow.style.display = "none"; const hitBtn = document.createElement("button"); hitBtn.className = "btn"; hitBtn.textContent = "Hit"; const standBtn = document.createElement("button"); standBtn.className = "btn"; standBtn.textContent = "Stand"; const doubleBtn = document.createElement("button"); doubleBtn.className = "btn"; doubleBtn.textContent = "Double"; actionRow.appendChild(hitBtn); actionRow.appendChild(standBtn); actionRow.appendChild(doubleBtn); const ranks = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"]; function newCard(){ return pick(ranks); } function handValue(hand){ let total = 0; let aces = 0; for(const c of hand){ if(c === "A"){ aces += 1; total += 11; } else if(c === "K" || c === "Q" || c === "J"){ total += 10; } else total += parseInt(c, 10); } while(total > 21 && aces > 0){ total -= 10; aces -= 1; } return total; } let player = []; let dealer = []; let phase = "idle"; let baseBet = 50; function renderHands(showDealer){ if(showDealer){ dealerCards.textContent = dealer.join(" "); dealerValue.textContent = "Value: " + handValue(dealer); }else{ dealerCards.textContent = (dealer[0] ? dealer[0] : "?") + " 🂠"; dealerValue.textContent = "Value: ?"; } youCards.textContent = player.join(" "); youValue.textContent = "Value: " + handValue(player); } function endRound(payout, title, body){ adjustBalance(payout); recordRound("blackjack", baseBet, payout); phase = "done"; actionRow.style.display = "none"; dealBtn.style.display = ""; betUI.setDisabled(false); if(payout > 0){ sfx.win(); popConfetti(clamp((payout - baseBet) / Math.max(60, baseBet), 0.35, 1.1)); }else{ sfx.lose(); } openModal(title, body, "Play again", () => { player = []; dealer = []; phase = "idle"; renderHands(false); }); } function dealerPlayAndSettle(doubled){ while(handValue(dealer) < 17) dealer.push(newCard()); renderHands(true); const pv = handValue(player); const dv = handValue(dealer); if(dv > 21){ const payout = doubled ? baseBet * 4 : baseBet * 2; endRound(payout, "Dealer bust", "Dealer busted with " + dv + ".\nPayout: " + fmt(payout) + "."); return; } if(pv > dv){ const payout = doubled ? baseBet * 4 : baseBet * 2; endRound(payout, "You win", "You: " + pv + "\nDealer: " + dv + "\nPayout: " + fmt(payout) + "."); return; } if(pv === dv){ const payout = doubled ? baseBet * 2 : baseBet; endRound(payout, "Push", "You: " + pv + "\nDealer: " + dv + "\nBet returned: " + fmt(payout) + "."); return; } endRound(0, "You lose", "You: " + pv + "\nDealer: " + dv + "\nLost: " + fmt(baseBet) + "."); } dealBtn.onclick = () => { if(phase !== "idle") return; baseBet = betUI.getBet(); if(baseBet > state.coinBalance) return; sfx.cash(); adjustBalance(-baseBet); betUI.setDisabled(true); player = [newCard(), newCard()]; dealer = [newCard(), newCard()]; phase = "playing"; renderHands(false); const pv = handValue(player); const dv = handValue(dealer); dealBtn.style.display = "none"; actionRow.style.display = ""; if(pv === 21){ const payout = Math.floor(baseBet * 2.5); renderHands(true); endRound(payout, "Blackjack", "You got 21.\nPayout: " + fmt(payout) + "."); return; } if(dv === 21){ renderHands(true); endRound(0, "Dealer blackjack", "Dealer has 21.\nYou lose " + fmt(baseBet) + "."); return; } }; hitBtn.onclick = () => { if(phase !== "playing") return; sfx.click(); player.push(newCard()); renderHands(false); const pv = handValue(player); if(pv > 21){ renderHands(true); endRound(0, "Bust", "You busted with " + pv + ".\nYou lose " + fmt(baseBet) + "."); } }; standBtn.onclick = () => { if(phase !== "playing") return; sfx.click(); dealerPlayAndSettle(false); }; doubleBtn.onclick = () => { if(phase !== "playing") return; sfx.click(); if(state.coinBalance < baseBet){ openModal("Not enough coins", "You need enough coins to match your bet for double.", "Ok", () => {}); return; } sfx.cash(); adjustBalance(-baseBet); const originalBet = baseBet; baseBet = baseBet * 2; player.push(newCard()); renderHands(false); setTimeout(() => { dealerPlayAndSettle(true); baseBet = originalBet; }, 200); }; gamePanel.appendChild(hint); gamePanel.appendChild(table); gamePanel.appendChild(betUI.node); gamePanel.appendChild(dealBtn); gamePanel.appendChild(actionRow); dealerCards.textContent = " "; youCards.textContent = " "; dealerValue.textContent = "Value: ?"; youValue.textContent = " "; } setFeatured(); renderWallet(); showView("home"); setInterval(() => setFeatured(), 6000); const enterGate = document.getElementById("enterGate"); const enterBtn = document.getElementById("enterBtn"); const musicToggle = document.getElementById("musicToggle"); const sfxToggle = document.getElementById("sfxToggle"); const musicVol = document.getElementById("musicVol"); const sfxVol = document.getElementById("sfxVol"); musicToggle.checked = state.audio.musicOn; sfxToggle.checked = state.audio.sfxOn; musicVol.value = String(Math.round(state.audio.musicVol * 100)); sfxVol.value = String(Math.round(state.audio.sfxVol * 100)); musicToggle.addEventListener("change", () => { state.audio.musicOn = !!musicToggle.checked; saveState(); }); sfxToggle.addEventListener("change", () => { state.audio.sfxOn = !!sfxToggle.checked; saveState(); }); musicVol.addEventListener("input", () => { state.audio.musicVol = clamp(parseInt(musicVol.value || "0", 10) / 100, 0, 1); saveState(); }); sfxVol.addEventListener("input", () => { state.audio.sfxVol = clamp(parseInt(sfxVol.value || "0", 10) / 100, 0, 1); saveState(); }); enterBtn.addEventListener("click", async () => { await audioEngine.initIfNeeded(); audioEngine.applySettings(); audioEngine.startMusic(); sfx.click(); enterGate.style.display = "none"; }); const audioEngine = (() => { let ctx = null; let master = null; let musicBus = null; let sfxBus = null; let musicNodes = []; let musicTimer = null; let started = false; function ensure(){ if(ctx) return; const AC = window.AudioContext || window.webkitAudioContext; ctx = new AC(); master = ctx.createGain(); master.gain.value = 0.85; master.connect(ctx.destination); musicBus = ctx.createGain(); musicBus.gain.value = state.audio.musicVol; musicBus.connect(master); sfxBus = ctx.createGain(); sfxBus.gain.value = state.audio.sfxVol; sfxBus.connect(master); } async function initIfNeeded(){ ensure(); if(ctx.state === "suspended"){ try{ await ctx.resume(); }catch(e){} } } function applySettings(){ if(!ctx) return; musicBus.gain.value = state.audio.musicOn ? state.audio.musicVol : 0; sfxBus.gain.value = state.audio.sfxOn ? state.audio.sfxVol : 0; } function stopMusic(){ if(musicTimer) clearInterval(musicTimer); musicTimer = null; musicNodes.forEach(n => { try{ n.stop(); }catch(e){} }); musicNodes = []; started = false; } function startMusic(){ if(!ctx) return; if(started) return; started = true; const bpm = 92; const beat = 60 / bpm; const chordProgression = [ [261.63, 329.63, 392.00], [293.66, 369.99, 440.00], [246.94, 311.13, 392.00], [220.00, 277.18, 329.63] ]; let step = 0; let t = ctx.currentTime + 0.05; function scheduleBar(){ const chord = chordProgression[step % chordProgression.length]; const padGain = ctx.createGain(); padGain.gain.setValueAtTime(0.0001, t); padGain.gain.exponentialRampToValueAtTime(0.10, t + 0.06); padGain.gain.exponentialRampToValueAtTime(0.0001, t + beat * 4 - 0.02); padGain.connect(musicBus); chord.forEach((freq, i) => { const o = ctx.createOscillator(); o.type = i === 0 ? "sine" : "triangle"; const det = (i === 1 ? 4 : i === 2 ? -3 : 0); o.frequency.setValueAtTime(freq, t); o.detune.setValueAtTime(det, t); const f = ctx.createBiquadFilter(); f.type = "lowpass"; f.frequency.setValueAtTime(900 + i * 140, t); f.Q.setValueAtTime(0.7, t); o.connect(f); f.connect(padGain); o.start(t); o.stop(t + beat * 4); musicNodes.push(o); }); const bass = ctx.createOscillator(); bass.type = "sine"; bass.frequency.setValueAtTime(chord[0] / 2, t); const bassGain = ctx.createGain(); bassGain.gain.setValueAtTime(0.0001, t); bassGain.gain.exponentialRampToValueAtTime(0.12, t + 0.01); bassGain.gain.exponentialRampToValueAtTime(0.0001, t + beat * 4 - 0.03); bass.connect(bassGain); bassGain.connect(musicBus); bass.start(t); bass.stop(t + beat * 4); musicNodes.push(bass); for(let k=0;k<4;k++){ const click = ctx.createOscillator(); click.type = "square"; click.frequency.setValueAtTime(110 + (k%2)*20, t + beat*k); const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, t + beat*k); g.gain.exponentialRampToValueAtTime(0.05, t + beat*k + 0.004); g.gain.exponentialRampToValueAtTime(0.0001, t + beat*k + 0.06); click.connect(g); g.connect(musicBus); click.start(t + beat*k); click.stop(t + beat*k + 0.07); musicNodes.push(click); } step++; t += beat * 4; } scheduleBar(); musicTimer = setInterval(() => { if(!state.audio.musicOn) return; const lookAhead = 0.25; while(t < ctx.currentTime + lookAhead){ scheduleBar(); } musicNodes = musicNodes.filter(n => { try{ return n && n.playbackState !== n.FINISHED_STATE; }catch(e){ return true; } }); }, 120); } function tone(freq, dur, type, gain, slideTo){ if(!ctx) return; const o = ctx.createOscillator(); o.type = type || "sine"; const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, ctx.currentTime); g.gain.exponentialRampToValueAtTime(gain || 0.08, ctx.currentTime + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur); o.frequency.setValueAtTime(freq, ctx.currentTime); if(slideTo){ o.frequency.exponentialRampToValueAtTime(slideTo, ctx.currentTime + dur); } o.connect(g); g.connect(sfxBus); o.start(); o.stop(ctx.currentTime + dur + 0.02); } function noiseBurst(dur, gain){ if(!ctx) return; const bufferSize = Math.max(1, Math.floor(ctx.sampleRate * dur)); const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate); const data = buffer.getChannelData(0); for(let i=0;i<bufferSize;i++){ data[i] = (Math.random() * 2 - 1) * (1 - i / bufferSize); } const src = ctx.createBufferSource(); src.buffer = buffer; const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, ctx.currentTime); g.gain.exponentialRampToValueAtTime(gain || 0.07, ctx.currentTime + 0.005); g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur); const f = ctx.createBiquadFilter(); f.type = "highpass"; f.frequency.setValueAtTime(700, ctx.currentTime); src.connect(f); f.connect(g); g.connect(sfxBus); src.start(); src.stop(ctx.currentTime + dur + 0.02); } return { initIfNeeded, applySettings, startMusic, stopMusic, tone, noiseBurst, get ctx(){ return ctx; } }; })(); const sfx = { click: () => { if(!audioEngine.ctx) return; audioEngine.tone(520, 0.06, "triangle", 0.06, 420); }, whoosh: () => { if(!audioEngine.ctx) return; audioEngine.noiseBurst(0.10, 0.05); }, spin: () => { if(!audioEngine.ctx) return; audioEngine.tone(320, 0.10, "sawtooth", 0.05, 660); setTimeout(() => audioEngine.tone(240, 0.10, "sawtooth", 0.04, 520), 80); }, cash: () => { if(!audioEngine.ctx) return; audioEngine.tone(740, 0.07, "square", 0.05, 980); setTimeout(() => audioEngine.tone(980, 0.06, "square", 0.04, 740), 60); }, dice: () => { if(!audioEngine.ctx) return; audioEngine.noiseBurst(0.08, 0.06); setTimeout(() => audioEngine.tone(420, 0.08, "triangle", 0.05, 280), 60); }, scratch: () => { if(!audioEngine.ctx) return; audioEngine.noiseBurst(0.06, 0.05); }, win: () => { if(!audioEngine.ctx) return; audioEngine.tone(523.25, 0.10, "triangle", 0.08, 659.25); setTimeout(() => audioEngine.tone(659.25, 0.12, "triangle", 0.08, 783.99), 90); setTimeout(() => audioEngine.tone(783.99, 0.14, "triangle", 0.08, 1046.5), 190); }, lose: () => { if(!audioEngine.ctx) return; audioEngine.tone(220, 0.14, "sine", 0.07, 160); setTimeout(() => audioEngine.tone(160, 0.16, "sine", 0.06, 120), 110); } }; document.addEventListener("click", async () => { if(!audioEngine.ctx) return; if(audioEngine.ctx.state === "suspended"){ try{ await audioEngine.initIfNeeded(); audioEngine.applySettings(); }catch(e){} } }, { once:false }); (async () => { renderWallet(); setFeatured(); saveState(); })(); </script> </body> </html>
