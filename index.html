@@ -1,1 +1,368 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Lucky Coin Casino</title> <style> body { margin: 0; font-family: Arial, sans-serif; background: linear-gradient(180deg,#3a0066,#210033); color: white; } .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background: #4b0082; } .navbar h1 { margin: 0; font-size: 20px; } .nav-links { display: flex; gap: 20px; font-weight: bold; } .nav-links span { cursor: pointer; opacity: 0.8; } .nav-links span:hover { opacity: 1; } .top-bar { display: flex; justify-content: space-between; padding: 15px 30px; align-items: center; } .filters { display: flex; gap: 15px; } select, input { padding: 8px; border-radius: 6px; border: none; } .search { width: 200px; } .game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap: 20px; padding: 20px 30px 50px; } .game-card { background: linear-gradient(180deg,#00a86b,#007f50); border-radius: 12px; height: 200px; display: flex; align-items: center; justify-content: center; font-weight: bold; text-align: center; cursor: pointer; transition: 0.2s ease; box-shadow: 0 10px 25px rgba(0,0,0,0.4); } .game-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.6); } .footer { text-align: center; padding: 20px; opacity: 0.6; } </style> </head> <body> <div class="navbar"> <h1>Lucky Coin Casino</h1> <div class="nav-links"> <span>Sports</span> <span>Dice</span> <span>Crash</span> <span>Casino</span> <span>Live</span> <span>Bonuses</span> </div> </div> <div class="top-bar"> <div class="filters"> <select> <option>All Providers</option> <option>Wazdan</option> <option>Betsoft</option> <option>Play'n GO</option> </select> <select> <option>Popularity</option> <option>Newest</option> <option>High RTP</option> </select> </div> <input class="search" type="text" placeholder="Search games..."> </div> <div class="game-grid"> <div class="game-card">Caribbean Poker</div> <div class="game-card">Video Poker</div> <div class="game-card">Red Dog</div> <div class="game-card">Triple Edge Poker</div> <div class="game-card">Magic Poker</div> <div class="game-card">Joker Poker</div> <div class="game-card">American Poker Gold</div> <div class="game-card">Pai Gow</div> <div class="game-card">Three Card Rummy</div> <div class="game-card">Turbo Poker</div> <div class="game-card">Oasis Poker</div> <div class="game-card">3 Hand Holdem</div> <div class="game-card">Blackjack Classic</div> <div class="game-card">European Blackjack</div> <div class="game-card">VIP Blackjack</div> <div class="game-card">Roulette Pro</div> <div class="game-card">Lightning Roulette</div> <div class="game-card">Dice Duel</div> <div class="game-card">Mega Slots</div> <div class="game-card">777 Deluxe</div> <div class="game-card">Gold Rush Slots</div> <div class="game-card">Pirate Spin 3D</div> <div class="game-card">High Roller Poker</div> <div class="game-card">Neon Casino Holdem</div> </div> <div class="footer"> Pretend coin demo casino </div> </body> </html>
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1"> <title>Lucky Coin Casino</title> <style> body{ margin:0; font-family: Arial, sans-serif; color:#fff; background: radial-gradient(900px 650px at 20% 10%, rgba(120,70,255,0.35), transparent 60%), radial-gradient(900px 700px at 85% 15%, rgba(35,210,255,0.20), transparent 55%), radial-gradient(900px 760px at 55% 90%, rgba(255,76,150,0.14), transparent 55%), linear-gradient(180deg,#0b0620,#12052a,#1b0836); overflow-x:hidden; } a{color:inherit;text-decoration:none} .topbar{ position:sticky; top:0; z-index:20; background: linear-gradient(180deg, rgba(11,6,32,0.90), rgba(11,6,32,0.55)); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.08); } .topbarInner{ max-width: 1320px; margin: 0 auto; padding: 12px 16px; display:flex; gap: 14px; align-items:center; } .brand{ display:flex; gap:10px; align-items:center; min-width: 220px; } .logo{ width: 38px; height: 38px; border-radius: 12px; background: linear-gradient(135deg, rgba(35,210,255,0.95), rgba(120,70,255,0.95), rgba(255,76,150,0.85)); border: 1px solid rgba(255,255,255,0.20); box-shadow: 0 16px 44px rgba(120,70,255,0.25); } .brandTitle{ font-weight: 900; letter-spacing: 0.7px; font-size: 14px; line-height: 1.1; } .brandSub{ font-size: 11px; opacity: 0.70; margin-top: 2px; } .nav{ display:flex; gap: 12px; flex-wrap:wrap; align-items:center; color: rgba(255,255,255,0.75); font-weight: 900; letter-spacing: 0.4px; font-size: 12px; } .navBtn{ padding: 10px 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.00); cursor:pointer; user-select:none; } .navBtn.on{ color:#fff; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); } .right{ margin-left:auto; display:flex; gap: 10px; flex-wrap:wrap; align-items:center; justify-content:flex-end; } .pill{ display:flex; gap: 10px; align-items:center; padding: 9px 10px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); } .pill strong{ color: #ffd36a; letter-spacing: 0.6px; } .searchWrap{ display:flex; gap: 8px; align-items:center; padding: 9px 12px; border-radius: 999px; background: rgba(0,0,0,0.20); border: 1px solid rgba(255,255,255,0.12); } .searchWrap span{opacity:0.70;font-weight:900;font-size:12px} .searchWrap input{ width: 220px; background: transparent; border:0; outline:none; color:#fff; font-size: 12px; } .btn{ border:0; cursor:pointer; color:#fff; border-radius: 12px; padding: 9px 12px; font-size: 12px; font-weight: 900; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); transition: transform 0.08s ease, filter 0.15s ease; } .btn:active{transform:translateY(1px)} .btnPrimary{ background: linear-gradient(135deg, rgba(255,76,150,0.75), rgba(120,70,255,0.85)); border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 18px 55px rgba(120,70,255,0.22); } .btnGood{ background: linear-gradient(135deg, rgba(114,255,180,0.70), rgba(114,255,180,0.18)); border: 1px solid rgba(114,255,180,0.35); } .btnBad{ background: linear-gradient(135deg, rgba(255,98,118,0.70), rgba(255,98,118,0.18)); border: 1px solid rgba(255,98,118,0.35); }
+
+.container{
+max-width: 1320px;
+margin: 0 auto;
+padding: 14px 16px 26px;
+}
+
+.sectionHead{
+display:flex;
+gap: 12px;
+flex-wrap:wrap;
+align-items:center;
+justify-content:space-between;
+margin: 12px 0 10px;
+}
+.chips{
+display:flex;
+gap: 8px;
+flex-wrap:wrap;
+align-items:center;
+}
+.chip{
+padding: 9px 12px;
+border-radius: 999px;
+background: rgba(255,255,255,0.07);
+border: 1px solid rgba(255,255,255,0.10);
+color: rgba(255,255,255,0.78);
+font-weight: 900;
+font-size: 12px;
+cursor:pointer;
+user-select:none;
+}
+.chip.on{
+color:#fff;
+background: rgba(255,255,255,0.12);
+border: 1px solid rgba(255,255,255,0.16);
+}
+.toggles{
+display:flex;
+gap: 8px;
+flex-wrap:wrap;
+align-items:center;
+}
+.toggle{
+padding: 9px 12px;
+border-radius: 999px;
+background: rgba(255,255,255,0.06);
+border: 1px solid rgba(255,255,255,0.10);
+cursor:pointer;
+user-select:none;
+font-weight: 900;
+font-size: 12px;
+color: rgba(255,255,255,0.78);
+}
+.toggle.on{
+color:#fff;
+background: rgba(255,255,255,0.10);
+border: 1px solid rgba(255,255,255,0.16);
+}
+
+.layout{
+display:grid;
+grid-template-columns: 380px 1fr;
+gap: 12px;
+align-items:start;
+}
+@media (max-width: 1100px){
+.layout{grid-template-columns: 1fr}
+}
+
+.panel{
+background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+border: 1px solid rgba(255,255,255,0.10);
+border-radius: 18px;
+overflow:hidden;
+box-shadow: 0 22px 70px rgba(0,0,0,0.45);
+position: sticky;
+top: 86px;
+}
+@media (max-width: 1100px){
+.panel{position:relative; top:auto}
+}
+.panelHeader{
+padding: 14px;
+border-bottom: 1px solid rgba(255,255,255,0.08);
+display:flex;
+gap: 10px;
+align-items:center;
+justify-content:space-between;
+}
+.panelTitle{
+font-weight: 1000;
+letter-spacing: 0.7px;
+font-size: 14px;
+}
+.panelSub{
+font-size: 11px;
+opacity: 0.70;
+margin-top: 2px;
+}
+.panelBody{padding: 14px}
+.row{
+display:flex;
+gap: 8px;
+flex-wrap:wrap;
+align-items:center;
+margin-bottom: 10px;
+}
+label{
+font-size: 12px;
+opacity: 0.75;
+font-weight: 900;
+}
+input[type="number"], select{
+background: rgba(0,0,0,0.22);
+color: #fff;
+border: 1px solid rgba(255,255,255,0.14);
+border-radius: 12px;
+padding: 10px 10px;
+font-size: 12px;
+outline:none;
+}
+.small{
+font-size: 11px;
+opacity: 0.65;
+}
+.log{
+margin-top: 10px;
+padding: 12px;
+border-radius: 14px;
+background: rgba(0,0,0,0.22);
+border: 1px solid rgba(255,255,255,0.10);
+min-height: 62px;
+}
+.win{color: rgba(114,255,180,1); font-weight: 1000}
+.lose{color: rgba(255,98,118,1); font-weight: 1000}
+.note{opacity:0.80}
+
+.grid{
+display:grid;
+grid-template-columns: repeat(12, 1fr);
+gap: 12px;
+}
+.tile{
+grid-column: span 3;
+border-radius: 18px;
+overflow:hidden;
+border: 1px solid rgba(255,255,255,0.10);
+box-shadow: 0 18px 60px rgba(0,0,0,0.30);
+cursor:pointer;
+position:relative;
+min-height: 170px;
+background: rgba(255,255,255,0.05);
+}
+@media (max-width: 1180px){ .tile{grid-column: span 4} }
+@media (max-width: 860px){ .tile{grid-column: span 6} }
+@media (max-width: 520px){ .tile{grid-column: span 12} }
+
+.tileTop{
+height: 120px;
+position:relative;
+background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03));
+}
+.tileGlow{
+position:absolute;
+inset:-2px;
+opacity: 0.95;
+}
+.tileIcon{
+position:absolute;
+left: 12px;
+top: 12px;
+width: 44px;
+height: 44px;
+border-radius: 14px;
+background: rgba(0,0,0,0.22);
+border: 1px solid rgba(255,255,255,0.14);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size: 20px;
+z-index: 2;
+}
+.tileFav{
+position:absolute;
+right: 10px;
+top: 10px;
+z-index: 2;
+width: 34px;
+height: 34px;
+border-radius: 12px;
+background: rgba(0,0,0,0.20);
+border: 1px solid rgba(255,255,255,0.14);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size: 16px;
+color: rgba(255,255,255,0.72);
+}
+.tileFav.on{color:#ffd36a}
+.tileBody{padding: 12px}
+.tileName{
+font-weight: 1000;
+letter-spacing: 0.4px;
+font-size: 13px;
+}
+.tileMeta{
+margin-top: 4px;
+font-size: 11px;
+opacity: 0.75;
+display:flex;
+gap: 8px;
+flex-wrap:wrap;
+align-items:center;
+}
+.tag{
+padding: 3px 8px;
+border-radius: 999px;
+background: rgba(255,255,255,0.08);
+border: 1px solid rgba(255,255,255,0.10);
+font-weight: 900;
+font-size: 10px;
+opacity: 0.90;
+}
+.tile:hover{
+transform: translateY(-2px);
+transition: 0.18s ease;
+border: 1px solid rgba(255,255,255,0.16);
+box-shadow: 0 22px 75px rgba(0,0,0,0.38);
+}
+
+.cardsRow{
+display:flex;
+gap: 10px;
+flex-wrap:wrap;
+margin-top: 8px;
+}
+.playCard{
+width: 82px;
+height: 116px;
+border-radius: 18px;
+background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.06));
+border: 1px solid rgba(255,255,255,0.16);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size: 20px;
+user-select:none;
+cursor:pointer;
+position:relative;
+}
+.playCard.held{
+outline: 2px solid rgba(114,255,180,0.65);
+box-shadow: 0 0 0 4px rgba(114,255,180,0.12);
+}
+.badge{
+position:absolute;
+bottom: 10px;
+right: 10px;
+font-size: 10px;
+padding: 4px 8px;
+border-radius: 999px;
+background: rgba(114,255,180,0.18);
+border: 1px solid rgba(114,255,180,0.35);
+color: rgba(114,255,180,1);
+display:none;
+}
+.playCard.held .badge{display:inline-block}
+
+hr{
+border:0;
+height:1px;
+background: rgba(255,255,255,0.10);
+margin: 10px 0;
+}
+.hidden{display:none}
+.footer{
+margin-top: 14px;
+opacity: 0.55;
+font-size: 12px;
+text-align:center;
+padding: 10px 0 24px;
+}
+</style>
+
+</head> <body> <div class="topbar"> <div class="topbarInner"> <div class="brand"> <div class="logo"></div> <div> <div class="brandTitle">LUCKY COIN</div> <div class="brandSub">Pretend coins only. Every tile opens a real game.</div> </div> </div>
+<div class="nav">
+  <div class="navBtn on" data-nav="discover" onclick="setNav('discover')">DISCOVER</div>
+  <div class="navBtn" data-nav="quick" onclick="setNav('quick')">QUICK</div>
+  <div class="navBtn" data-nav="table" onclick="setNav('table')">TABLE</div>
+  <div class="navBtn" data-nav="slots" onclick="setNav('slots')">SLOTS</div>
+  <div class="navBtn" data-nav="cards" onclick="setNav('cards')">POKER</div>
+  <div class="navBtn" data-nav="new" onclick="setNav('new')">NEW</div>
+</div>
+
+<div class="right">
+  <div class="searchWrap">
+    <span>Search</span>
+    <input id="search" type="text" placeholder="Search games..." oninput="applyFilters()">
+  </div>
+
+  <div class="pill">
+    <span>Coins</span>
+    <strong id="coins">1000</strong>
+    <button class="btn" type="button" onclick="resetAll()">Reset</button>
+  </div>
+
+  <button class="btn btnPrimary" type="button" onclick="deposit()">Deposit</button>
+</div>
+
+</div> </div> <div class="container"> <div class="sectionHead"> <div class="chips" id="chips"> <div class="chip on" data-cat="all" onclick="setCategory('all')">ALL</div> <div class="chip" data-cat="slots" onclick="setCategory('slots')">SLOTS</div> <div class="chip" data-cat="table" onclick="setCategory('table')">TABLE GAMES</div> <div class="chip" data-cat="cards" onclick="setCategory('cards')">POKER</div> <div class="chip" data-cat="blackjack" onclick="setCategory('blackjack')">BLACKJACK</div> <div class="chip" data-cat="quick" onclick="setCategory('quick')">QUICK</div> <div class="chip" data-cat="new" onclick="setCategory('new')">NEW</div> </div>
+<div class="toggles">
+  <div class="toggle" id="favToggle" onclick="toggleFavOnly()">FAVORITES</div>
+  <div class="toggle" id="recentToggle" onclick="toggleRecentOnly()">RECENT</div>
+</div>
+
+</div> <div class="layout">
+<div class="panel">
+  <div class="panelHeader">
+    <div>
+      <div class="panelTitle" id="panelTitle">Select a game</div>
+      <div class="panelSub" id="panelSub">Click any tile on the right</div>
+    </div>
+    <button class="btn" type="button" onclick="goLobby()">Lobby</button>
+  </div>
+
+  <div class="panelBody">
+    <div id="panelEmpty" class="note">
+      This left panel is the game screen. Pick a game tile.
+    </div>
+
+    <div id="panelGame" class="hidden">
+
+      <div class="row">
+        <label>Bet
+          <input id="bet" type="number" min="1" value="100">
+        </label>
+        <button class="btn" type="button" onclick="setAllIn()">All In</button>
+        <button class="btn btnBad" type="button" onclick="allInPlay()">All In Play</button>
+      </div>
+
+      <div id="gameControls"></div>
+      <div class="log" id="log"></div>
+
+      <hr>
+
+      <div class="row">
+        <div class="small">Music</div>
+        <button class="btn btnPrimary" type="button" onclick="toggleMusic()" id="musicBtn">Play</button>
+        <input id="musicVol" type="range" min="0" max="100" value="35" oninput="setVolume()" aria-label="volume">
+      </div>
+
+      <div class="row">
+        <input id="musicFile" type="file" accept="audio/*" onchange="loadUserMusic(this.files)">
+        <div class="small">Choose your mp3 then press Play</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div>
+  <div class="grid" id="grid"></div>
+  <div class="footer">Toy casino with pretend coins. No payouts. No real money.</div>
+</div>
+
+</div> </div> <script> let coins = loadNumber("coinsBalance", 1000); let navFilter = "discover"; let categoryFilter = "all"; let favOnly = false; let recentOnly = false; let currentGameId = null; let favorites = loadJSON("favGames", {}); let recents = loadJSON("recentGames", []); let userAudio = null; let userAudioUrl = null; function saveNumber(k,v){ try{ localStorage.setItem(k,String(v)); }catch(e){} } function loadNumber(k,f){ try{ const v=localStorage.getItem(k); const n=Number(v); return Number.isFinite(n)&&n>=0?n:f; }catch(e){ return f; } } function saveJSON(k,o){ try{ localStorage.setItem(k, JSON.stringify(o)); }catch(e){} } function loadJSON(k,f){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):f; }catch(e){ return f; } } function setCoins(n){ coins = Math.max(0, Math.floor(n)); document.getElementById("coins").textContent = coins; saveNumber("coinsBalance", coins); } setCoins(coins); function deposit(){ setCoins(coins + 1000); } function setNav(n){ navFilter = n; const btns = document.querySelectorAll(".navBtn"); for(const b of btns){ b.classList.remove("on"); if(b.getAttribute("data-nav") === n) b.classList.add("on"); } applyFilters(); } function setCategory(c){ categoryFilter = c; const chips = document.querySelectorAll(".chip"); for(const ch of chips){ ch.classList.remove("on"); if(ch.getAttribute("data-cat") === c) ch.classList.add("on"); } applyFilters(); } function toggleFavOnly(){ favOnly = !favOnly; document.getElementById("favToggle").classList.toggle("on", favOnly); applyFilters(); } function toggleRecentOnly(){ recentOnly = !recentOnly; document.getElementById("recentToggle").classList.toggle("on", recentOnly); applyFilters(); } function isFav(id){ return !!favorites[id]; } function toggleFav(id){ favorites[id] = !favorites[id]; if(!favorites[id]) delete favorites[id]; saveJSON("favGames", favorites); renderTiles(); } function addRecent(id){ recents = recents.filter(x => x !== id); recents.unshift(id); if(recents.length > 40) recents.length = 40; saveJSON("recentGames", recents); } function isRecent(id){ return recents.includes(id); } function goLobby(){ currentGameId = null; document.getElementById("panelTitle").textContent = "Select a game"; document.getElementById("panelSub").textContent = "Click any tile on the right"; document.getElementById("panelEmpty").classList.remove("hidden"); document.getElementById("panelGame").classList.add("hidden"); document.getElementById("gameControls").innerHTML = ""; writeLog(""); } function resetAll(){ setCoins(1000); favorites = {}; recents = []; saveJSON("favGames", favorites); saveJSON("recentGames", recents); renderTiles(); goLobby(); stopMusicHard(); } function writeLog(html){ document.getElementById("log").innerHTML = html; } function setAllIn(){ document.getElementById("bet").value = coins; } function allInPlay(){ setAllIn(); play(); } function getBet(){ return Math.floor(Number(document.getElementById("bet").value)); } function okBet(b){ if(!Number.isFinite(b) || b <= 0) return {ok:false,msg:"Enter a real bet"}; if(b > coins) return {ok:false,msg:"Not enough coins"}; return {ok:true}; } function spend(b){ const chk = okBet(b); if(!chk.ok){ writeLog("<span class='lose'>"+chk.msg+"</span>"); return false; } setCoins(coins - b); return true; } function rnd(min,max){ return Math.floor(Math.random()*(max-min+1))+min; } function openGame(id){ const g = games.find(x => x.id === id); if(!g) return; currentGameId = id; addRecent(id); document.getElementById("panelTitle").textContent = g.name; document.getElementById("panelSub").textContent = g.subtitle; document.getElementById("panelEmpty").classList.add("hidden"); document.getElementById("panelGame").classList.remove("hidden"); document.getElementById("bet").value = g.defaultBet; buildGameUI(g); writeLog("<span class='note'>"+g.help+"</span>"); renderTiles(); } function play(){ const g = games.find(x => x.id === currentGameId); if(!g) return; g.play(); } function glowStyle(seed){ if(seed % 6 === 0) return "radial-gradient(380px 160px at 20% 20%, rgba(35,210,255,0.22), transparent 60%),radial-gradient(320px 180px at 80% 25%, rgba(120,70,255,0.22), transparent 62%),radial-gradient(320px 190px at 55% 90%, rgba(255,76,150,0.14), transparent 65%)"; if(seed % 6 === 1) return "radial-gradient(420px 180px at 25% 15%, rgba(255,214,102,0.20), transparent 62%),radial-gradient(360px 200px at 80% 30%, rgba(120,70,255,0.22), transparent 62%),radial-gradient(340px 220px at 55% 90%, rgba(35,210,255,0.14), transparent 65%)"; if(seed % 6 === 2) return "radial-gradient(420px 180px at 20% 20%, rgba(114,255,180,0.18), transparent 60%),radial-gradient(360px 200px at 80% 25%, rgba(255,76,150,0.18), transparent 62%),radial-gradient(340px 220px at 55% 90%, rgba(120,70,255,0.16), transparent 65%)"; if(seed % 6 === 3) return "radial-gradient(420px 180px at 20% 20%, rgba(255,76,150,0.20), transparent 60%),radial-gradient(360px 200px at 80% 25%, rgba(255,214,102,0.16), transparent 62%),radial-gradient(340px 220px at 55% 90%, rgba(35,210,255,0.14), transparent 65%)"; if(seed % 6 === 4) return "radial-gradient(420px 180px at 20% 20%, rgba(120,70,255,0.22), transparent 60%),radial-gradient(360px 200px at 80% 25%, rgba(114,255,180,0.16), transparent 62%),radial-gradient(340px 220px at 55% 90%, rgba(255,214,102,0.12), transparent 65%)"; return "radial-gradient(420px 180px at 20% 20%, rgba(35,210,255,0.20), transparent 60%),radial-gradient(360px 200px at 80% 25%, rgba(255,214,102,0.14), transparent 62%),radial-gradient(340px 220px at 55% 90%, rgba(255,76,150,0.14), transparent 65%)"; } function renderTiles(){ const grid = document.getElementById("grid"); grid.innerHTML = ""; const q = (document.getElementById("search").value || "").trim().toLowerCase(); for(let i=0;i<games.length;i++){ const g = games[i]; if(navFilter !== "discover" && g.nav !== navFilter) continue; if(categoryFilter !== "all" && g.category !== categoryFilter) continue; if(favOnly && !isFav(g.id)) continue; if(recentOnly && !isRecent(g.id)) continue; if(q && !(g.name.toLowerCase().includes(q) || g.subtitle.toLowerCase().includes(q))) continue; const tile = document.createElement("div"); tile.className = "tile"; tile.onclick = () => openGame(g.id); const top = document.createElement("div"); top.className = "tileTop"; const glow = document.createElement("div"); glow.className = "tileGlow"; glow.style.background = glowStyle(i); const icon = document.createElement("div"); icon.className = "tileIcon"; icon.textContent = g.icon; const fav = document.createElement("div"); fav.className = "tileFav" + (isFav(g.id) ? " on" : ""); fav.textContent = isFav(g.id) ? "★" : "☆"; fav.onclick = (e) => { e.stopPropagation(); toggleFav(g.id); }; top.appendChild(glow); top.appendChild(icon); top.appendChild(fav); const body = document.createElement("div"); body.className = "tileBody"; body.innerHTML = "<div class='tileName'>"+g.name+"</div>"+ "<div class='tileMeta'>"+ "<span class='tag'>"+g.category.toUpperCase()+"</span>"+ "<span class='tag'>PLAY</span>"+ "<span>"+g.subtitle+"</span>"+ "</div>"; tile.appendChild(top); tile.appendChild(body); grid.appendChild(tile); } } function applyFilters(){ renderTiles(); } function buildGameUI(g){ const host = document.getElementById("gameControls"); host.innerHTML = ""; g.build(host); } function stopMusicHard(){ if(userAudio){ try{ userAudio.pause(); }catch(e){} } const b = document.getElementById("musicBtn"); if(b) b.textContent = "Play"; } function loadUserMusic(files){ if(!files || !files[0]) return; const file = files[0]; if(userAudioUrl) URL.revokeObjectURL(userAudioUrl); userAudioUrl = URL.createObjectURL(file); if(!userAudio){ userAudio = new Audio(); userAudio.loop = true; } userAudio.src = userAudioUrl; setVolume(); writeLog("<span class='note'>Music loaded. Press Play.</span>"); } function setVolume(){ const v = Number(document.getElementById("musicVol").value) / 100; if(userAudio) userAudio.volume = v; } function toggleMusic(){ if(!userAudio || !userAudio.src){ writeLog("<span class='lose'>Pick a music file first</span>"); return; } if(userAudio.paused){ userAudio.play(); document.getElementById("musicBtn").textContent = "Stop"; }else{ userAudio.pause(); document.getElementById("musicBtn").textContent = "Play"; } } /* Games */ function makeBtn(text, cls, onClick){ const b = document.createElement("button"); b.className = "btn " + cls; b.type = "button"; b.textContent = text; b.onclick = onClick; return b; } let crashState = { active:false, bet:0, mult:1.00, crashAt:1.00 }; let hiloState = { active:false, bet:0, cur:null }; let bjState = { active:false, bet:0, player:[], dealer:[] }; let vpState = { deck:[], hand:[], held:[false,false,false,false,false], phase:"idle", bet:0 }; let minesState = { active:false, bet:0, mines:5, safe:new Set(), mine:new Set(), done:false }; function drawCardRank(){ const r = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"]; return r[rnd(0,r.length-1)]; } function bjValue(hand){ let total=0; let aces=0; for(const r of hand){ if(r==="A"){ aces++; total+=11; } else if(r==="K"||r==="Q"||r==="J") total+=10; else total+=Number(r); } while(total>21 && aces>0){ total-=10; aces--; } return total; } const suits = ["♠","♥","♦","♣"]; function makeDeck(){ const deck=[]; for(let s=0;s<suits.length;s++){ for(let r=2;r<=14;r++){ deck.push({r:r,s:suits[s]}); } } for(let i=deck.length-1;i>0;i--){ const j=rnd(0,i); const t=deck[i]; deck[i]=deck[j]; deck[j]=t; } return deck; } function rankLabel(r){ if(r===14) return "A"; if(r===13) return "K"; if(r===12) return "Q"; if(r===11) return "J"; return String(r); } function cardLabel(c){ return rankLabel(c.r)+c.s; } function evalPoker(hand){ const ranks = hand.map(c=>c.r).sort((a,b)=>a-b); const suitsArr = hand.map(c=>c.s); const counts = new Map(); for(const r of ranks) counts.set(r,(counts.get(r)||0)+1); const groups = Array.from(counts.entries()).sort((a,b)=>b[1]-a[1]||b[0]-a[0]); const flush = suitsArr.every(s=>s===suitsArr[0]); let straight=false; let high=ranks[4]; const unique = Array.from(new Set(ranks)); if(unique.length===5){ if(ranks[4]-ranks[0]===4){ straight=true; high=ranks[4]; } else{ const wheel=[2,3,4,5,14]; const isWheel = wheel.every((v,idx)=>ranks[idx]===v); if(isWheel){ straight=true; high=5; } } } let name="Nothing"; if(straight && flush && high===14) name="Royal Flush"; else if(straight && flush) name="Straight Flush"; else if(groups[0][1]===4) name="Four of a Kind"; else if(groups[0][1]===3 && groups[1][1]===2) name="Full House"; else if(flush) name="Flush"; else if(straight) name="Straight"; else if(groups[0][1]===3) name="Three of a Kind"; else if(groups[0][1]===2 && groups[1][1]===2) name="Two Pair"; else if(groups[0][1]===2) name="One Pair"; return name; } function pokerMult(name, hand){ if(name==="Royal Flush") return 250; if(name==="Straight Flush") return 50; if(name==="Four of a Kind") return 25; if(name==="Full House") return 9; if(name==="Flush") return 6; if(name==="Straight") return 4; if(name==="Three of a Kind") return 3; if(name==="Two Pair") return 2; if(name==="One Pair"){ const counts={}; for(const c of hand) counts[c.r]=(counts[c.r]||0)+1; const pairRank = Number(Object.keys(counts).find(k=>counts[k]===2)); if(pairRank>=11 || pairRank===14) return 1; } return 0; } const slotSymbols = ["🍒","🔔","💎","⭐","7️⃣","🍋","🍀","👑"]; const wheelMults = [2,2,2,3,3,4,5,10]; function makeMinesGrid(host){ const grid = document.createElement("div"); grid.style.display = "grid"; grid.style.gridTemplateColumns = "repeat(4, 1fr)"; grid.style.gap = "8px"; grid.style.marginTop = "8px"; host.appendChild(grid); return grid; } function renderMines(grid){ grid.innerHTML = ""; for(let i=0;i<16;i++){ const b = document.createElement("button"); b.className = "btn"; b.style.height = "44px"; b.style.borderRadius = "14px"; b.style.fontSize = "14px"; if(minesState.safe.has(i)) b.textContent = "💎"; else if(minesState.done && minesState.mine.has(i)) b.textContent = "💣"; else b.textContent = "□"; b.onclick = ()=> minesPick(i, grid); grid.appendChild(b); } } function minesStart(host){ const bet = getBet(); if(!spend(bet)) return; const sel = document.getElementById("minesCount"); const m = Number(sel.value || 5); minesState = { active:true, bet:bet, mines:m, safe:new Set(), mine:new Set(), done:false }; while(minesState.mine.size < m){ minesState.mine.add(rnd(0,15)); } const grid = host.querySelector("#minesGrid"); renderMines(grid); writeLog("<span class='note'>Pick tiles. Cash out anytime.</span>"); } function minesPick(i, grid){ if(!minesState.active || minesState.done) return; if(minesState.safe.has(i)) return; if(minesState.mine.has(i)){ minesState.done = true; minesState.active = false; renderMines(grid); writeLog("<span class='lose'>Boom. You lost "+minesState.bet+"</span>"); return; } minesState.safe.add(i); renderMines(grid); const picks = minesState.safe.size; const mult = Number((1 + picks * (0.25 + minesState.mines * 0.03)).toFixed(2)); writeLog("<span class='note'>Safe picks "+picks+". Cash out "+mult+"x</span>"); } function minesCashOut(grid){ if(!minesState.active || minesState.done){ writeLog("<span class='lose'>Start mines first</span>"); return; } minesState.done = true; minesState.active = false; const picks = minesState.safe.size; const mult = Number((1 + picks * (0.25 + minesState.mines * 0.03)).toFixed(2)); const win = Math.floor(minesState.bet * mult); setCoins(coins + win); renderMines(grid); writeLog("<span class='win'>Cashed out "+mult+"x. You won "+win+"</span>"); } const games = [ /* Quick */ { id:"coinflip", name:"Coin Flip", icon:"🪙", nav:"quick", category:"quick", subtitle:"2x payout", defaultBet:100, help:"Pick heads or tails.", build:(host)=>{ const row=document.createElement("div"); row.className="row"; row.appendChild(makeBtn("Heads","btnGood",()=>{ coinFlip("Heads"); })); row.appendChild(makeBtn("Tails","btnGood",()=>{ coinFlip("Tails"); })); row.appendChild(makeBtn("All In Heads","btnBad",()=>{ setAllIn(); coinFlip("Heads"); })); row.appendChild(makeBtn("All In Tails","btnBad",()=>{ setAllIn(); coinFlip("Tails"); })); host.appendChild(row); }, play:()=>{ coinFlip("Heads"); } }, { id:"dice", name:"Dice", icon:"🎲", nav:"quick", category:"quick", subtitle:"6x exact hit", defaultBet:100, help:"Pick 1 to 6 then roll.", build:(host)=>{ const row=document.createElement("div"); row.className="row"; const lab=document.createElement("label"); lab.textContent="Pick "; const pick=document.createElement("input"); pick.type="number"; pick.min="1"; pick.max="6"; pick.value="1"; pick.id="dicePick"; lab.appendChild(pick); row.appendChild(lab); row.appendChild(makeBtn("Roll","btnGood",()=>diceRoll())); row.appendChild(makeBtn("All In Roll","btnBad",()=>{ setAllIn(); diceRoll(); })); host.appendChild(row); }, play:()=>diceRoll() }, { id:"wheel", name:"Wheel", icon:"🎡", nav:"quick", category:"quick", subtitle:"2x to 10x", defaultBet:100, help:"Spin for a multiplier.", build:(host)=>{ const row=document.createElement("div"); row.className="row"; row.appendChild(makeBtn("Spin","btnGood",()=>wheelSpin())); row.appendChild(makeBtn("All In Spin","btnBad",()=>{ setAllIn(); wheelSpin(); })); host.appendChild(row); }, play:()=>wheelSpin() }, { id:"keno", name:"Keno", icon:"🔢", nav:"quick", category:"quick", subtitle:"Pick a number 1 to 20", defaultBet:50, help:"Pick a number. House draws one number.", build:(host)=>{ const row=document.createElement("div"); row.className="row"; const lab=document.createElement("label"); lab.textContent="Pick "; const pick=document.createElement("input"); pick.type="number"; pick.min="1"; pick.max="20"; pick.value="7"; pick.id="kenoPick"; lab.appendChild(pick); row.appendChild(lab); row.appendChild(makeBtn("Draw","btnGood",()=>kenoDraw())); row.appendChild(makeBtn("All In Draw","btnBad",()=>{ setAllIn(); kenoDraw(); })); host.appendChild(row); }, play:()=>kenoDraw() }, /* Slots */ { id:"slots", name:"Slots", icon:"🎰", nav:"slots", category:"slots", subtitle:"2x or 8x", defaultBet:50, help:"Two match pays 2x. Three match pays 8x.", build:(host)=>{ const row=document.createElement("div"); row.className="row"; row.appendChild(makeBtn("Spin","btnGood",()=>spinSlots())); row.appendChild(makeBtn("All In Spin","btnBad",()=>{ setAllIn(); spinSlots(); })); host.appendChild(row); }, play:()=>spinSlots() }, { id:"mega", name:"Mega Slots", icon:"💎", nav:"slots", category:"slots", subtitle:"Bigger symbol set", defaultBet:50, help:"Same rules as slots, bigger pool.", build:(host)=>{ const row=document.createElement("div"); row.className="row"; row.appendChild(makeBtn("Spin","btnGood",()=>spinMegaSlots())); row.appendChild(makeBtn("All In Spin","btnBad",()=>{ setAllIn(); spinMegaSlots(); })); host.appendChild(row); }, play:()=>spinMegaSlots() }, /* Table */ { id:"roulette", name:"Roulette Lite", icon:"🟢", nav:"table", category:"table", subtitle:"Red black even odd", defaultBet:100, help:"Win pays 2x. 0 is green.", build:(host)=>{ const row=document.createElement("div"); row.className="row"; const sel=document.createElement("select"); sel.id="rouletteType"; ["red","black","even","odd"].forEach(v=>{ const o=document.createElement("option"); o.value=v; o.textContent=v.toUpperCase(); sel.appendChild(o); }); row.appendChild(sel); row.appendChild(makeBtn("Spin","btnGood",()=>rouletteSpin())); row.appendChild(makeBtn("All In Spin","btnBad",()=>{ setAllIn(); rouletteSpin(); })); host.appendChild(row); }, play:()=>rouletteSpin() }, { id:"sicbo", name:"Sic Bo", icon:"🎲", nav:"table", category:"table", subtitle:"Bet high or low", defaultBet:100, help:"Three dice. High is 11 to 17. Low is 4 to 10.", build:(host)=>{ const row=document.createElement("div"); row.className="row"; const sel=document.createElement("select"); sel.id="sicboPick"; ["low","high"].forEach(v=>{ const o=document.createElement("option"); o.value=v; o.textContent=v.toUpperCase(); sel.appendChild(o); }); row.appendChild(sel); row.appendChild(makeBtn("Roll","btnGood",()=>sicboRoll())); row.appendChild(makeBtn("All In Roll","btnBad",()=>{ setAllIn(); sicboRoll(); })); host.appendChild(row); }, play:()=>sicboRoll() }, { id:"baccarat", name:"Baccarat Lite", icon:"🂮", nav:"table", category:"table", subtitle:"Player banker", defaultBet:100, help:"Pick player or banker. Closest to 9 wins.", build:(host)=>{ const row=document.createElement("div"); row.className="row"; const sel=document.createElement("select"); sel.id="baccPick"; ["player","banker"].forEach(v=>{ const o=document.createElement("option"); o.value=v; o.textContent=v.toUpperCase(); sel.appendChild(o); }); row.appendChild(sel); row.appendChild(makeBtn("Deal","btnGood",()=>baccaratDeal())); row.appendChild(makeBtn("All In Deal","btnBad",()=>{ setAllIn(); baccaratDeal(); })); host.appendChild(row); }, play:()=>baccaratDeal() }, /* Cards */ { id:"hilo", name:"Hi Lo", icon:"🃏", nav:"cards", category:"cards", subtitle:"2x payout", defaultBet:100, help:"Guess higher or lower.", build:(host)=>{ const row=document.createElement("div"); row.className="row"; row.appendChild(makeBtn("Start","btnPrimary",()=>hiloStart())); row.appendChild(makeBtn("Higher","btnGood",()=>hiloGuess("higher"))); row.appendChild(makeBtn("Lower","btnGood",()=>hiloGuess("lower"))); row.appendChild(makeBtn("All In Start","btnBad",()=>{ setAllIn(); hiloStart(); })); host.appendChild(row); }, play:()=>hiloStart() }, { id:"war", name:"War", icon:"⚔️", nav:"cards", category:"cards", subtitle:"Highest card wins", defaultBet:100, help:"You and dealer flip one card. Higher wins. Ties push.", build:(host)=>{ const row=document.createElement("div"); row.className="row"; row.appendChild(makeBtn("Flip","btnGood",()=>warFlip())); row.appendChild(makeBtn("All In Flip","btnBad",()=>{ setAllIn(); warFlip(); })); host.appendChild(row); }, play:()=>warFlip() }, { id:"videopoker", name:"Video Poker", icon:"🂡", nav:"cards", category:"cards", subtitle:"Jacks or better", defaultBet:100, help:"Tap cards to hold then draw.", build:(host)=>{ const row=document.createElement("div"); row.className="row"; row.appendChild(makeBtn("Deal","btnPrimary",()=>pokerDeal())); row.appendChild(makeBtn("Draw","btnGood",()=>pokerDraw())); row.appendChild(makeBtn("New Hand","",()=>pokerNewHand())); row.appendChild(makeBtn("All In Deal","btnBad",()=>{ setAllIn(); pokerDeal(); })); host.appendChild(row); const small=document.createElement("div"); small.className="small"; small.textContent="Tap cards to hold"; host.appendChild(small); const cards=document.createElement("div"); cards.className="cardsRow"; cards.id="pokerCards"; host.appendChild(cards); pokerNewHand(); }, play:()=>pokerDeal() }, /* Blackjack */ { id:"blackjack", name:"Blackjack Lite", icon:"♠️", nav:"cards", category:"blackjack", subtitle:"House stands 17", defaultBet:100, help:"Blackjack pays 2.5x.", build:(host)=>{ const row=document.createElement("div"); row.className="row"; row.appendChild(makeBtn("Deal","btnPrimary",()=>bjDeal())); row.appendChild(makeBtn("Hit","btnGood",()=>bjHit())); row.appendChild(makeBtn("Stand","",()=>bjStand())); row.appendChild(makeBtn("All In Deal","btnBad",()=>{ setAllIn(); bjDeal(); })); host.appendChild(row); }, play:()=>bjDeal() }, /* New */ { id:"crash", name:"Crash", icon:"📈", nav:"new", category:"new", subtitle:"Cash out early", defaultBet:100, help:"Start then cash out before it crashes.", build:(host)=>{ const row=document.createElement("div"); row.className="row"; row.appendChild(makeBtn("Start","btnPrimary",()=>crashStart())); row.appendChild(makeBtn("Cash Out","btnGood",()=>crashCashOut())); row.appendChild(makeBtn("All In Start","btnBad",()=>{ setAllIn(); crashStart(); })); host.appendChild(row); const small=document.createElement("div"); small.className="small"; small.textContent="Press Start, then Cash Out. You will not always be fast enough. Obviously."; host.appendChild(small); }, play:()=>crashStart() }, { id:"mines", name:"Mines", icon:"💣", nav:"new", category:"new", subtitle:"Pick gems then cash out", defaultBet:50, help:"Click safe tiles to build multiplier.", build:(host)=>{ const row=document.createElement("div"); row.className="row"; const lab=document.createElement("label"); lab.textContent="Mines "; const sel=document.createElement("select"); sel.id="minesCount"; ["3","5","8","10"].forEach(v=>{ const o=document.createElement("option"); o.value=v; o.textContent=v; sel.appendChild(o); }); lab.appendChild(sel); row.appendChild(lab); row.appendChild(makeBtn("Start","btnPrimary",()=>minesStart(host))); row.appendChild(makeBtn("Cash Out","btnGood",()=>{ const grid=host.querySelector("#minesGrid"); minesCashOut(grid); })); row.appendChild(makeBtn("All In Start","btnBad",()=>{ setAllIn(); minesStart(host); })); host.appendChild(row); const grid = makeMinesGrid(host); grid.id = "minesGrid"; renderMines(grid); }, play:()=>{ const host=document.getElementById("gameControls"); minesStart(host); } }, { id:"plinko", name:"Plinko", icon:"🧷", nav:"new", category:"new", subtitle:"Random multiplier", defaultBet:50, help:"Pick risk then drop.", build:(host)=>{ const row=document.createElement("div"); row.className="row"; const lab=document.createElement("label"); lab.textContent="Risk "; const sel=document.createElement("select"); sel.id="plinkoRisk"; ["low","mid","high"].forEach(v=>{ const o=document.createElement("option"); o.value=v; o.textContent=v.toUpperCase(); sel.appendChild(o); }); lab.appendChild(sel); row.appendChild(lab); row.appendChild(makeBtn("Drop","btnGood",()=>plinkoDrop())); row.appendChild(makeBtn("All In Drop","btnBad",()=>{ setAllIn(); plinkoDrop(); })); host.appendChild(row); }, play:()=>plinkoDrop() } ]; /* Game actions */ function coinFlip(choice){ const bet = getBet(); if(!spend(bet)) return; const result = Math.random() < 0.5 ? "Heads" : "Tails"; if(result === choice){ const win = bet * 2; setCoins(coins + win); writeLog("<span class='win'>Result "+result+". You won "+win+"</span>"); }else{ writeLog("<span class='lose'>Result "+result+". You lost "+bet+"</span>"); } } function diceRoll(){ const bet = getBet(); const pick = Math.floor(Number(document.getElementById("dicePick").value)); if(!Number.isFinite(pick) || pick<1 || pick>6){ writeLog("<span class='lose'>Pick 1 to 6</span>"); return; } if(!spend(bet)) return; const roll = rnd(1,6); if(roll === pick){ const win = bet * 6; setCoins(coins + win); writeLog("<span class='win'>Rolled "+roll+". You won "+win+"</span>"); }else{ writeLog("<span class='lose'>Rolled "+roll+". You lost "+bet+"</span>"); } } function wheelSpin(){ const bet = getBet(); if(!spend(bet)) return; const mult = wheelMults[rnd(0,wheelMults.length-1)]; const win = bet * mult; setCoins(coins + win); writeLog("<span class='win'>Wheel "+mult+"x. You won "+win+"</span>"); } function kenoDraw(){ const bet = getBet(); const pick = Math.floor(Number(document.getElementById("kenoPick").value)); if(!Number.isFinite(pick) || pick<1 || pick>20){ writeLog("<span class='lose'>Pick 1 to 20</span>"); return; } if(!spend(bet)) return; const draw = rnd(1,20); if(draw === pick){ const win = bet * 12; setCoins(coins + win); writeLog("<span class='win'>Draw "+draw+". Exact hit. You won "+win+"</span>"); }else{ writeLog("<span class='lose'>Draw "+draw+". You lost "+bet+"</span>"); } } function spinSlots(){ const bet = getBet(); if(!spend(bet)) return; const a=slotSymbols[rnd(0,slotSymbols.length-1)]; const b=slotSymbols[rnd(0,slotSymbols.length-1)]; const c=slotSymbols[rnd(0,slotSymbols.length-1)]; let mult=0; if(a===b && b===c) mult=8; else if(a===b || b===c || a===c) mult=2; if(mult>0){ const win = bet * mult; setCoins(coins + win); writeLog("<div style='font-size:26px'>"+a+" "+b+" "+c+"</div><div class='win'>You won "+win+" ("+mult+"x)</div>"); }else{ writeLog("<div style='font-size:26px'>"+a+" "+b+" "+c+"</div><div class='lose'>You lost "+bet+"</div>"); } } function spinMegaSlots(){ const bet = getBet(); if(!spend(bet)) return; const pool = slotSymbols.concat(["🧿","🧊","🔥","🍇","🪩","💰"]); const a=pool[rnd(0,pool.length-1)]; const b=pool[rnd(0,pool.length-1)]; const c=pool[rnd(0,pool.length-1)]; let mult=0; if(a===b && b===c) mult=10; else if(a===b || b===c || a===c) mult=2; if(mult>0){ const win = bet * mult; setCoins(coins + win); writeLog("<div style='font-size:26px'>"+a+" "+b+" "+c+"</div><div class='win'>You won "+win+" ("+mult+"x)</div>"); }else{ writeLog("<div style='font-size:26px'>"+a+" "+b+" "+c+"</div><div class='lose'>You lost "+bet+"</div>"); } } function rouletteSpin(){ const bet = getBet(); if(!spend(bet)) return; const n = rnd(0,36); const reds = new Set([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]); const color = n===0 ? "green" : (reds.has(n) ? "red" : "black"); const parity = n===0 ? "none" : (n%2===0 ? "even" : "odd"); const pick = document.getElementById("rouletteType").value; const hit = (pick==="red" && color==="red") || (pick==="black" && color==="black") || (pick==="even" && parity==="even") || (pick==="odd" && parity==="odd"); if(hit){ const win = bet * 2; setCoins(coins + win); writeLog("<span class='win'>Ball "+n+" "+color+". You won "+win+"</span>"); }else{ writeLog("<span class='lose'>Ball "+n+" "+color+". You lost "+bet+"</span>"); } } function sicboRoll(){ const bet = getBet(); if(!spend(bet)) return; const d1=rnd(1,6), d2=rnd(1,6), d3=rnd(1,6); const sum = d1+d2+d3; const pick = document.getElementById("sicboPick").value; const isTriple = (d1===d2 && d2===d3); if(isTriple){ writeLog("<span class='lose'>Dice "+d1+" "+d2+" "+d3+" (triple). House wins. You lost "+bet+"</span>"); return; } const high = sum>=11 && sum<=17; const low = sum>=4 && sum<=10; const hit = (pick==="high" && high) || (pick==="low" && low); if(hit){ const win = bet * 2; setCoins(coins + win); writeLog("<span class='win'>Dice "+d1+" "+d2+" "+d3+" sum "+sum+". You won "+win+"</span>"); }else{ writeLog("<span class='lose'>Dice "+d1+" "+d2+" "+d3+" sum "+sum+". You lost "+bet+"</span>"); } } function baccaratDeal(){ const bet = getBet(); if(!spend(bet)) return; const pick = document.getElementById("baccPick").value; const p1=rnd(0,9), p2=rnd(0,9); const b1=rnd(0,9), b2=rnd(0,9); const p = (p1+p2) % 10; const b = (b1+b2) % 10; if(p===b){ setCoins(coins + bet); writeLog("<span class='note'>Tie. Player "+p+" Banker "+b+". Bet returned "+bet+"</span>"); return; } const winner = p>b ? "player" : "banker"; if(winner===pick){ const win = bet * 2; setCoins(coins + win); writeLog("<span class='win'>Player "+p+" Banker "+b+". "+winner.toUpperCase()+" wins. You won "+win+"</span>"); }else{ writeLog("<span class='lose'>Player "+p+" Banker "+b+". "+winner.toUpperCase()+" wins. You lost "+bet+"</span>"); } } function hiloCard(){ const r = rnd(1,13); const label = r===1 ? "A" : (r===11 ? "J" : (r===12 ? "Q" : (r===13 ? "K" : String(r)))); return {r:r,label:label}; } function hiloStart(){ const bet = getBet(); if(!spend(bet)) return; hiloState = { active:true, bet:bet, cur:hiloCard() }; writeLog("<span class='note'>Current card <span class='win'>"+hiloState.cur.label+"</span>. Choose higher or lower.</span>"); } function hiloGuess(dir){ if(!hiloState.active){ writeLog("<span class='lose'>Start first</span>"); return; } const next = hiloCard(); const cur = hiloState.cur; let win=false; if(next.r===cur.r) win=false; else if(dir==="higher") win = next.r > cur.r; else win = next.r < cur.r; hiloState.active=false; if(win){ const payout = hiloState.bet * 2; setCoins(coins + payout); writeLog("<span class='win'>Current "+cur.label+" Next "+next.label+". You won "+payout+"</span>"); }else{ writeLog("<span class='lose'>Current "+cur.label+" Next "+next.label+". You lost "+hiloState.bet+"</span>"); } } function warFlip(){ const bet = getBet(); if(!spend(bet)) return; const your = rnd(2,14); const dealer = rnd(2,14); const yL = rankLabel(your); const dL = rankLabel(dealer); if(your > dealer){ const win = bet * 2; setCoins(coins + win); writeLog("<span class='win'>You "+yL+" Dealer "+dL+". You won "+win+"</span>"); }else if(your < dealer){ writeLog("<span class='lose'>You "+yL+" Dealer "+dL+". You lost "+bet+"</span>"); }else{ setCoins(coins + bet); writeLog("<span class='note'>Tie. You "+yL+" Dealer "+dL+". Bet returned "+bet+"</span>"); } } function bjDeal(){ const bet = getBet(); if(!spend(bet)) return; bjState.active=true; bjState.bet=bet; bjState.player=[drawCardRank(), drawCardRank()]; bjState.dealer=[drawCardRank(), drawCardRank()]; const p=bjValue(bjState.player); const dUp=bjState.dealer[0]; if(p===21){ const win = Math.floor(bet * 2.5); setCoins(coins + win); bjState.active=false; writeLog("<span class='win'>Blackjack. You won "+win+"</span><div class='note'>Player "+bjState.player.join(" ")+" Dealer "+bjState.dealer.join(" ")+"</div>"); return; } writeLog("<div class='note'>Player "+bjState.player.join(" ")+" ("+p+")</div><div class='note'>Dealer shows "+dUp+"</div>"); } function bjHit(){ if(!bjState.active){ writeLog("<span class='lose'>Deal first</span>"); return; } bjState.player.push(drawCardRank()); const p=bjValue(bjState.player); if(p>21){ bjState.active=false; writeLog("<span class='lose'>Bust. You lost "+bjState.bet+"</span><div class='note'>Player "+bjState.player.join(" ")+" Dealer "+bjState.dealer.join(" ")+"</div>"); return; } writeLog("<div class='note'>Player "+bjState.player.join(" ")+" ("+p+")</div><div class='note'>Dealer shows "+bjState.dealer[0]+"</div>"); } function bjStand(){ if(!bjState.active){ writeLog("<span class='lose'>Deal first</span>"); return; } let d=bjValue(bjState.dealer); while(d<17){ bjState.dealer.push(drawCardRank()); d=bjValue(bjState.dealer); } const p=bjValue(bjState.player); bjState.active=false; if(d>21 || p>d){ const win=bjState.bet*2; setCoins(coins + win); writeLog("<span class='win'>You won "+win+"</span><div class='note'>Player "+bjState.player.join(" ")+" ("+p+") Dealer "+bjState.dealer.join(" ")+" ("+d+")</div>"); }else if(p===d){ setCoins(coins + bjState.bet); writeLog("<span class='note'>Push. Bet returned "+bjState.bet+"</span><div class='note'>Player "+bjState.player.join(" ")+" Dealer "+bjState.dealer.join(" ")+"</div>"); }else{ writeLog("<span class='lose'>You lost "+bjState.bet+"</span><div class='note'>Player "+bjState.player.join(" ")+" ("+p+") Dealer "+bjState.dealer.join(" ")+" ("+d+")</div>"); } } function pokerNewHand(){ vpState = { deck:[], hand:[], held:[false,false,false,false,false], phase:"idle", bet:0 }; renderPoker(); } function renderPoker(){ const wrap = document.getElementById("pokerCards"); if(!wrap) return; wrap.innerHTML=""; for(let i=0;i<5;i++){ const c = vpState.hand[i]; const label = c ? cardLabel(c) : "🂠"; const div=document.createElement("div"); div.className="playCard" + (vpState.held[i] ? " held" : ""); div.innerHTML = "<div>"+label+"</div><div class='badge'>HOLD</div>"; div.onclick = ()=>toggleHold(i); wrap.appendChild(div); } } function toggleHold(i){ if(vpState.phase!=="dealt") return; vpState.held[i]=!vpState.held[i]; renderPoker(); } function pokerDeal(){ const bet = getBet(); if(!spend(bet)) return; vpState.bet=bet; vpState.deck=makeDeck(); vpState.hand=[vpState.deck.pop(),vpState.deck.pop(),vpState.deck.pop(),vpState.deck.pop(),vpState.deck.pop()]; vpState.held=[false,false,false,false,false]; vpState.phase="dealt"; renderPoker(); writeLog("<span class='note'>Hold cards then draw</span>"); } function pokerDraw(){ if(vpState.phase!=="dealt"){ writeLog("<span class='lose'>Deal first</span>"); return; } for(let i=0;i<5;i++){ if(!vpState.held[i]) vpState.hand[i]=vpState.deck.pop(); } vpState.phase="done"; renderPoker(); const name = evalPoker(vpState.hand); const mult = pokerMult(name, vpState.hand); if(mult>0){ const win = vpState.bet * mult; setCoins(coins + win); writeLog("<span class='win'>"+name+". You won "+win+" ("+mult+"x)</span>"); }else{ writeLog("<span class='lose'>No payout. You lost "+vpState.bet+"</span>"); } } function crashStart(){ const bet = getBet(); if(!spend(bet)) return; crashState.active=true; crashState.bet=bet; crashState.mult=1.00; const r = Math.random(); if(r < 0.10) crashState.crashAt = 1.20; else if(r < 0.30) crashState.crashAt = 1.60; else if(r < 0.55) crashState.crashAt = 2.30; else if(r < 0.75) crashState.crashAt = 3.50; else if(r < 0.92) crashState.crashAt = 6.00; else crashState.crashAt = 10.00; writeLog("<span class='note'>Crash running. Press Cash Out.</span>"); } function crashCashOut(){ if(!crashState.active){ writeLog("<span class='lose'>Start crash first</span>"); return; } const step = Number((1 + Math.random() * 0.9).toFixed(2)); crashState.mult = Number((crashState.mult + step).toFixed(2)); if(crashState.mult >= crashState.crashAt){ crashState.active=false; writeLog("<span class='lose'>Crashed at "+crashState.crashAt+"x. You lost "+crashState.bet+"</span>"); return; } const win = Math.floor(crashState.bet * crashState.mult); setCoins(coins + win); crashState.active=false; writeLog("<span class='win'>Cashed out "+crashState.mult+"x. You won "+win+"</span>"); } function plinkoDrop(){ const bet = getBet(); if(!spend(bet)) return; const risk = document.getElementById("plinkoRisk").value || "low"; let table; if(risk==="low") table=[0.5,0.8,1,1.2,1.5,2]; else if(risk==="mid") table=[0.2,0.5,1,1.6,2.2,3.5]; else table=[0,0.2,0.8,2.5,5,10]; const mult = table[rnd(0,table.length-1)]; if(mult<=0){ writeLog("<span class='lose'>Plinko 0x. You lost "+bet+"</span>"); return; } const win = Math.floor(bet * mult); setCoins(coins + win); writeLog("<span class='win'>Plinko "+mult+"x. You won "+win+"</span>"); } renderTiles(); </script> </body> </html>
