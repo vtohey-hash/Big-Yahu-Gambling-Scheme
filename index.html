@@ -1,1273 +1,240 @@
-Done. Clicking a game now opens a full screen game view. The lobby disappears until you hit Back. The logo is back in the header like before. Custom music is removed and the built in synth music is back. There is also a Settings menu with music on off, volume, reduced motion, and reset.
-
-Put this into a single file named games.html and open it.
-
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lucky Coin Casino</title>
-<style>
-:root{
-  --bg0:#0b0620;
-  --bg1:#12052a;
-  --bg2:#1b0836;
-  --glass:rgba(255,255,255,0.08);
-  --stroke:rgba(255,255,255,0.10);
-  --stroke2:rgba(255,255,255,0.16);
-  --text:#ffffff;
-  --muted:rgba(255,255,255,0.72);
-  --muted2:rgba(255,255,255,0.56);
-  --good:#72ffb4;
-  --bad:#ff6276;
-  --warn:#ffd36a;
-  --shadow:0 22px 70px rgba(0,0,0,0.45);
-  --gradA:linear-gradient(135deg, rgba(35,210,255,0.95), rgba(120,70,255,0.95), rgba(255,76,150,0.85));
-  --gradB:linear-gradient(135deg, rgba(255,76,150,0.75), rgba(120,70,255,0.85));
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEON VOID | Elite Casino OS</title>
+    <style>
+        :root {
+            --neon-blue: #00d2ff; --neon-purple: #9d50bb; --neon-pink: #ff007a;
+            --bg: #050505; --surface: #121214; --text: #e0e0e0;
+        }
+        * { box-sizing: border-box; transition: all 0.2s ease; }
+        body {
+            background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif;
+            margin: 0; display: grid; grid-template-columns: 260px 1fr 300px; height: 100vh; overflow: hidden;
+        }
 
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-margin:0;
-font-family: Arial, sans-serif;
-color:var(--text);
-background:
-radial-gradient(900px 650px at 15% 10%, rgba(120,70,255,0.35), transparent 60%),
-radial-gradient(900px 700px at 85% 15%, rgba(35,210,255,0.20), transparent 55%),
-radial-gradient(900px 760px at 55% 90%, rgba(255,76,150,0.14), transparent 55%),
-linear-gradient(180deg, var(--bg0), var(--bg1), var(--bg2));
-overflow-x:hidden;
-}
+        /* --- LEFT NAV --- */
+        aside { background: #000; border-right: 1px solid #222; padding: 20px; display: flex; flex-direction: column; }
+        .logo { font-size: 1.5rem; font-weight: 800; background: linear-gradient(to right, var(--neon-blue), var(--neon-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 30px; }
+        .nav-btn { padding: 12px; margin: 4px 0; border-radius: 8px; cursor: pointer; color: #888; font-weight: 600; }
+        .nav-btn:hover { background: #1a1a1a; color: white; }
+        .nav-btn.active { background: var(--neon-blue); color: #000; }
 
-a{color:inherit;text-decoration:none}
+        /* --- CENTER AREA --- */
+        main { overflow-y: auto; padding: 30px; position: relative; }
+        .header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; background: var(--surface); padding: 15px 25px; border-radius: 12px; border: 1px solid #333; }
+        .stat-group { display: flex; gap: 15px; }
+        .chip { background: #000; border: 1px solid var(--neon-blue); padding: 5px 15px; border-radius: 20px; font-weight: bold; color: var(--neon-blue); }
 
-.topbar{
-position: sticky;
-top: 0;
-z-index: 50;
-background: linear-gradient(180deg, rgba(11,6,32,0.90), rgba(11,6,32,0.55));
-backdrop-filter: blur(10px);
-border-bottom: 1px solid rgba(255,255,255,0.08);
-}
+        /* --- GAME COMPONENTS --- */
+        .page { display: none; }
+        .page.active { display: block; animation: slideUp 0.3s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .card { background: var(--surface); border-radius: 16px; padding: 25px; border: 1px solid #222; margin-bottom: 20px; }
+        button { background: var(--neon-pink); border: none; padding: 12px 24px; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; }
+        button:hover { transform: scale(1.05); filter: brightness(1.2); }
+        button:disabled { background: #444; cursor: not-allowed; }
 
-.topbarInner{
-max-width: 1320px;
-margin: 0 auto;
-padding: 12px 16px;
-display:flex;
-align-items:center;
-gap: 14px;
-}
+        /* --- RIGHT SIDEBAR (LIVE CHAT) --- */
+        .chat-panel { background: #000; border-left: 1px solid #222; display: flex; flex-direction: column; }
+        .chat-header { padding: 15px; border-bottom: 1px solid #222; font-weight: bold; font-size: 0.9rem; color: var(--neon-blue); }
+        #chat-box { flex: 1; padding: 15px; overflow-y: auto; font-size: 0.85rem; }
+        .chat-msg { margin-bottom: 10px; line-height: 1.4; }
+        .user { color: var(--neon-pink); font-weight: bold; }
 
-.brand{
-display:flex;
-align-items:center;
-gap: 10px;
-min-width: 230px;
-}
-.logo{
-width: 38px;
-height: 38px;
-border-radius: 12px;
-background: var(--gradA);
-border: 1px solid rgba(255,255,255,0.20);
-box-shadow: 0 16px 44px rgba(120,70,255,0.25);
-}
-.brandTitle{
-font-weight: 1000;
-letter-spacing: 0.7px;
-font-size: 14px;
-line-height: 1.1;
-}
-.brandSub{
-font-size: 11px;
-color: var(--muted);
-margin-top: 2px;
-}
-
-.nav{
-display:flex;
-flex-wrap:wrap;
-gap: 12px;
-align-items:center;
-color: var(--muted);
-font-weight: 1000;
-letter-spacing: 0.4px;
-font-size: 12px;
-}
-.navBtn{
-padding: 10px 10px;
-border-radius: 12px;
-border: 1px solid rgba(255,255,255,0);
-cursor:pointer;
-user-select:none;
-}
-.navBtn.on{
-color: #fff;
-background: rgba(255,255,255,0.08);
-border: 1px solid rgba(255,255,255,0.12);
-}
-
-.right{
-margin-left:auto;
-display:flex;
-align-items:center;
-gap: 10px;
-flex-wrap:wrap;
-justify-content:flex-end;
-}
-
-.searchWrap{
-display:flex;
-align-items:center;
-gap: 8px;
-padding: 9px 12px;
-border-radius: 999px;
-background: rgba(0,0,0,0.20);
-border: 1px solid rgba(255,255,255,0.12);
-}
-.searchWrap span{
-color: var(--muted);
-font-weight: 1000;
-font-size: 12px;
-}
-.searchWrap input{
-width: 220px;
-background: transparent;
-border:0;
-outline:none;
-color:#fff;
-font-size: 12px;
-}
-
-.pill{
-display:flex;
-align-items:center;
-gap: 10px;
-padding: 9px 10px;
-border-radius: 999px;
-background: rgba(255,255,255,0.06);
-border: 1px solid rgba(255,255,255,0.10);
-}
-.pill strong{
-color: var(--warn);
-letter-spacing: 0.6px;
-}
-
-.btn{
-border:0;
-cursor:pointer;
-color:#fff;
-border-radius: 12px;
-padding: 9px 12px;
-font-size: 12px;
-font-weight: 1000;
-background: rgba(255,255,255,0.08);
-border: 1px solid rgba(255,255,255,0.12);
-transition: transform 0.08s ease, filter 0.15s ease;
-}
-.btn:active{transform: translateY(1px)}
-.btnPrimary{
-background: var(--gradB);
-border: 1px solid rgba(255,255,255,0.18);
-box-shadow: 0 18px 55px rgba(120,70,255,0.22);
-}
-.btnGood{
-background: linear-gradient(135deg, rgba(114,255,180,0.70), rgba(114,255,180,0.18));
-border: 1px solid rgba(114,255,180,0.35);
-}
-.btnBad{
-background: linear-gradient(135deg, rgba(255,98,118,0.70), rgba(255,98,118,0.18));
-border: 1px solid rgba(255,98,118,0.35);
-}
-
-.iconBtn{
-width: 38px;
-height: 38px;
-padding: 0;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius: 14px;
-font-size: 16px;
-}
-
-.container{
-max-width: 1320px;
-margin: 0 auto;
-padding: 14px 16px 26px;
-}
-
-.sectionHead{
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap: 12px;
-flex-wrap:wrap;
-margin: 12px 0 10px;
-}
-
-.chips{
-display:flex;
-gap: 8px;
-flex-wrap:wrap;
-align-items:center;
-}
-.chip{
-padding: 9px 12px;
-border-radius: 999px;
-background: rgba(255,255,255,0.07);
-border: 1px solid rgba(255,255,255,0.10);
-color: var(--muted);
-font-weight: 1000;
-font-size: 12px;
-cursor:pointer;
-user-select:none;
-}
-.chip.on{
-color:#fff;
-background: rgba(255,255,255,0.12);
-border: 1px solid rgba(255,255,255,0.16);
-}
-
-.toggles{
-display:flex;
-gap: 8px;
-flex-wrap:wrap;
-align-items:center;
-}
-.toggle{
-padding: 9px 12px;
-border-radius: 999px;
-background: rgba(255,255,255,0.06);
-border: 1px solid rgba(255,255,255,0.10);
-cursor:pointer;
-user-select:none;
-font-weight: 1000;
-font-size: 12px;
-color: var(--muted);
-}
-.toggle.on{
-color:#fff;
-background: rgba(255,255,255,0.10);
-border: 1px solid rgba(255,255,255,0.16);
-}
-
-.grid{
-display:grid;
-grid-template-columns: repeat(12, 1fr);
-gap: 12px;
-}
-
-.tile{
-grid-column: span 3;
-border-radius: 18px;
-overflow:hidden;
-border: 1px solid rgba(255,255,255,0.10);
-box-shadow: 0 18px 60px rgba(0,0,0,0.30);
-cursor:pointer;
-position:relative;
-min-height: 170px;
-background: rgba(255,255,255,0.05);
-transition: transform 0.18s ease, box-shadow 0.18s ease, border 0.18s ease;
-}
-@media (max-width: 1180px){ .tile{grid-column: span 4} }
-@media (max-width: 860px){ .tile{grid-column: span 6} }
-@media (max-width: 520px){ .tile{grid-column: span 12} }
-
-.tile:hover{
-transform: translateY(-2px);
-border: 1px solid rgba(255,255,255,0.16);
-box-shadow: 0 22px 75px rgba(0,0,0,0.38);
-}
-
-.tileTop{
-height: 120px;
-position:relative;
-background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03));
-}
-.tileGlow{
-position:absolute;
-inset:-2px;
-opacity: 0.95;
-}
-.tileIcon{
-position:absolute;
-left: 12px;
-top: 12px;
-width: 44px;
-height: 44px;
-border-radius: 14px;
-background: rgba(0,0,0,0.22);
-border: 1px solid rgba(255,255,255,0.14);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size: 20px;
-z-index: 2;
-}
-.tileFav{
-position:absolute;
-right: 10px;
-top: 10px;
-z-index: 2;
-width: 34px;
-height: 34px;
-border-radius: 12px;
-background: rgba(0,0,0,0.20);
-border: 1px solid rgba(255,255,255,0.14);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size: 16px;
-color: rgba(255,255,255,0.72);
-}
-.tileFav.on{color: var(--warn)}
-
-.tileBody{padding: 12px}
-.tileName{
-font-weight: 1000;
-letter-spacing: 0.4px;
-font-size: 13px;
-}
-.tileMeta{
-margin-top: 4px;
-font-size: 11px;
-color: var(--muted);
-display:flex;
-gap: 8px;
-flex-wrap:wrap;
-align-items:center;
-}
-.tag{
-padding: 3px 8px;
-border-radius: 999px;
-background: rgba(255,255,255,0.08);
-border: 1px solid rgba(255,255,255,0.10);
-font-weight: 1000;
-font-size: 10px;
-color: rgba(255,255,255,0.78);
-}
-
-.footer{
-margin-top: 14px;
-color: rgba(255,255,255,0.55);
-font-size: 12px;
-text-align:center;
-padding: 10px 0 24px;
-}
-
-.hr{
-height:1px;
-background: rgba(255,255,255,0.10);
-margin: 10px 0;
-}
-
-.hidden{display:none}
-
-.fullscreen{
-position: fixed;
-inset: 0;
-z-index: 80;
-background:
-radial-gradient(900px 650px at 15% 10%, rgba(120,70,255,0.30), transparent 60%),
-radial-gradient(900px 700px at 85% 15%, rgba(35,210,255,0.18), transparent 55%),
-radial-gradient(900px 760px at 55% 90%, rgba(255,76,150,0.12), transparent 55%),
-linear-gradient(180deg, rgba(11,6,32,0.98), rgba(18,5,42,0.98), rgba(27,8,54,0.98));
-overflow:auto;
-}
-
-.fsInner{
-max-width: 1100px;
-margin: 0 auto;
-padding: 16px;
-}
-
-.gameHeader{
-display:flex;
-gap: 12px;
-flex-wrap:wrap;
-align-items:center;
-justify-content:space-between;
-margin-bottom: 12px;
-}
-
-.gameTitleWrap{
-display:flex;
-gap: 10px;
-align-items:center;
-}
-.gameIconBig{
-width: 50px;
-height: 50px;
-border-radius: 16px;
-background: rgba(255,255,255,0.08);
-border: 1px solid rgba(255,255,255,0.14);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size: 24px;
-}
-.gameTitle{
-font-weight: 1000;
-letter-spacing: 0.6px;
-font-size: 16px;
-}
-.gameSub{
-font-size: 12px;
-color: var(--muted);
-margin-top: 2px;
-}
-
-.panel{
-background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
-border: 1px solid rgba(255,255,255,0.10);
-border-radius: 18px;
-box-shadow: var(--shadow);
-overflow:hidden;
-}
-
-.panelTop{
-padding: 14px;
-border-bottom: 1px solid rgba(255,255,255,0.08);
-display:flex;
-gap: 10px;
-flex-wrap:wrap;
-align-items:center;
-justify-content:space-between;
-}
-
-.row{
-display:flex;
-gap: 8px;
-flex-wrap:wrap;
-align-items:center;
-margin: 10px 0;
-}
-
-label{
-font-size: 12px;
-color: var(--muted);
-font-weight: 1000;
-}
-input[type="number"], select{
-background: rgba(0,0,0,0.22);
-color: #fff;
-border: 1px solid rgba(255,255,255,0.14);
-border-radius: 12px;
-padding: 10px 10px;
-font-size: 12px;
-outline:none;
-}
-
-.panelBody{padding: 14px}
-.log{
-margin-top: 10px;
-padding: 12px;
-border-radius: 14px;
-background: rgba(0,0,0,0.22);
-border: 1px solid rgba(255,255,255,0.10);
-min-height: 62px;
-}
-.win{color: var(--good); font-weight: 1000}
-.lose{color: var(--bad); font-weight: 1000}
-.note{color: rgba(255,255,255,0.80)}
-
-.cardsRow{
-display:flex;
-gap: 10px;
-flex-wrap:wrap;
-margin-top: 8px;
-}
-.playCard{
-width: 82px;
-height: 116px;
-border-radius: 18px;
-background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.06));
-border: 1px solid rgba(255,255,255,0.16);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size: 20px;
-user-select:none;
-cursor:pointer;
-position:relative;
-}
-.playCard.held{
-outline: 2px solid rgba(114,255,180,0.65);
-box-shadow: 0 0 0 4px rgba(114,255,180,0.12);
-}
-.badge{
-position:absolute;
-bottom: 10px;
-right: 10px;
-font-size: 10px;
-padding: 4px 8px;
-border-radius: 999px;
-background: rgba(114,255,180,0.18);
-border: 1px solid rgba(114,255,180,0.35);
-color: var(--good);
-display:none;
-}
-.playCard.held .badge{display:inline-block}
-
-.modalOverlay{
-position: fixed;
-inset: 0;
-z-index: 90;
-background: rgba(0,0,0,0.55);
-display:flex;
-align-items:center;
-justify-content:center;
-padding: 16px;
-}
-
-.modal{
-width: min(560px, 100%);
-background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
-border: 1px solid rgba(255,255,255,0.14);
-border-radius: 18px;
-box-shadow: var(--shadow);
-overflow:hidden;
-}
-
-.modalHead{
-padding: 14px;
-border-bottom: 1px solid rgba(255,255,255,0.08);
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap: 10px;
-}
-
-.modalBody{padding: 14px}
-
-.settingRow{
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap: 10px;
-padding: 10px 0;
-border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-.settingRow:last-child
-
-.switch{
-display:flex;
-align-items:center;
-gap: 10px;
-}
-
-.small{font-size: 11px; color: var(--muted2)}
-.range{
-width: 220px;
-}
-.motionOff *{
-transition: none !important;
-animation: none !important;
-} </style>
-
+        /* --- BLACKJACK UI --- */
+        .hand { display: flex; gap: 10px; margin: 15px 0; min-height: 80px; }
+        .playing-card { background: white; color: black; padding: 10px; border-radius: 5px; width: 50px; height: 75px; font-weight: bold; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(0,0,0,0.5); }
+    </style>
 </head>
-
 <body>
 
-<div class="topbar" id="topbar">
-  <div class="topbarInner">
-    <div class="brand">
-      <div class="logo"></div>
-      <div>
-        <div class="brandTitle">LUCKY COIN</div>
-        <div class="brandSub">Pretend coins. Full screen games. Questionable life choices.</div>
-      </div>
+<aside>
+    <div class="logo">NEON VOID</div>
+    <div class="nav-btn active" onclick="nav('lobby')">🏠 Lobby</div>
+    <div class="nav-btn" onclick="nav('slots')">🎰 Slots</div>
+    <div class="nav-btn" onclick="nav('bj')">♠️ Blackjack</div>
+    <div class="nav-btn" onclick="nav('shop')">💎 Gem Shop</div>
+    <div style="margin-top: auto; background: #111; padding: 15px; border-radius: 10px;">
+        <small>GLOBAL JACKPOT</small>
+        <div id="jackpot" style="color: gold; font-size: 1.2rem; font-weight: bold;">$1,000,240</div>
     </div>
+</aside>
 
-```
-<div class="nav">
-  <div class="navBtn on" data-nav="discover" onclick="setNav('discover')">DISCOVER</div>
-  <div class="navBtn" data-nav="quick" onclick="setNav('quick')">QUICK</div>
-  <div class="navBtn" data-nav="table" onclick="setNav('table')">TABLE</div>
-  <div class="navBtn" data-nav="slots" onclick="setNav('slots')">SLOTS</div>
-  <div class="navBtn" data-nav="cards" onclick="setNav('cards')">POKER</div>
-  <div class="navBtn" data-nav="new" onclick="setNav('new')">NEW</div>
-  <div class="navBtn" data-nav="blackjack" onclick="setNav('blackjack')">BLACKJACK</div>
-</div>
-
-<div class="right">
-  <div class="searchWrap">
-    <span>Search</span>
-    <input id="search" type="text" placeholder="Search games..." oninput="applyFilters()">
-  </div>
-
-  <div class="pill">
-    <span>Coins</span>
-    <strong id="coins">1000</strong>
-    <button class="btn" type="button" onclick="resetAll()">Reset</button>
-  </div>
-
-  <button class="btn btnPrimary" type="button" onclick="deposit()">Deposit</button>
-  <button class="btn iconBtn" type="button" onclick="toggleMusic()" title="Music" id="musicBtn">♫</button>
-  <button class="btn iconBtn" type="button" onclick="openSettings()" title="Settings">⚙</button>
-</div>
-```
-
-  </div>
-</div>
-
-<div class="container" id="lobby">
-  <div class="sectionHead">
-    <div class="chips">
-      <div class="chip on" data-cat="all" onclick="setCategory('all')">ALL</div>
-      <div class="chip" data-cat="slots" onclick="setCategory('slots')">SLOTS</div>
-      <div class="chip" data-cat="table" onclick="setCategory('table')">TABLE</div>
-      <div class="chip" data-cat="cards" onclick="setCategory('cards')">POKER</div>
-      <div class="chip" data-cat="blackjack" onclick="setCategory('blackjack')">BLACKJACK</div>
-      <div class="chip" data-cat="quick" onclick="setCategory('quick')">QUICK</div>
-      <div class="chip" data-cat="new" onclick="setCategory('new')">NEW</div>
-    </div>
-
-```
-<div class="toggles">
-  <div class="toggle" id="favToggle" onclick="toggleFavOnly()">FAVORITES</div>
-  <div class="toggle" id="recentToggle" onclick="toggleRecentOnly()">RECENT</div>
-</div>
-```
-
-  </div>
-
-  <div class="grid" id="grid"></div>
-  <div class="footer">Toy casino. Pretend coins only. No payouts. No payments. No lawyers invited.</div>
-</div>
-
-<div class="fullscreen hidden" id="gameView">
-  <div class="fsInner">
-    <div class="gameHeader">
-      <div class="gameTitleWrap">
-        <div class="gameIconBig" id="gameIconBig">🎮</div>
-        <div>
-          <div class="gameTitle" id="gameTitle">Game</div>
-          <div class="gameSub" id="gameSubtitle">Subtitle</div>
+<main>
+    <div class="header-bar">
+        <div class="stat-group">
+            <div class="chip">💰 $<span id="bal">2500</span></div>
+            <div class="chip" style="border-color: var(--neon-purple)">💎 <span id="gems">0</span></div>
         </div>
-      </div>
-      <div class="row" style="margin:0">
-        <button class="btn" type="button" onclick="closeGame()">Back to Lobby</button>
-        <button class="btn btnPrimary" type="button" onclick="deposit()">Deposit</button>
-      </div>
+        <button onclick="claimBonus()" id="bonus-btn">CLAIM $500</button>
     </div>
 
-```
-<div class="panel">
-  <div class="panelTop">
-    <div class="pill">
-      <span>Coins</span>
-      <strong id="coins2">1000</strong>
-    </div>
-
-    <div class="row" style="margin:0">
-      <label>Bet
-        <input id="bet" type="number" min="1" value="100">
-      </label>
-      <button class="btn" type="button" onclick="setAllIn()">All In</button>
-      <button class="btn btnBad" type="button" onclick="allInPlay()">All In Play</button>
-    </div>
-  </div>
-
-  <div class="panelBody">
-    <div id="gameControls"></div>
-    <div class="log" id="log"></div>
-    <div class="hr"></div>
-    <div class="small" id="gameHelp">Tip</div>
-  </div>
-</div>
-```
-
-  </div>
-</div>
-
-<div class="modalOverlay hidden" id="settingsOverlay" onclick="settingsClickAway(event)">
-  <div class="modal">
-    <div class="modalHead">
-      <div style="font-weight:1000;letter-spacing:0.6px">Settings</div>
-      <button class="btn" type="button" onclick="closeSettings()">Close</button>
-    </div>
-    <div class="modalBody">
-      <div class="settingRow">
-        <div>
-          <div style="font-weight:1000">Music</div>
-          <div class="small">Synth loop. Starts after your first click because browsers are joyless.</div>
+    <div id="page-lobby" class="page active">
+        <h1>Welcome, User_777</h1>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="card">
+                <h3>Current Level: <span id="lvl">1</span></h3>
+                <div style="width: 100%; background: #000; height: 10px; border-radius: 5px;">
+                    <div id="xp-bar" style="width: 10%; background: var(--neon-blue); height: 100%; border-radius: 5px;"></div>
+                </div>
+                <p><small>Next Gem reward at Lvl 2</small></p>
+            </div>
+            <div class="card" style="border-color: gold;">
+                <h3>Daily Leaderboard</h3>
+                <p>1. Whale_Killer - $5.2M</p>
+                <p>2. VoidRunner - $2.1M</p>
+            </div>
         </div>
-        <div class="switch">
-          <button class="btn" type="button" onclick="toggleMusicSetting()" id="musicSettingBtn">On</button>
+    </div>
+
+    <div id="page-slots" class="page">
+        <div class="card" style="text-align: center;">
+            <h1 id="s-display" style="font-size: 4rem; letter-spacing: 20px;">❓ ❓ ❓</h1>
+            <p>Cost: $100 per spin</p>
+            <button onclick="spin()">SPIN THE VOID</button>
+            <p id="s-status">May the odds be in your favor.</p>
         </div>
-      </div>
-
-```
-  <div class="settingRow">
-    <div>
-      <div style="font-weight:1000">Volume</div>
-      <div class="small">Controls the built in music volume</div>
     </div>
-    <input class="range" id="vol" type="range" min="0" max="100" value="35" oninput="setVolumeFromUI()">
-  </div>
 
-  <div class="settingRow">
-    <div>
-      <div style="font-weight:1000">Reduced motion</div>
-      <div class="small">Turns off hover movement and transitions</div>
+    <div id="page-bj" class="page">
+        <div class="card">
+            <h3>Dealer: <span id="d-val">?</span></h3>
+            <div id="d-hand" class="hand"></div>
+            <hr style="border: 0; border-top: 1px solid #333;">
+            <h3>Your Hand: <span id="p-val">0</span></h3>
+            <div id="p-hand" class="hand"></div>
+            <div id="bj-controls">
+                <button onclick="startBJ()">BET $200</button>
+            </div>
+            <div id="bj-actions" style="display:none;">
+                <button onclick="bjHit()">HIT</button>
+                <button onclick="bjStay()" style="background: var(--neon-blue)">STAY</button>
+            </div>
+        </div>
     </div>
-    <button class="btn" type="button" onclick="toggleMotion()" id="motionBtn">Off</button>
-  </div>
 
-  <div class="settingRow">
-    <div>
-      <div style="font-weight:1000">Reset</div>
-      <div class="small">Coins, favorites, recent games</div>
+    <div id="page-shop" class="page">
+        <h1>Gem Merchant</h1>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div class="card">
+                <h3>VIP Badge</h3>
+                <p>Glow gold in chat.</p>
+                <button onclick="buy(10)">Buy for 10 💎</button>
+            </div>
+            <div class="card">
+                <h3>Infinite Luck</h3>
+                <p>Not real, but looks cool.</p>
+                <button onclick="buy(50)">Buy for 50 💎</button>
+            </div>
+        </div>
     </div>
-    <button class="btn btnBad" type="button" onclick="resetAll()">Reset All</button>
-  </div>
-</div>
-```
+</main>
 
-  </div>
+<div class="chat-panel">
+    <div class="chat-header">LIVE GLOBAL CHAT</div>
+    <div id="chat-box"></div>
+    <div style="padding: 10px; border-top: 1px solid #222;">
+        <input type="text" placeholder="Type to chat..." style="width: 100%; background: #111; border: 1px solid #333; color: white; padding: 8px; border-radius: 5px;">
+    </div>
 </div>
 
 <script>
-let coins = loadNumber("coinsBalance", 1000);
-let navFilter = "discover";
-let categoryFilter = "all";
-let favOnly = false;
-let recentOnly = false;
-let currentGameId = null;
-
-let favorites = loadJSON("favGames", {});
-let recents = loadJSON("recentGames", []);
-
-let settings = loadJSON("casinoSettings", {
-  musicEnabled: true,
-  volume: 0.35,
-  reducedMotion: false
-});
-
-function saveNumber(k,v){ try{ localStorage.setItem(k,String(v)); }catch(e){} }
-function loadNumber(k,f){ try{ const v=localStorage.getItem(k); const n=Number(v); return Number.isFinite(n)&&n>=0?n:f; }catch(e){ return f; } }
-function saveJSON(k,o){ try{ localStorage.setItem(k, JSON.stringify(o)); }catch(e){} }
-function loadJSON(k,f){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):f; }catch(e){ return f; } }
-
-function setCoins(n){
-  coins = Math.max(0, Math.floor(n));
-  document.getElementById("coins").textContent = coins;
-  document.getElementById("coins2").textContent = coins;
-  saveNumber("coinsBalance", coins);
-}
-setCoins(coins);
-
-function deposit(){ setCoins(coins + 1000); }
-
-function setNav(n){
-  navFilter = n;
-  const btns = document.querySelectorAll(".navBtn");
-  for(const b of btns){
-    b.classList.remove("on");
-    if(b.getAttribute("data-nav") === n) b.classList.add("on");
-  }
-  applyFilters();
-}
-
-function setCategory(c){
-  categoryFilter = c;
-  const chips = document.querySelectorAll(".chip");
-  for(const ch of chips){
-    ch.classList.remove("on");
-    if(ch.getAttribute("data-cat") === c) ch.classList.add("on");
-  }
-  applyFilters();
-}
-
-function toggleFavOnly(){
-  favOnly = !favOnly;
-  document.getElementById("favToggle").classList.toggle("on", favOnly);
-  applyFilters();
-}
-
-function toggleRecentOnly(){
-  recentOnly = !recentOnly;
-  document.getElementById("recentToggle").classList.toggle("on", recentOnly);
-  applyFilters();
-}
-
-function isFav(id){ return !!favorites[id]; }
-function toggleFav(id){
-  favorites[id] = !favorites[id];
-  if(!favorites[id]) delete favorites[id];
-  saveJSON("favGames", favorites);
-  renderTiles();
-}
-
-function addRecent(id){
-  recents = recents.filter(x => x !== id);
-  recents.unshift(id);
-  if(recents.length > 40) recents.length = 40;
-  saveJSON("recentGames", recents);
-}
-
-function isRecent(id){ return recents.includes(id); }
-
-function resetAll(){
-  setCoins(1000);
-  favorites = {};
-  recents = [];
-  saveJSON("favGames", favorites);
-  saveJSON("recentGames", recents);
-  closeGame();
-  renderTiles();
-}
-
-function applyFilters(){ renderTiles(); }
-
-function getBet(){ return Math.floor(Number(document.getElementById("bet").value)); }
-function setAllIn(){ document.getElementById("bet").value = coins; }
-function allInPlay(){ setAllIn(); play(); }
-
-function okBet(b){
-  if(!Number.isFinite(b) || b <= 0) return {ok:false,msg:"Enter a real bet"};
-  if(b > coins) return {ok:false,msg:"Not enough coins"};
-  return {ok:true};
-}
-
-function spend(b){
-  const chk = okBet(b);
-  if(!chk.ok){ writeLog("<span class='lose'>"+chk.msg+"</span>"); return false; }
-  setCoins(coins - b);
-  return true;
-}
-
-function writeLog(html){ document.getElementById("log").innerHTML = html; }
-function rnd(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
-
-function glowStyle(seed){
-  if(seed % 6 === 0) return "radial-gradient(380px 160px at 20% 20%, rgba(35,210,255,0.22), transparent 60%),radial-gradient(320px 180px at 80% 25%, rgba(120,70,255,0.22), transparent 62%),radial-gradient(320px 190px at 55% 90%, rgba(255,76,150,0.14), transparent 65%)";
-  if(seed % 6 === 1) return "radial-gradient(420px 180px at 25% 15%, rgba(255,214,102,0.20), transparent 62%),radial-gradient(360px 200px at 80% 30%, rgba(120,70,255,0.22), transparent 62%),radial-gradient(340px 220px at 55% 90%, rgba(35,210,255,0.14), transparent 65%)";
-  if(seed % 6 === 2) return "radial-gradient(420px 180px at 20% 20%, rgba(114,255,180,0.18), transparent 60%),radial-gradient(360px 200px at 80% 25%, rgba(255,76,150,0.18), transparent 62%),radial-gradient(340px 220px at 55% 90%, rgba(120,70,255,0.16), transparent 65%)";
-  if(seed % 6 === 3) return "radial-gradient(420px 180px at 20% 20%, rgba(255,76,150,0.20), transparent 60%),radial-gradient(360px 200px at 80% 25%, rgba(255,214,102,0.16), transparent 62%),radial-gradient(340px 220px at 55% 90%, rgba(35,210,255,0.14), transparent 65%)";
-  if(seed % 6 === 4) return "radial-gradient(420px 180px at 20% 20%, rgba(120,70,255,0.22), transparent 60%),radial-gradient(360px 200px at 80% 25%, rgba(114,255,180,0.16), transparent 62%),radial-gradient(340px 220px at 55% 90%, rgba(255,214,102,0.12), transparent 65%)";
-  return "radial-gradient(420px 180px at 20% 20%, rgba(35,210,255,0.20), transparent 60%),radial-gradient(360px 200px at 80% 25%, rgba(255,214,102,0.14), transparent 62%),radial-gradient(340px 220px at 55% 90%, rgba(255,76,150,0.14), transparent 65%)";
-}
-
-function openGame(id){
-  const g = games.find(x => x.id === id);
-  if(!g) return;
-  currentGameId = id;
-  addRecent(id);
-
-  document.getElementById("gameIconBig").textContent = g.icon;
-  document.getElementById("gameTitle").textContent = g.name;
-  document.getElementById("gameSubtitle").textContent = g.subtitle;
-  document.getElementById("gameHelp").textContent = g.help;
-
-  document.getElementById("bet").value = g.defaultBet;
-
-  const host = document.getElementById("gameControls");
-  host.innerHTML = "";
-  g.build(host);
-
-  writeLog("<span class='note'>Ready</span>");
-
-  document.getElementById("lobby").classList.add("hidden");
-  document.getElementById("gameView").classList.remove("hidden");
-
-  renderTiles();
-}
-
-function closeGame(){
-  currentGameId = null;
-  document.getElementById("gameView").classList.add("hidden");
-  document.getElementById("lobby").classList.remove("hidden");
-}
-
-function play(){
-  const g = games.find(x => x.id === currentGameId);
-  if(!g) return;
-  g.play();
-}
-
-function renderTiles(){
-  const grid = document.getElementById("grid");
-  grid.innerHTML = "";
-  const q = (document.getElementById("search").value || "").trim().toLowerCase();
-
-  for(let i=0;i<games.length;i++){
-    const g = games[i];
-
-    if(navFilter !== "discover" && g.nav !== navFilter) continue;
-    if(categoryFilter !== "all" && g.category !== categoryFilter) continue;
-    if(favOnly && !isFav(g.id)) continue;
-    if(recentOnly && !isRecent(g.id)) continue;
-    if(q && !(g.name.toLowerCase().includes(q) || g.subtitle.toLowerCase().includes(q))) continue;
-
-    const tile = document.createElement("div");
-    tile.className = "tile";
-    tile.onclick = () => openGame(g.id);
-
-    const top = document.createElement("div");
-    top.className = "tileTop";
-
-    const glow = document.createElement("div");
-    glow.className = "tileGlow";
-    glow.style.background = glowStyle(i);
-
-    const icon = document.createElement("div");
-    icon.className = "tileIcon";
-    icon.textContent = g.icon;
-
-    const fav = document.createElement("div");
-    fav.className = "tileFav" + (isFav(g.id) ? " on" : "");
-    fav.textContent = isFav(g.id) ? "★" : "☆";
-    fav.onclick = (e) => { e.stopPropagation(); toggleFav(g.id); };
-
-    top.appendChild(glow);
-    top.appendChild(icon);
-    top.appendChild(fav);
-
-    const body = document.createElement("div");
-    body.className = "tileBody";
-    body.innerHTML =
-      "<div class='tileName'>"+g.name+"</div>"+
-      "<div class='tileMeta'>"+
-      "<span class='tag'>"+g.category.toUpperCase()+"</span>"+
-      "<span class='tag'>PLAY</span>"+
-      "<span>"+g.subtitle+"</span>"+
-      "</div>";
-
-    tile.appendChild(top);
-    tile.appendChild(body);
-    grid.appendChild(tile);
-  }
-}
-
-/* Music, built in synth loop */
-let audio = { ctx:null, master:null, playing:false, nodes:[], startedOnce:false };
-
-function ensureAudio(){
-  if(audio.ctx) return;
-  const ctx = new (window.AudioContext || window.webkitAudioContext)();
-  const master = ctx.createGain();
-  master.gain.value = settings.volume;
-  master.connect(ctx.destination);
-  audio.ctx = ctx;
-  audio.master = master;
-}
-
-function setMusicButton(){
-  document.getElementById("musicBtn").textContent = audio.playing ? "■" : "♫";
-}
-
-function setVolumeFromUI(){
-  const v = Number(document.getElementById("vol").value) / 100;
-  settings.volume = v;
-  saveJSON("casinoSettings", settings);
-  ensureAudio();
-  audio.master.gain.value = v;
-}
-
-function stopSynth(){
-  if(!audio.ctx) return;
-  for(const n of audio.nodes){
-    try{ n.stop(0); }catch(e){}
-    try{ n.disconnect(); }catch(e){}
-  }
-  audio.nodes = [];
-  audio.playing = false;
-  setMusicButton();
-}
-
-function osc(type, freq, gain, when, dur){
-  const o = audio.ctx.createOscillator();
-  const g = audio.ctx.createGain();
-  o.type = type;
-  o.frequency.setValueAtTime(freq, when);
-  g.gain.setValueAtTime(gain, when);
-  o.connect(g);
-  g.connect(audio.master);
-  o.start(when);
-  o.stop(when + dur);
-  audio.nodes.push(o);
-  audio.nodes.push(g);
-}
-
-function playSynth(){
-  ensureAudio();
-  audio.ctx.resume();
-  audio.playing = true;
-  setMusicButton();
-
-  const ctx = audio.ctx;
-  const beat = 60 / 118;
-  const start = ctx.currentTime + 0.05;
-  let step = 0;
-
-  const tick = () => {
-    if(!audio.playing) return;
-    const now = ctx.currentTime;
-    const look = 0.25;
-
-    while(true){
-      const when = start + step * (beat / 2);
-      if(when > now + look) break;
-
-      const bass = [55,55,62,55,73,69,62,55][Math.floor(step/8) % 8];
-      osc("sawtooth", bass, 0.05, when, 0.18);
-
-      if(step % 4 === 0) osc("square", 110, 0.02, when, 0.06);
-      if(step % 8 === 4){
-        osc("triangle", 440, 0.012, when, 0.08);
-        osc("triangle", 660, 0.008, when, 0.08);
-      }
-
-      step = (step + 1) % 64;
+    let bal = 2500, gems = 0, xp = 0, lvl = 1, jackpot = 1000240;
+    
+    // --- NAVIGATION ---
+    function nav(p) {
+        document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+        document.getElementById('page-'+p).classList.add('active');
+        event.target.classList.add('active');
     }
-    requestAnimationFrame(tick);
-  };
-  tick();
-}
 
-function startMusicIfAllowed(){
-  if(!settings.musicEnabled) return;
-  if(audio.playing) return;
-  playSynth();
-}
+    function update() {
+        document.getElementById('bal').innerText = bal.toLocaleString();
+        document.getElementById('gems').innerText = gems;
+        document.getElementById('lvl').innerText = lvl;
+        document.getElementById('xp-bar').style.width = (xp % 100) + "%";
+        jackpot += Math.floor(Math.random() * 50);
+        document.getElementById('jackpot').innerText = "$" + jackpot.toLocaleString();
+    }
 
-function toggleMusic(){
-  settings.musicEnabled = !settings.musicEnabled;
-  saveJSON("casinoSettings", settings);
-  document.getElementById("musicSettingBtn").textContent = settings.musicEnabled ? "On" : "Off";
-  if(settings.musicEnabled){
-    startMusicIfAllowed();
-  }else{
-    stopSynth();
-  }
-}
+    function claimBonus() {
+        bal += 500; update();
+        document.getElementById('bonus-btn').disabled = true;
+        document.getElementById('bonus-btn').innerText = "READY IN 24H";
+    }
 
-function toggleMusicSetting(){
-  toggleMusic();
-}
+    // --- SLOTS ---
+    const sItems = ['💎', '🍒', '7️⃣', '💀', '🍀'];
+    function spin() {
+        if(bal < 100) return alert("Broke!");
+        bal -= 100;
+        let results = [sItems[Math.floor(Math.random()*5)], sItems[Math.floor(Math.random()*5)], sItems[Math.floor(Math.random()*5)]];
+        document.getElementById('s-display').innerText = results.join(' ');
+        if(results[0] === results[1] && results[1] === results[2]) {
+            bal += 5000; xp += 40;
+            document.getElementById('s-status').innerText = "MEGA WIN! +$5,000";
+        } else {
+            document.getElementById('s-status').innerText = "The void consumes your bet.";
+            xp += 5;
+        }
+        checkLvl(); update();
+    }
 
-document.addEventListener("pointerdown", () => {
-  if(audio.startedOnce) return;
-  audio.startedOnce = true;
-  ensureAudio();
-  if(settings.musicEnabled) startMusicIfAllowed();
-}, { once:true });
+    // --- BLACKJACK (Lite) ---
+    let pHand = [], dHand = [];
+    function startBJ() {
+        if(bal < 200) return;
+        bal -= 200; pHand = [rCard(), rCard()]; dHand = [rCard()];
+        document.getElementById('bj-controls').style.display = 'none';
+        document.getElementById('bj-actions').style.display = 'block';
+        renderBJ();
+    }
+    function rCard() { return Math.floor(Math.random()*10)+2; }
+    function renderBJ() {
+        document.getElementById('p-hand').innerHTML = pHand.map(c => `<div class="playing-card">${c}</div>`).join('');
+        document.getElementById('d-hand').innerHTML = dHand.map(c => `<div class="playing-card">${c}</div>`).join('');
+        let pSum = pHand.reduce((a,b)=>a+b);
+        document.getElementById('p-val').innerText = pSum;
+        if(pSum > 21) endBJ("BUST - YOU LOSE");
+    }
+    function bjHit() { pHand.push(rCard()); renderBJ(); }
+    function bjStay() {
+        while(dHand.reduce((a,b)=>a+b) < 17) dHand.push(rCard());
+        renderBJ();
+        let p = pHand.reduce((a,b)=>a+b), d = dHand.reduce((a,b)=>a+b);
+        if(d > 21 || p > d) { bal += 400; endBJ("YOU WIN!"); xp += 20; }
+        else if (p === d) { bal += 200; endBJ("PUSH"); }
+        else { endBJ("DEALER WINS"); }
+    }
+    function endBJ(msg) {
+        alert(msg);
+        document.getElementById('bj-controls').style.display = 'block';
+        document.getElementById('bj-actions').style.display = 'none';
+        checkLvl(); update();
+    }
 
-/* Settings */
-function openSettings(){
-  document.getElementById("settingsOverlay").classList.remove("hidden");
-  document.getElementById("musicSettingBtn").textContent = settings.musicEnabled ? "On" : "Off";
-  document.getElementById("vol").value = Math.round(settings.volume * 100);
-  document.getElementById("motionBtn").textContent = settings.reducedMotion ? "On" : "Off";
-}
+    // --- CHAT SYSTEM ---
+    const users = ["ShadowMan", "LuckLover", "Bot_42", "HighRoller"];
+    const quotes = ["Just hit 5k!", "Slots are rigged lol", "Anyone lend me 100?", "Jackpot is huge right now"];
+    function addChat() {
+        const box = document.getElementById('chat-box');
+        const div = document.createElement('div');
+        div.className = 'chat-msg';
+        div.innerHTML = `<span class="user">${users[Math.floor(Math.random()*users.length)]}</span>: ${quotes[Math.floor(Math.random()*quotes.length)]}`;
+        box.appendChild(div);
+        if(box.childNodes.length > 15) box.removeChild(box.firstChild);
+        box.scrollTop = box.scrollHeight;
+    }
+    setInterval(addChat, 4000);
 
-function closeSettings(){
-  document.getElementById("settingsOverlay").classList.add("hidden");
-}
-
-function settingsClickAway(e){
-  if(e.target && e.target.id === "settingsOverlay") closeSettings();
-}
-
-function toggleMotion(){
-  settings.reducedMotion = !settings.reducedMotion;
-  saveJSON("casinoSettings", settings);
-  document.getElementById("motionBtn").textContent = settings.reducedMotion ? "On" : "Off";
-  document.body.classList.toggle("motionOff", settings.reducedMotion);
-}
-
-/* Game helpers */
-function makeBtn(text, cls, onClick){
-  const b = document.createElement("button");
-  b.className = "btn " + cls;
-  b.type = "button";
-  b.textContent = text;
-  b.onclick = onClick;
-  return b;
-}
-
-/* Games */
-const slotSymbols = ["🍒","🔔","💎","⭐","7️⃣","🍋","🍀","👑"];
-const wheelMults = [2,2,2,3,3,4,5,10];
-
-function coinFlip(choice){
-  const bet = getBet();
-  if(!spend(bet)) return;
-  const result = Math.random() < 0.5 ? "Heads" : "Tails";
-  if(result === choice){
-    const win = bet * 2;
-    setCoins(coins + win);
-    writeLog("<span class='win'>Result "+result+". You won "+win+"</span>");
-  }else{
-    writeLog("<span class='lose'>Result "+result+". You lost "+bet+"</span>");
-  }
-}
-
-function diceRoll(){
-  const bet = getBet();
-  const pick = Math.floor(Number(document.getElementById("dicePick").value));
-  if(!Number.isFinite(pick) || pick < 1 || pick > 6){
-    writeLog("<span class='lose'>Pick 1 to 6</span>");
-    return;
-  }
-  if(!spend(bet)) return;
-  const roll = rnd(1,6);
-  if(roll === pick){
-    const win = bet * 6;
-    setCoins(coins + win);
-    writeLog("<span class='win'>Rolled "+roll+". You won "+win+"</span>");
-  }else{
-    writeLog("<span class='lose'>Rolled "+roll+". You lost "+bet+"</span>");
-  }
-}
-
-function wheelSpin(){
-  const bet = getBet();
-  if(!spend(bet)) return;
-  const mult = wheelMults[rnd(0,wheelMults.length-1)];
-  const win = bet * mult;
-  setCoins(coins + win);
-  writeLog("<span class='win'>Wheel "+mult+"x. You won "+win+"</span>");
-}
-
-function spinSlots(){
-  const bet = getBet();
-  if(!spend(bet)) return;
-  const a = slotSymbols[rnd(0,slotSymbols.length-1)];
-  const b = slotSymbols[rnd(0,slotSymbols.length-1)];
-  const c = slotSymbols[rnd(0,slotSymbols.length-1)];
-  let mult = 0;
-  if(a === b && b === c) mult = 8;
-  else if(a === b || b === c || a === c) mult = 2;
-
-  if(mult > 0){
-    const win = bet * mult;
-    setCoins(coins + win);
-    writeLog("<div style='font-size:26px'>"+a+" "+b+" "+c+"</div><div class='win'>You won "+win+" ("+mult+"x)</div>");
-  }else{
-    writeLog("<div style='font-size:26px'>"+a+" "+b+" "+c+"</div><div class='lose'>You lost "+bet+"</div>");
-  }
-}
-
-function rouletteSpin(){
-  const bet = getBet();
-  if(!spend(bet)) return;
-
-  const n = rnd(0,36);
-  const reds = new Set([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]);
-  const color = n === 0 ? "green" : (reds.has(n) ? "red" : "black");
-  const parity = n === 0 ? "none" : (n % 2 === 0 ? "even" : "odd");
-
-  const pick = document.getElementById("rouletteType").value;
-  const hit =
-    (pick === "red" && color === "red") ||
-    (pick === "black" && color === "black") ||
-    (pick === "even" && parity === "even") ||
-    (pick === "odd" && parity === "odd");
-
-  if(hit){
-    const win = bet * 2;
-    setCoins(coins + win);
-    writeLog("<span class='win'>Ball "+n+" "+color+". You won "+win+"</span>");
-  }else{
-    writeLog("<span class='lose'>Ball "+n+" "+color+". You lost "+bet+"</span>");
-  }
-}
-
-const games = [
-  {
-    id:"coinflip", name:"Coin Flip", icon:"🪙", nav:"quick", category:"quick",
-    subtitle:"2x payout", defaultBet:100,
-    help:"Pick heads or tails.",
-    build:(host)=>{
-      const row = document.createElement("div"); row.className = "row";
-      row.appendChild(makeBtn("Heads","btnGood",()=>coinFlip("Heads")));
-      row.appendChild(makeBtn("Tails","btnGood",()=>coinFlip("Tails")));
-      row.appendChild(makeBtn("All In Heads","btnBad",()=>{ setAllIn(); coinFlip("Heads"); }));
-      row.appendChild(makeBtn("All In Tails","btnBad",()=>{ setAllIn(); coinFlip("Tails"); }));
-      host.appendChild(row);
-    },
-    play:()=>coinFlip("Heads")
-  },
-  {
-    id:"dice", name:"Dice", icon:"🎲", nav:"quick", category:"quick",
-    subtitle:"6x exact hit", defaultBet:100,
-    help:"Pick 1 to 6 then roll.",
-    build:(host)=>{
-      const row = document.createElement("div"); row.className = "row";
-      const lab = document.createElement("label");
-      lab.textContent = "Pick ";
-      const pick = document.createElement("input");
-      pick.type="number"; pick.min="1"; pick.max="6"; pick.value="1"; pick.id="dicePick";
-      lab.appendChild(pick);
-      row.appendChild(lab);
-      row.appendChild(makeBtn("Roll","btnGood",()=>diceRoll()));
-      row.appendChild(makeBtn("All In Roll","btnBad",()=>{ setAllIn(); diceRoll(); }));
-      host.appendChild(row);
-    },
-    play:()=>diceRoll()
-  },
-  {
-    id:"wheel", name:"Wheel", icon:"🎡", nav:"quick", category:"quick",
-    subtitle:"2x to 10x", defaultBet:100,
-    help:"Spin for a multiplier.",
-    build:(host)=>{
-      const row = document.createElement("div"); row.className = "row";
-      row.appendChild(makeBtn("Spin","btnGood",()=>wheelSpin()));
-      row.appendChild(makeBtn("All In Spin","btnBad",()=>{ setAllIn(); wheelSpin(); }));
-      host.appendChild(row);
-    },
-    play:()=>wheelSpin()
-  },
-  {
-    id:"slots", name:"Slots", icon:"🎰", nav:"slots", category:"slots",
-    subtitle:"2x or 8x", defaultBet:50,
-    help:"Two match pays 2x. Three match pays 8x.",
-    build:(host)=>{
-      const row = document.createElement("div"); row.className = "row";
-      row.appendChild(makeBtn("Spin","btnGood",()=>spinSlots()));
-      row.appendChild(makeBtn("All In Spin","btnBad",()=>{ setAllIn(); spinSlots(); }));
-      host.appendChild(row);
-    },
-    play:()=>spinSlots()
-  },
-  {
-    id:"roulette", name:"Roulette Lite", icon:"🟢", nav:"table", category:"table",
-    subtitle:"Red black even odd", defaultBet:100,
-    help:"Win pays 2x. 0 is green.",
-    build:(host)=>{
-      const row = document.createElement("div"); row.className = "row";
-      const sel = document.createElement("select"); sel.id="rouletteType";
-      ["red","black","even","odd"].forEach(v=>{
-        const o=document.createElement("option"); o.value=v; o.textContent=v.toUpperCase(); sel.appendChild(o);
-      });
-      row.appendChild(sel);
-      row.appendChild(makeBtn("Spin","btnGood",()=>rouletteSpin()));
-      row.appendChild(makeBtn("All In Spin","btnBad",()=>{ setAllIn(); rouletteSpin(); }));
-      host.appendChild(row);
-    },
-    play:()=>rouletteSpin()
-  }
-];
-
-/* Initial UI state */
-function applySettingsToUI(){
-  document.getElementById("vol").value = Math.round(settings.volume * 100);
-  document.body.classList.toggle("motionOff", settings.reducedMotion);
-}
-applySettingsToUI();
-
-renderTiles();
-setMusicButton();
-
+    function checkLvl() { if(xp >= 100) { lvl++; xp = 0; gems += 5; alert("Lvl Up! +5 Gems"); }}
+    
+    update();
 </script>
-
 </body>
 </html>
