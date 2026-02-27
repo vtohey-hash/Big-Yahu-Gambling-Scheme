@@ -3,237 +3,482 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEON VOID | Elite Casino OS</title>
+    <title>BIG YAHU GAMBLING SCHEME</title>
     <style>
         :root {
-            --neon-blue: #00d2ff; --neon-purple: #9d50bb; --neon-pink: #ff007a;
-            --bg: #050505; --surface: #121214; --text: #e0e0e0;
+            --primary: #ff3366; --accent: #00ffcc; --gold: #ffd700;
+            --bg: #0a0a0c; --surface: #1a1a1f; --text: #f0f0f0;
         }
-        * { box-sizing: border-box; transition: all 0.2s ease; }
-        body {
-            background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif;
-            margin: 0; display: grid; grid-template-columns: 260px 1fr 300px; height: 100vh; overflow: hidden;
-        }
+        * { box-sizing: border-box; transition: 0.2s; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { margin: 0; display: grid; grid-template-columns: 240px 1fr 280px; height: 100vh; background: var(--bg); color: var(--text); overflow: hidden; }
 
-        /* --- LEFT NAV --- */
-        aside { background: #000; border-right: 1px solid #222; padding: 20px; display: flex; flex-direction: column; }
-        .logo { font-size: 1.5rem; font-weight: 800; background: linear-gradient(to right, var(--neon-blue), var(--neon-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 30px; }
-        .nav-btn { padding: 12px; margin: 4px 0; border-radius: 8px; cursor: pointer; color: #888; font-weight: 600; }
-        .nav-btn:hover { background: #1a1a1a; color: white; }
-        .nav-btn.active { background: var(--neon-blue); color: #000; }
+        /* --- SIDEBAR NAV --- */
+        aside { background: #050505; border-right: 1px solid #333; display: flex; flex-direction: column; overflow-y: auto; }
+        .logo { padding: 20px; font-size: 1.4rem; font-weight: 900; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; text-align: center; border-bottom: 1px solid #333; }
+        .nav-btn { padding: 15px 20px; cursor: pointer; color: #aaa; border-bottom: 1px solid #111; font-weight: bold; }
+        .nav-btn:hover { background: #111; color: white; }
+        .nav-btn.active { background: var(--primary); color: white; border-left: 5px solid var(--accent); }
 
-        /* --- CENTER AREA --- */
-        main { overflow-y: auto; padding: 30px; position: relative; }
-        .header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; background: var(--surface); padding: 15px 25px; border-radius: 12px; border: 1px solid #333; }
-        .stat-group { display: flex; gap: 15px; }
-        .chip { background: #000; border: 1px solid var(--neon-blue); padding: 5px 15px; border-radius: 20px; font-weight: bold; color: var(--neon-blue); }
+        /* --- MAIN AREA --- */
+        main { display: flex; flex-direction: column; overflow-y: auto; }
+        header { padding: 15px 30px; background: var(--surface); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 10; }
+        .stats { display: flex; gap: 15px; }
+        .chip { background: #000; border: 1px solid var(--accent); padding: 8px 15px; border-radius: 5px; font-weight: bold; color: var(--accent); }
+        .chip.gems { border-color: var(--primary); color: var(--primary); }
 
-        /* --- GAME COMPONENTS --- */
-        .page { display: none; }
-        .page.active { display: block; animation: slideUp 0.3s ease-out; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        /* --- PAGES & CARDS --- */
+        .page { display: none; padding: 30px; animation: fade 0.3s; }
+        .page.active { display: block; }
+        @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
         
-        .card { background: var(--surface); border-radius: 16px; padding: 25px; border: 1px solid #222; margin-bottom: 20px; }
-        button { background: var(--neon-pink); border: none; padding: 12px 24px; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; }
-        button:hover { transform: scale(1.05); filter: brightness(1.2); }
-        button:disabled { background: #444; cursor: not-allowed; }
+        .card { background: var(--surface); border: 1px solid #333; border-radius: 10px; padding: 20px; margin-bottom: 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        
+        button { background: var(--accent); color: #000; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 4px; margin: 5px; text-transform: uppercase; }
+        button:hover { filter: brightness(1.2); transform: translateY(-2px); }
+        button:disabled { background: #555; color: #888; cursor: not-allowed; transform: none; }
+        .btn-red { background: var(--primary); color: white; }
 
-        /* --- RIGHT SIDEBAR (LIVE CHAT) --- */
-        .chat-panel { background: #000; border-left: 1px solid #222; display: flex; flex-direction: column; }
-        .chat-header { padding: 15px; border-bottom: 1px solid #222; font-weight: bold; font-size: 0.9rem; color: var(--neon-blue); }
-        #chat-box { flex: 1; padding: 15px; overflow-y: auto; font-size: 0.85rem; }
-        .chat-msg { margin-bottom: 10px; line-height: 1.4; }
-        .user { color: var(--neon-pink); font-weight: bold; }
+        /* --- GAME UI STYLES --- */
+        .res-text { font-size: 1.2rem; font-weight: bold; margin-top: 15px; color: var(--gold); min-height: 25px; }
+        .big-display { font-size: 3rem; letter-spacing: 5px; margin: 20px 0; font-family: monospace; }
+        .playing-card { display: inline-block; background: white; color: black; width: 40px; height: 60px; line-height: 60px; font-weight: bold; border-radius: 5px; margin: 0 5px; font-size: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.5); }
 
-        /* --- BLACKJACK UI --- */
-        .hand { display: flex; gap: 10px; margin: 15px 0; min-height: 80px; }
-        .playing-card { background: white; color: black; padding: 10px; border-radius: 5px; width: 50px; height: 75px; font-weight: bold; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(0,0,0,0.5); }
+        /* --- RIGHT CHAT --- */
+        .chat { background: #050505; border-left: 1px solid #333; display: flex; flex-direction: column; }
+        .chat-title { padding: 15px; text-align: center; font-weight: bold; color: var(--accent); border-bottom: 1px solid #333; }
+        #chat-box { flex: 1; padding: 15px; overflow-y: auto; font-size: 0.9rem; }
+        .msg { margin-bottom: 8px; line-height: 1.3; }
+        .user { color: var(--primary); font-weight: bold; }
     </style>
 </head>
 <body>
 
 <aside>
-    <div class="logo">NEON VOID</div>
-    <div class="nav-btn active" onclick="nav('lobby')">🏠 Lobby</div>
+    <div class="logo">BIG YAHU<br><small style="color:var(--text);font-size:0.7rem;">GAMBLING SCHEME</small></div>
+    <div class="nav-btn active" onclick="nav('lobby')">🏠 Lobby Dashboard</div>
     <div class="nav-btn" onclick="nav('slots')">🎰 Slots</div>
     <div class="nav-btn" onclick="nav('bj')">♠️ Blackjack</div>
-    <div class="nav-btn" onclick="nav('shop')">💎 Gem Shop</div>
-    <div style="margin-top: auto; background: #111; padding: 15px; border-radius: 10px;">
-        <small>GLOBAL JACKPOT</small>
-        <div id="jackpot" style="color: gold; font-size: 1.2rem; font-weight: bold;">$1,000,240</div>
-    </div>
+    <div class="nav-btn" onclick="nav('crash')">📈 Crash</div>
+    <div class="nav-btn" onclick="nav('roulette')">🎡 Roulette</div>
+    <div class="nav-btn" onclick="nav('dice')">🎲 Dual Dice</div>
+    <div class="nav-btn" onclick="nav('coin')">🪙 Coinflip</div>
+    <div class="nav-btn" onclick="nav('hilo')">🃏 Hi-Lo</div>
+    <div class="nav-btn" onclick="nav('shells')">🥥 Shell Game</div>
+    <div class="nav-btn" onclick="nav('guess')">🔢 Number Guesser</div>
+    <div class="nav-btn" onclick="nav('rps')">✂️ Rock Paper Scissors</div>
+    <div class="nav-btn" onclick="nav('wheel')">🎡 Wheel of Fortune</div>
+    <div class="nav-btn" onclick="nav('shop')" style="border-top: 2px solid #333; margin-top: auto;">💎 Black Market Shop</div>
 </aside>
 
 <main>
-    <div class="header-bar">
-        <div class="stat-group">
-            <div class="chip">💰 $<span id="bal">2500</span></div>
-            <div class="chip" style="border-color: var(--neon-purple)">💎 <span id="gems">0</span></div>
+    <header>
+        <div class="stats">
+            <div class="chip">💰 $<span id="bal">5000</span></div>
+            <div class="chip gems">💎 <span id="gems">0</span></div>
         </div>
-        <button onclick="claimBonus()" id="bonus-btn">CLAIM $500</button>
-    </div>
+        <div>
+            <span style="margin-right: 15px; font-weight:bold; color:#aaa;">LVL <span id="lvl">1</span></span>
+            <button onclick="claim()" id="claimBtn">CLAIM $1000</button>
+        </div>
+    </header>
 
     <div id="page-lobby" class="page active">
-        <h1>Welcome, User_777</h1>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <h1>Welcome to the Scheme.</h1>
+        <div class="grid">
             <div class="card">
-                <h3>Current Level: <span id="lvl">1</span></h3>
-                <div style="width: 100%; background: #000; height: 10px; border-radius: 5px;">
-                    <div id="xp-bar" style="width: 10%; background: var(--neon-blue); height: 100%; border-radius: 5px;"></div>
-                </div>
-                <p><small>Next Gem reward at Lvl 2</small></p>
+                <h3>Global Jackpot</h3>
+                <h2 style="color: var(--gold)">$<span id="jackpot">500,000</span></h2>
+                <p>Increases every second.</p>
             </div>
-            <div class="card" style="border-color: gold;">
-                <h3>Daily Leaderboard</h3>
-                <p>1. Whale_Killer - $5.2M</p>
-                <p>2. VoidRunner - $2.1M</p>
+            <div class="card">
+                <h3>Your XP Progress</h3>
+                <div style="width:100%; background:#222; height:15px; border-radius:10px; overflow:hidden;">
+                    <div id="xp-bar" style="width:0%; background:var(--accent); height:100%;"></div>
+                </div>
+                <p><small>Earn Gems by leveling up!</small></p>
             </div>
         </div>
     </div>
 
     <div id="page-slots" class="page">
-        <div class="card" style="text-align: center;">
-            <h1 id="s-display" style="font-size: 4rem; letter-spacing: 20px;">❓ ❓ ❓</h1>
-            <p>Cost: $100 per spin</p>
-            <button onclick="spin()">SPIN THE VOID</button>
-            <p id="s-status">May the odds be in your favor.</p>
+        <div class="card">
+            <h2>Classic Slots</h2>
+            <div id="s-display" class="big-display">❓ ❓ ❓</div>
+            <button onclick="playSlots()">SPIN ($100)</button>
+            <div id="s-res" class="res-text"></div>
         </div>
     </div>
 
     <div id="page-bj" class="page">
         <div class="card">
-            <h3>Dealer: <span id="d-val">?</span></h3>
-            <div id="d-hand" class="hand"></div>
-            <hr style="border: 0; border-top: 1px solid #333;">
-            <h3>Your Hand: <span id="p-val">0</span></h3>
-            <div id="p-hand" class="hand"></div>
-            <div id="bj-controls">
+            <h2>Blackjack</h2>
+            <div style="display:flex; justify-content:space-around; margin:20px 0;">
+                <div>
+                    <h3>Dealer: <span id="bj-d-sum">?</span></h3>
+                    <div id="bj-d-hand">🎴</div>
+                </div>
+                <div>
+                    <h3>You: <span id="bj-p-sum">0</span></h3>
+                    <div id="bj-p-hand"></div>
+                </div>
+            </div>
+            <div id="bj-start">
                 <button onclick="startBJ()">BET $200</button>
             </div>
-            <div id="bj-actions" style="display:none;">
-                <button onclick="bjHit()">HIT</button>
-                <button onclick="bjStay()" style="background: var(--neon-blue)">STAY</button>
+            <div id="bj-play" style="display:none;">
+                <button onclick="hitBJ()">HIT</button>
+                <button class="btn-red" onclick="standBJ()">STAND</button>
             </div>
+            <div id="bj-res" class="res-text"></div>
+        </div>
+    </div>
+
+    <div id="page-crash" class="page">
+        <div class="card">
+            <h2>Crypto Crash</h2>
+            <div id="crash-display" class="big-display" style="color:var(--accent)">1.00x</div>
+            <div id="crash-controls">
+                <button onclick="startCrash()">BET $100 & START</button>
+            </div>
+            <button id="crash-out" class="btn-red" style="display:none; width:100%; padding:20px; font-size:1.5rem;" onclick="cashOutCrash()">CASH OUT</button>
+            <div id="crash-res" class="res-text"></div>
+        </div>
+    </div>
+
+    <div id="page-roulette" class="page">
+        <div class="card">
+            <h2>Roulette Lite</h2>
+            <button class="btn-red" onclick="playRoulette('red')">RED (2x)</button>
+            <button style="background:#222; color:white;" onclick="playRoulette('black')">BLACK (2x)</button>
+            <button style="background:#0f0;" onclick="playRoulette('green')">GREEN (14x) ($50)</button>
+            <p>Bet size: $100</p>
+            <div id="rl-res" class="res-text"></div>
+        </div>
+    </div>
+
+    <div id="page-dice" class="page">
+        <div class="card">
+            <h2>Dual Dice (Over/Under 7)</h2>
+            <div id="dice-display" class="big-display">🎲 🎲</div>
+            <button onclick="playDice('under')">UNDER 7 (2x)</button>
+            <button onclick="playDice('over')">OVER 7 (2x)</button>
+            <button class="btn-red" onclick="playDice('seven')">EXACT 7 (5x)</button>
+            <p>Bet size: $100</p>
+            <div id="dice-res" class="res-text"></div>
+        </div>
+    </div>
+
+    <div id="page-coin" class="page">
+        <div class="card">
+            <h2>Double or Nothing Coinflip</h2>
+            <div id="coin-display" class="big-display">🪙</div>
+            <button onclick="playCoin('heads')">HEADS</button>
+            <button class="btn-red" onclick="playCoin('tails')">TAILS</button>
+            <p>Bet size: $100</p>
+            <div id="coin-res" class="res-text"></div>
+        </div>
+    </div>
+
+    <div id="page-hilo" class="page">
+        <div class="card">
+            <h2>Higher or Lower</h2>
+            <p>Current Number (1-10):</p>
+            <div id="hilo-display" class="big-display">5</div>
+            <button onclick="playHiLo('high')">HIGHER</button>
+            <button class="btn-red" onclick="playHiLo('low')">LOWER</button>
+            <p>Bet size: $100 (Wins $200)</p>
+            <div id="hilo-res" class="res-text"></div>
+        </div>
+    </div>
+
+    <div id="page-shells" class="page">
+        <div class="card">
+            <h2>The Shell Game</h2>
+            <p>Find the Gold. Avoid the Bomb. (1/3 chance to lose)</p>
+            <div style="font-size:3rem; cursor:pointer;">
+                <span onclick="playShells(0)">🥥</span>
+                <span onclick="playShells(1)">🥥</span>
+                <span onclick="playShells(2)">🥥</span>
+            </div>
+            <p>Bet size: $100</p>
+            <div id="shell-res" class="res-text"></div>
+        </div>
+    </div>
+
+    <div id="page-guess" class="page">
+        <div class="card">
+            <h2>1-in-5 Guesser</h2>
+            <p>Guess the number. Win 4x your bet!</p>
+            <button onclick="playGuess(1)">1</button>
+            <button onclick="playGuess(2)">2</button>
+            <button onclick="playGuess(3)">3</button>
+            <button onclick="playGuess(4)">4</button>
+            <button onclick="playGuess(5)">5</button>
+            <p>Bet size: $100</p>
+            <div id="guess-res" class="res-text"></div>
+        </div>
+    </div>
+
+    <div id="page-rps" class="page">
+        <div class="card">
+            <h2>Rock Paper Scissors vs Dealer</h2>
+            <button onclick="playRPS('🪨')">ROCK 🪨</button>
+            <button onclick="playRPS('📄')">PAPER 📄</button>
+            <button onclick="playRPS('✂️')">SCISSORS ✂️</button>
+            <p>Bet size: $100</p>
+            <div id="rps-res" class="res-text"></div>
+        </div>
+    </div>
+
+    <div id="page-wheel" class="page">
+        <div class="card">
+            <h2>Wheel of Fortune</h2>
+            <div id="wheel-display" class="big-display">🎡</div>
+            <button onclick="playWheel()">SPIN THE WHEEL ($200)</button>
+            <p>Multipliers: 0x, 0.5x, 1x, 2x, 5x, 10x</p>
+            <div id="wheel-res" class="res-text"></div>
         </div>
     </div>
 
     <div id="page-shop" class="page">
-        <h1>Gem Merchant</h1>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+        <div class="grid">
             <div class="card">
-                <h3>VIP Badge</h3>
-                <p>Glow gold in chat.</p>
-                <button onclick="buy(10)">Buy for 10 💎</button>
+                <h3>Money Printer</h3>
+                <p>Buy $10,000 instantly.</p>
+                <button onclick="buy(1, 10, 10000)">Cost: 10 💎</button>
             </div>
             <div class="card">
-                <h3>Infinite Luck</h3>
-                <p>Not real, but looks cool.</p>
-                <button onclick="buy(50)">Buy for 50 💎</button>
+                <h3>XP Booster</h3>
+                <p>Buy 500 XP instantly.</p>
+                <button onclick="buy(2, 5, 0, 500)">Cost: 5 💎</button>
             </div>
         </div>
     </div>
 </main>
 
-<div class="chat-panel">
-    <div class="chat-header">LIVE GLOBAL CHAT</div>
+<div class="chat">
+    <div class="chat-title">SYNDICATE CHAT</div>
     <div id="chat-box"></div>
-    <div style="padding: 10px; border-top: 1px solid #222;">
-        <input type="text" placeholder="Type to chat..." style="width: 100%; background: #111; border: 1px solid #333; color: white; padding: 8px; border-radius: 5px;">
+    <div style="padding: 10px; border-top: 1px solid #333;">
+        <input type="text" placeholder="Send message..." style="width:100%; padding:10px; background:#111; border:1px solid #333; color:white; border-radius:5px;">
     </div>
 </div>
 
 <script>
-    let bal = 2500, gems = 0, xp = 0, lvl = 1, jackpot = 1000240;
+    // --- GLOBAL STATE ---
+    let s = { bal: 5000, gems: 0, xp: 0, lvl: 1, jp: 500000 };
     
-    // --- NAVIGATION ---
-    function nav(p) {
+    function update() {
+        document.getElementById('bal').innerText = s.bal.toLocaleString();
+        document.getElementById('gems').innerText = s.gems;
+        document.getElementById('lvl').innerText = s.lvl;
+        document.getElementById('xp-bar').style.width = (s.xp % 100) + "%";
+        document.getElementById('jackpot').innerText = s.jp.toLocaleString();
+    }
+
+    function addXP(amt) {
+        s.xp += amt;
+        if(s.xp >= 100) { s.lvl++; s.xp -= 100; s.gems += 2; alert(`LEVEL UP! You are now level ${s.lvl}. +2 Gems!`); }
+        update();
+    }
+
+    function takeBet(amt) {
+        if(s.bal < amt) { alert("Insufficient funds!"); return false; }
+        s.bal -= amt; update(); return true;
+    }
+
+    function win(amt, msgId, txt) { s.bal += amt; addXP(20); document.getElementById(msgId).innerText = txt; update(); }
+    function lose(msgId, txt) { addXP(5); document.getElementById(msgId).innerText = txt; update(); }
+    
+    function claim() { s.bal += 1000; document.getElementById('claimBtn').disabled = true; update(); }
+    
+    function nav(page) {
         document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
-        document.getElementById('page-'+p).classList.add('active');
+        document.getElementById('page-' + page).classList.add('active');
         event.target.classList.add('active');
     }
 
-    function update() {
-        document.getElementById('bal').innerText = bal.toLocaleString();
-        document.getElementById('gems').innerText = gems;
-        document.getElementById('lvl').innerText = lvl;
-        document.getElementById('xp-bar').style.width = (xp % 100) + "%";
-        jackpot += Math.floor(Math.random() * 50);
-        document.getElementById('jackpot').innerText = "$" + jackpot.toLocaleString();
+    function buy(type, cost, cashBonus=0, xpBonus=0) {
+        if(s.gems < cost) return alert("Not enough gems!");
+        s.gems -= cost; s.bal += cashBonus; addXP(xpBonus); update(); alert("Purchase successful!");
     }
 
-    function claimBonus() {
-        bal += 500; update();
-        document.getElementById('bonus-btn').disabled = true;
-        document.getElementById('bonus-btn').innerText = "READY IN 24H";
+    // --- GAMES ---
+
+    // 1. SLOTS
+    const sym = ['🍒','💎','7️⃣','💀','🔔'];
+    function playSlots() {
+        if(!takeBet(100)) return;
+        let r = [sym[Math.floor(Math.random()*5)], sym[Math.floor(Math.random()*5)], sym[Math.floor(Math.random()*5)]];
+        document.getElementById('s-display').innerText = r.join(' ');
+        if(r[0]==r[1] && r[1]==r[2]) win(1000, 's-res', `JACKPOT! +$1000`);
+        else if(r[0]==r[1] || r[1]==r[2] || r[0]==r[2]) win(200, 's-res', `Pair! +$200`);
+        else lose('s-res', "Loss.");
     }
 
-    // --- SLOTS ---
-    const sItems = ['💎', '🍒', '7️⃣', '💀', '🍀'];
-    function spin() {
-        if(bal < 100) return alert("Broke!");
-        bal -= 100;
-        let results = [sItems[Math.floor(Math.random()*5)], sItems[Math.floor(Math.random()*5)], sItems[Math.floor(Math.random()*5)]];
-        document.getElementById('s-display').innerText = results.join(' ');
-        if(results[0] === results[1] && results[1] === results[2]) {
-            bal += 5000; xp += 40;
-            document.getElementById('s-status').innerText = "MEGA WIN! +$5,000";
-        } else {
-            document.getElementById('s-status').innerText = "The void consumes your bet.";
-            xp += 5;
-        }
-        checkLvl(); update();
-    }
-
-    // --- BLACKJACK (Lite) ---
-    let pHand = [], dHand = [];
-    function startBJ() {
-        if(bal < 200) return;
-        bal -= 200; pHand = [rCard(), rCard()]; dHand = [rCard()];
-        document.getElementById('bj-controls').style.display = 'none';
-        document.getElementById('bj-actions').style.display = 'block';
-        renderBJ();
-    }
-    function rCard() { return Math.floor(Math.random()*10)+2; }
-    function renderBJ() {
-        document.getElementById('p-hand').innerHTML = pHand.map(c => `<div class="playing-card">${c}</div>`).join('');
-        document.getElementById('d-hand').innerHTML = dHand.map(c => `<div class="playing-card">${c}</div>`).join('');
-        let pSum = pHand.reduce((a,b)=>a+b);
-        document.getElementById('p-val').innerText = pSum;
-        if(pSum > 21) endBJ("BUST - YOU LOSE");
-    }
-    function bjHit() { pHand.push(rCard()); renderBJ(); }
-    function bjStay() {
-        while(dHand.reduce((a,b)=>a+b) < 17) dHand.push(rCard());
-        renderBJ();
-        let p = pHand.reduce((a,b)=>a+b), d = dHand.reduce((a,b)=>a+b);
-        if(d > 21 || p > d) { bal += 400; endBJ("YOU WIN!"); xp += 20; }
-        else if (p === d) { bal += 200; endBJ("PUSH"); }
-        else { endBJ("DEALER WINS"); }
-    }
-    function endBJ(msg) {
-        alert(msg);
-        document.getElementById('bj-controls').style.display = 'block';
-        document.getElementById('bj-actions').style.display = 'none';
-        checkLvl(); update();
-    }
-
-    // --- CHAT SYSTEM ---
-    const users = ["ShadowMan", "LuckLover", "Bot_42", "HighRoller"];
-    const quotes = ["Just hit 5k!", "Slots are rigged lol", "Anyone lend me 100?", "Jackpot is huge right now"];
-    function addChat() {
-        const box = document.getElementById('chat-box');
-        const div = document.createElement('div');
-        div.className = 'chat-msg';
-        div.innerHTML = `<span class="user">${users[Math.floor(Math.random()*users.length)]}</span>: ${quotes[Math.floor(Math.random()*quotes.length)]}`;
-        box.appendChild(div);
-        if(box.childNodes.length > 15) box.removeChild(box.firstChild);
-        box.scrollTop = box.scrollHeight;
-    }
-    setInterval(addChat, 4000);
-
-    function checkLvl() { if(xp >= 100) { lvl++; xp = 0; gems += 5; alert("Lvl Up! +5 Gems"); }}
+    // 2. BLACKJACK
+    let deck = [], pHand = [], dHand = [];
+    function getCard() { return Math.floor(Math.random() * 10) + 2; }
+    function sum(hand) { return hand.reduce((a,b)=>a+b, 0); }
+    function drawHand(hand, el) { document.getElementById(el).innerHTML = hand.map(c => `<div class="playing-card">${c}</div>`).join(''); }
     
+    function startBJ() {
+        if(!takeBet(200)) return;
+        pHand = [getCard(), getCard()]; dHand = [getCard()];
+        document.getElementById('bj-start').style.display = 'none';
+        document.getElementById('bj-play').style.display = 'block';
+        document.getElementById('bj-res').innerText = "";
+        updateBJ();
+    }
+    function updateBJ() {
+        drawHand(pHand, 'bj-p-hand'); drawHand(dHand, 'bj-d-hand');
+        document.getElementById('bj-p-sum').innerText = sum(pHand);
+        document.getElementById('bj-d-sum').innerText = sum(dHand);
+        if(sum(pHand) > 21) endBJ("BUST! You lose.");
+    }
+    function hitBJ() { pHand.push(getCard()); updateBJ(); }
+    function standBJ() {
+        while(sum(dHand) < 17) dHand.push(getCard());
+        updateBJ();
+        let p = sum(pHand), d = sum(dHand);
+        if(d > 21 || p > d) { win(400, 'bj-res', `Dealer busts/You win! +$400`); }
+        else if(p === d) { win(200, 'bj-res', `Push! Refunded.`); }
+        else { lose('bj-res', "Dealer wins."); }
+        resetBJ();
+    }
+    function endBJ(msg) { lose('bj-res', msg); resetBJ(); }
+    function resetBJ() {
+        document.getElementById('bj-start').style.display = 'block';
+        document.getElementById('bj-play').style.display = 'none';
+    }
+
+    // 3. CRASH
+    let crashInt, crashMult = 1.0, isCrashing = false;
+    function startCrash() {
+        if(isCrashing || !takeBet(100)) return;
+        isCrashing = true; crashMult = 1.0;
+        document.getElementById('crash-controls').style.display = 'none';
+        document.getElementById('crash-out').style.display = 'block';
+        document.getElementById('crash-res').innerText = "Running...";
+        
+        let crashPoint = (Math.random() * 3 + 1.1).toFixed(2); // Crashes between 1.1x and 4.1x
+        
+        crashInt = setInterval(() => {
+            crashMult += 0.05;
+            document.getElementById('crash-display').innerText = crashMult.toFixed(2) + "x";
+            if(crashMult >= crashPoint) {
+                clearInterval(crashInt); isCrashing = false;
+                document.getElementById('crash-display').style.color = "red";
+                lose('crash-res', `CRASHED at ${crashMult.toFixed(2)}x!`);
+                resetCrash();
+            }
+        }, 100);
+    }
+    function cashOutCrash() {
+        if(!isCrashing) return;
+        clearInterval(crashInt); isCrashing = false;
+        let won = Math.floor(100 * crashMult);
+        win(won, 'crash-res', `Cashed out! +$${won}`);
+        document.getElementById('crash-display').style.color = "var(--accent)";
+        resetCrash();
+    }
+    function resetCrash() {
+        document.getElementById('crash-controls').style.display = 'block';
+        document.getElementById('crash-out').style.display = 'none';
+    }
+
+    // 4. ROULETTE
+    function playRoulette(bet) {
+        let cost = bet === 'green' ? 50 : 100;
+        if(!takeBet(cost)) return;
+        let roll = Math.random();
+        let res = roll < 0.05 ? 'green' : (roll < 0.52 ? 'red' : 'black');
+        if(bet === res) win(cost * (res==='green'?14:2), 'rl-res', `Landed ${res.toUpperCase()}! You won!`);
+        else lose('rl-res', `Landed ${res.toUpperCase()}. You lose.`);
+    }
+
+    // 5. DICE
+    function playDice(bet) {
+        if(!takeBet(100)) return;
+        let d1 = Math.floor(Math.random()*6)+1, d2 = Math.floor(Math.random()*6)+1, total = d1+d2;
+        document.getElementById('dice-display').innerText = `${d1} & ${d2} (Total: ${total})`;
+        if(bet === 'over' && total > 7) win(200, 'dice-res', "WIN! +$200");
+        else if(bet === 'under' && total < 7) win(200, 'dice-res', "WIN! +$200");
+        else if(bet === 'seven' && total === 7) win(500, 'dice-res', "JACKPOT! +$500");
+        else lose('dice-res', "Loss.");
+    }
+
+    // 6. COINFLIP
+    function playCoin(bet) {
+        if(!takeBet(100)) return;
+        let flip = Math.random() < 0.5 ? 'heads' : 'tails';
+        document.getElementById('coin-display').innerText = flip === 'heads' ? '🦅' : '🪙';
+        if(bet === flip) win(200, 'coin-res', `It was ${flip}! WIN +$200`);
+        else lose('coin-res', `It was ${flip}. Loss.`);
+    }
+
+    // 7. HI-LO
+    let currHL = 5;
+    function playHiLo(bet) {
+        if(!takeBet(100)) return;
+        let next = Math.floor(Math.random()*10)+1;
+        document.getElementById('hilo-display').innerText = next;
+        if((bet==='high' && next>currHL) || (bet==='low' && next<currHL)) win(200, 'hilo-res', `Correct! +$200`);
+        else if (next === currHL) win(100, 'hilo-res', `Draw! Refunded.`);
+        else lose('hilo-res', `Wrong.`);
+        currHL = next;
+    }
+
+    // 8. SHELLS
+    function playShells(pick) {
+        if(!takeBet(100)) return;
+        let bomb = Math.floor(Math.random()*3);
+        if(pick === bomb) lose('shell-res', `BOOM! You found the bomb.`);
+        else win(150, 'shell-res', `Safe! Found gold +$150`);
+    }
+
+    // 9. GUESSER
+    function playGuess(num) {
+        if(!takeBet(100)) return;
+        let ans = Math.floor(Math.random()*5)+1;
+        if(num === ans) win(400, 'guess-res', `It was ${ans}! WIN +$400`);
+        else lose('guess-res', `It was ${ans}. Loss.`);
+    }
+
+    // 10. RPS
+    const rps = ['🪨','📄','✂️'];
+    function playRPS(p) {
+        if(!takeBet(100)) return;
+        let d = rps[Math.floor(Math.random()*3)];
+        if(p === d) win(100, 'rps-res', `Dealer played ${d}. Tie (Refund)`);
+        else if((p==='🪨'&&d==='✂️') || (p==='📄'&&d==='🪨') || (p==='✂️'&&d==='📄')) win(200, 'rps-res', `Dealer played ${d}. WIN +$200`);
+        else lose('rps-res', `Dealer played ${d}. Loss.`);
+    }
+
+    // 11. WHEEL
+    const muls = [0, 0.5, 1, 2, 5, 10];
+    function playWheel() {
+        if(!takeBet(200)) return;
+        let m = muls[Math.floor(Math.random()*muls.length)];
+        document.getElementById('wheel-display').innerText = `${m}x`;
+        if(m > 0) win(200 * m, 'wheel-res', `Landed on ${m}x! Won $${200*m}`);
+        else lose('wheel-res', "Bankrupt! 0x");
+    }
+
+    // --- SYSTEMS ---
+    setInterval(() => { s.jp += Math.floor(Math.random()*15); update(); }, 1000);
+
+    const bots = ["Viper", "Ghost", "YahuKing", "NoobSlayer", "Dealer"];
+    const msgs = ["Just lost 5k on crash...", "Who is spinning slots?", "Rigged!", "LMAO ez win", "Wheel of fortune is goated"];
+    setInterval(() => {
+        let box = document.getElementById('chat-box');
+        box.innerHTML += `<div class="msg"><span class="user">${bots[Math.floor(Math.random()*bots.length)]}</span>: ${msgs[Math.floor(Math.random()*msgs.length)]}</div>`;
+        if(box.childNodes.length > 20) box.firstChild.remove();
+        box.scrollTop = box.scrollHeight;
+    }, 3500);
+
     update();
 </script>
 </body>
